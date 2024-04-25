@@ -5,7 +5,6 @@ export default function Main() {
             <button onClick={() => {
                 // window.open('https://localhost:50443/introduction', '_self');
             }}>クリックしてね</button>
-            <h1>Ohayou</h1>
         </>
     )
 }
