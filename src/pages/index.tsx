@@ -3,7 +3,7 @@ export default function Main() {
         <>
             <p>開発中</p>
             <button onClick={() => {
-                window.open('https://localhost:50443/introduction', '_self');
+                // window.open('https://localhost:50443/introduction', '_self');
             }}>クリックしてね</button>
         </>
     )
