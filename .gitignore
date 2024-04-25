@@ -1,0 +1,6 @@
+/.DS_Store
+# logsとserverを無視
+/logs/
+/server/
+/node_modules/
+.env

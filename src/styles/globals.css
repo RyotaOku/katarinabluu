@@ -1,0 +1,10 @@
+:root {
+    --color-primary: #006c61;
+    --color-text: #545454;
+}
+html,
+body {
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
