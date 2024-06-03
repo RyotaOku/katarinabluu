@@ -1,5 +1,5 @@
 import { useState, useRef, RefObject, ChangeEvent } from 'react'
-import login from '@/styles/sm/login.module.className'
+import login from '@/styles/sm/login.module.css'
 import { GoogleAuthProvider } from "firebase/auth";
 
 
