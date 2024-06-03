@@ -108,11 +108,13 @@ export default function LoginForm() {
                             <input type="date" className={login.input} placeholder="2003/11/22" />
                         </div>
                     </div>
-                    <label>パスワード</label>
-                    <input type="password" className={login.input} placeholder="Enter your password" />
-                    <button className={login.whiteButton} onClick={() => {
-                        // 登録処理をここに追加
-                    }}>次へ</button>
+                    <p>
+                        <label>パスワード</label>
+                        <input type="password" className={login.input} placeholder="Enter your password" />
+                        <button className={login.whiteButton} onClick={() => {
+                            // 登録処理をここに追加
+                        }}>次へ</button>
+                    </p>
 
                     <button className={login.google}></button>
                 </>

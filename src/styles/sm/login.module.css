@@ -13,6 +13,26 @@
     color: #fff;
 }
 
+.container input::placeholder {
+    color: #e2e2e2;
+}
+
+.container input {
+    padding-bottom: 0.4rem;
+    padding-top: 0.4rem;
+    margin-bottom: 2rem;
+}
+
+.container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+}
+
+.container p {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
 .header {
     width: 100%;
     position: absolute;
@@ -61,7 +81,7 @@
 
 .authenticationWrap {
     width: 50%;
-    margin: 3rem auto 0;
+    margin: 0 auto 3rem;
     display: flex;
     justify-content: space-between;
 }
@@ -78,12 +98,37 @@
 .row {
     display: flex;
     justify-content: space-between;
-    width: 80%;
+    align-items: center;
+    width: 86%;
     margin-bottom: 2rem;
+    border: 1px solid #000;
+    height: 5rem;
+    margin-bottom: 2rem;
+
 }
 
 .column {
     width: 48%;
+    border: 1px solid #000;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.column label {
+    text-align: left;
+    width: 100%;
+}
+
+.column input,
+.column select {
+    width: 100%;
+    padding-bottom: 0.4rem;
+    padding-top: 0.4rem;
+    display: block;
+    border: 1px solid #000;
+    height: 2rem;
 }
 
 .optional {
@@ -109,5 +154,4 @@
 
 .inputWrap {
     width: 86%;
-    border: 1px solid #000;
 }
