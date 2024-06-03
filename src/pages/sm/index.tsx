@@ -89,10 +89,14 @@ export default function LoginForm() {
             {state === 2 &&
                 <>
                     <h1>ユーザー情報を登録</h1>
-                    <label>ユーザーネーム <span className={login.optional}>任意</span></label>
-                    <input type="text" className={login.input} placeholder="りょうた" />
-                    <label>メールアドレス</label>
-                    <input type="email" className={login.input} placeholder="ryota1122@gmail.com" />
+                    <div className={login.inputWrap}>
+                        <label>ユーザーネーム <span className={login.optional}>任意</span></label>
+                        <input type="text" className={login.input} placeholder="りょうた" />
+                    </div>
+                    <div className={login.inputWrap}>
+                        <label>メールアドレス</label>
+                        <input type="email" className={login.input} placeholder="ryota1122@gmail.com" />
+                    </div>
                     <div className={login.row}>
                         <div className={login.column}>
                             <label>性別</label>
