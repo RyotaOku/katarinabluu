@@ -1,7 +1,11 @@
 import { useState, useRef, RefObject, ChangeEvent } from 'react'
-import login from '@/styles/sm/login.module.css'
+import login from '@/styles/sm/login.module.className'
+import { GoogleAuthProvider } from "firebase/auth";
+
 
 export default function LoginForm() {
+
+    const google = new GoogleAuthProvider();
 
     const [state, setState] = useState(0)
 
@@ -110,7 +114,7 @@ export default function LoginForm() {
                         // 登録処理をここに追加
                     }}>次へ</button>
 
-                    <button className={login.google}></button>
+                    <button className={login.google} onClick={()=>{google}}></button>
                 </>
             }
         </div >
