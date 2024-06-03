@@ -12,5 +12,9 @@
   "dependencies": {
     "firebase": "^10.12.1",
     "reactstrap": "^9.2.2"
+  },
+  "devDependencies": {
+    "@types/css-modules": "^1.0.5",
+    "typescript-plugin-css-modules": "^5.1.0"
   }
 }

@@ -1,7 +1,10 @@
 import { useState, useRef, RefObject, ChangeEvent } from 'react'
 import login from '@/styles/sm/login.module.css'
+import { GoogleAuthProvider } from "firebase/auth";
 
 export default function LoginForm() {
+
+    const google = new GoogleAuthProvider();
 
     const [state, setState] = useState(0)
 
@@ -10,38 +13,33 @@ export default function LoginForm() {
     const ref3 = useRef<HTMLInputElement>(null);
     const ref4 = useRef<HTMLInputElement>(null);
 
-    // inputタグをそれぞれ書くのではなく、配列にしmapで描画。
     const refs: RefObject<HTMLInputElement>[] = [ref1, ref2, ref3, ref4];
 
     const [code, setCode] = useState(["", "", "", ""]);
 
-    // inputタグに入力された数字に対して様々みていく
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement>,
         index: number
     ) => {
         const value = e.target.value;
 
-        // 入力された認証コードを保存
+        // Validate if the input is a number
+        if (!/^\d*$/.test(value)) return;
+
         const newCode = [...code];
         newCode[index] = value;
         setCode(newCode);
 
-        // 自動でフォーカスを移動する条件たち
         if (value.length === 1 && index < 3) {
-            // フォーカスを移動
-            if (refs[index + 1].current !== null) {
-                refs[index + 1].current!.focus();
-            }
+            refs[index + 1].current?.focus();
         } else if (value.length === 0 && index > 0) {
-            // 削除の場合のフォーカスも移動
-            if (refs[index - 1].current !== null) {
-                refs[index - 1].current!.focus();
-            }
+            refs[index - 1].current?.focus();
         }
     };
 
-
+    const handleGoogleSignIn = () => {
+        // Implement Google sign-in logic here
+    }
 
     return (
         <div className={login.container}>
@@ -64,7 +62,6 @@ export default function LoginForm() {
                     <h1>認証コードを入力</h1>
                     <p>080-1234-5678 にSMSで送信された<br />4桁の認証コードを入力して下さい。</p>
                     <div className={login.authenticationWrap}>
-                        {/* mapで描画。それぞれmaxLength(入力できる最大文字数)が1である。 */}
                         {refs.map((ref, index) => (
                             <input
                                 key={index}
@@ -116,7 +113,7 @@ export default function LoginForm() {
                         }}>次へ</button>
                     </p>
 
-                    <button className={login.google}></button>
+                    <button className={login.google} onClick={handleGoogleSignIn}></button>
                 </>
             }
         </div >
