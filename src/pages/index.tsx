@@ -1,5 +1,5 @@
 import { useState, useRef, RefObject, ChangeEvent } from 'react';
-import login from '@/styles/sm/login.module.css';
+import login from '@/styles/login.module.css';
 import { GoogleAuthProvider } from 'firebase/auth';
 
 export default function LoginForm() {
@@ -160,7 +160,7 @@ export default function LoginForm() {
           </p>
 
           <button
-            className={login.google}
+            className={login.whiteButton}
             onClick={() => {
               google;
             }}
