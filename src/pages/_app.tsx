@@ -3,6 +3,7 @@ import { Noto_Sans_JP } from '@next/font/google'
 import type { AppProps } from 'next/app'
 import { Dialog } from 'primereact/dialog'
 import '@/styles/reset.min.css'
+import { AuthProvider } from "@/context/auth"
 
 import 'primeicons/primeicons.css'
 import 'primereact/resources/primereact.min.css'
@@ -15,13 +16,13 @@ const notoSansJP = Noto_Sans_JP({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <AuthProvider>
       <style jsx global>{`
     html,body {
       color: #545454;
     }
   `}</style>
       <Component {...pageProps} />
-    </>
+    </AuthProvider>
   )
 }

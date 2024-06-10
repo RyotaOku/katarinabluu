@@ -1,11 +1,26 @@
+import { useAuth } from "@/context/auth";
+import { login, logout } from "@/lib/auth";
+import { useState } from "react";
+
 export default function Main() {
-    return (
-        <>
-            <p>開発中</p>
-            <button onClick={() => {
-                // window.open('https://localhost:50443/introduction', '_self');
-            }}>クリックしてね</button>
-            <h1>Ohayou</h1>
-        </>
-    )
+  const user = useAuth();
+  const [waiting, setWaiting] = useState<boolean>(false);
+
+  const signIn = () => {
+    setWaiting(true);
+
+    login()
+      .catch((error) => {
+        console.error(error?.code);
+      })
+      .finally(() => {
+        setWaiting(false);
+      });
+  };
+  return (
+    <div>
+      {user === null && !waiting && <button onClick={signIn}>ログイン</button>}
+      {user && <button onClick={logout}>ログアウト</button>}
+    </div>
+  );
 }
