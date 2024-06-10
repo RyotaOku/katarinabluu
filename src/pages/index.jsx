@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 export default function Main() {
   const user = useAuth();
-  const [waiting, setWaiting] = useState < boolean > false;
+  const [waiting, setWaiting] = useState(false); // Removed the explicit type definition
 
   const signIn = () => {
     setWaiting(true);
@@ -17,6 +17,7 @@ export default function Main() {
         setWaiting(false);
       });
   };
+
   return (
     <div>
       {user === null && !waiting && <button onClick={signIn}>ログイン</button>}
