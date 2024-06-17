@@ -1,0 +1,56 @@
+/* components/homePage.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #00a000; /* Replace with the green color from the image */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.phoneMockup {
+  position: relative;
+  width: 200px;
+  height: 400px;
+  background-color: #00a000; /* Ensure this matches the container's background */
+  border: 2px solid black;
+  border-radius: 30px;
+  margin-bottom: 20px;
+}
+
+.notch {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 20px;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.actionSection {
+  text-align: center;
+}
+
+.mainButton {
+  background-color: #00c000; /* Slightly different green for contrast */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.mainButton:hover {
+  background-color: #00a000;
+}
+
+.existingAccount {
+  color: #fff;
+  font-size: 14px;
+}
