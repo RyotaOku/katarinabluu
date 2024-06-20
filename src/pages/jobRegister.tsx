@@ -24,101 +24,114 @@ const JobRegister: React.FC = () => {
     }); // Example logging
   };
 
+  const handleLogin = () => {
+    router.push('/home');
+  };
+
   return (
     <div className={styles.container}>
-      <h2>職場情報を登録</h2>
       <form
         onSubmit={handleSubmit}
         className={styles.form}
       >
-        <label
-          htmlFor="companyName"
-          className={styles.label}
-        >
-          会社名・店舗名
-        </label>
-        <input
-          type="text"
-          id="companyName"
-          name="companyName"
-          value={companyName}
-          onChange={(event) => setCompanyName(event.target.value)}
-          className={styles.input}
-        />
-        <label
-          htmlFor="storeName"
-          className={styles.label}
-        >
-          店舗名
-        </label>
-        <input
-          type="text"
-          id="storeName"
-          name="storeName"
-          value={storeName}
-          onChange={(event) => setStoreName(event.target.value)}
-          className={styles.input}
-        />
-        <label
-          htmlFor="workplace"
-          className={styles.label}
-        >
-          配属先
-        </label>
-        <input
-          type="text"
-          id="workplace"
-          name="workplace"
-          value={workplace}
-          onChange={(event) => setWorkplace(event.target.value)}
-          className={styles.input}
-        />
-        <label
-          htmlFor="payrollDate"
-          className={styles.label}
-        >
-          給料日
-        </label>
-        <input
-          type="date"
-          id="payrollDate"
-          name="payrollDate"
-          value={payrollDate}
-          onChange={(event) => setPayrollDate(event.target.value)}
-          className={styles.input}
-        />
-        <label
-          htmlFor="closingDate"
-          className={styles.label}
-        >
-          締日
-        </label>
-        <input
-          type="date"
-          id="closingDate"
-          name="closingDate"
-          value={closingDate}
-          onChange={(event) => setClosingDate(event.target.value)}
-          className={styles.input}
-        />
-        <label
-          htmlFor="hourlyWage"
-          className={styles.label}
-        >
-          時給
-        </label>
-        <input
-          type="number"
-          id="hourlyWage"
-          name="hourlyWage"
-          value={hourlyWage}
-          onChange={(event) => setHourlyWage(parseInt(event.target.value))} // Use parseInt to convert string to int
-          className={styles.input}
-        />
-        <div className={styles.buttonContainer}>
+        <div className={styles.labels}>
+          <h1 className={styles.title}>職場情報を登録</h1>
+          <label
+            htmlFor="companyName"
+            className={styles.label}
+          >
+            会社名・店舗名
+            <input
+              type="text"
+              id="companyName"
+              name="companyName"
+              value={companyName}
+              onChange={(event) => setCompanyName(event.target.value)}
+              className={styles.input}
+            />
+          </label>
+          <label
+            htmlFor="storeName"
+            className={styles.label}
+          >
+            店舗名
+            <input
+              type="text"
+              id="storeName"
+              name="storeName"
+              value={storeName}
+              onChange={(event) => setStoreName(event.target.value)}
+              className={styles.input}
+            />
+          </label>
+          <label
+            htmlFor="workplace"
+            className={styles.label}
+          >
+            配属先
+            <input
+              type="text"
+              id="workplace"
+              name="workplace"
+              value={workplace}
+              onChange={(event) => setWorkplace(event.target.value)}
+              className={styles.input}
+            />
+          </label>
+          <label
+            htmlFor="payrollDate"
+            className={styles.label}
+          >
+            給料日
+            <input
+              type="date"
+              id="payrollDate"
+              name="payrollDate"
+              value={payrollDate}
+              onChange={(event) => setPayrollDate(event.target.value)}
+              className={styles.input}
+            />
+          </label>
+          <label
+            htmlFor="closingDate"
+            className={styles.label}
+          >
+            締日
+            <input
+              type="date"
+              id="closingDate"
+              name="closingDate"
+              value={closingDate}
+              onChange={(event) => setClosingDate(event.target.value)}
+              className={styles.input}
+            />
+          </label>
+          <label
+            htmlFor="hourlyWage"
+            className={styles.label}
+          >
+            時給
+            <input
+              type="number"
+              id="hourlyWage"
+              name="hourlyWage"
+              value={hourlyWage}
+              onChange={(event) => setHourlyWage(parseInt(event.target.value))} // Use parseInt to convert string to int
+              className={styles.input}
+            />
+          </label>
+        </div>
+        <div className={styles.buttons}>
+          <button
+            type="submit"
+            className={styles.skipButton}
+          >
+            今は登録しない
+          </button>
           <button
             type="submit"
             className={styles.submitButton}
+            onClick={handleLogin}
           >
             登録
           </button>

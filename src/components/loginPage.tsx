@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import router, { useRouter } from 'next/router';
 import styles from '../styles/loginPage.module.css';
 import Image from 'next/image';
 
@@ -11,6 +11,10 @@ const LoginPage: React.FC = () => {
     event.preventDefault();
     // Handle login logic here
     console.log('Login attempted:', { email, password }); // Example logging
+  };
+
+  const handleLogin = () => {
+    router.push('/home');
   };
 
   return (
@@ -51,6 +55,7 @@ const LoginPage: React.FC = () => {
         <button
           type="submit"
           className={styles.submitButton}
+          onClick={handleLogin}
         >
           ログイン
         </button>
