@@ -1,5 +1,5 @@
 /* accRegister.module.css */
-.formContainer {
+.container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,7 +15,7 @@
   padding: 2rem 0;
 }
 
-.formLabel {
+.label {
   font-weight: bold;
   font-size: 1.4rem;
   display: flex;
@@ -23,16 +23,16 @@
   padding: 1rem 0;
 }
 
-.formInput,
-.formSelect {
+.input,
+.select {
   padding: 10px;
   border: none;
   border-bottom: 1px solid #cccccc;
   transition: 100ms ease-in-out;
 }
 
-.formInput:focus,
-.formSelect:focus {
+.input:focus,
+.select:focus {
   outline: none;
   border-bottom: 1px solid #0070f3;
 }
@@ -51,5 +51,5 @@
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.6rem;
 }
