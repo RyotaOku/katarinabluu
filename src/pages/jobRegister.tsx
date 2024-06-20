@@ -45,6 +45,7 @@ const JobRegister: React.FC = () => {
               type="text"
               id="companyName"
               name="companyName"
+              placeholder="例: 株式会社〇〇、〇〇店"
               value={companyName}
               onChange={(event) => setCompanyName(event.target.value)}
               className={styles.input}
@@ -59,6 +60,7 @@ const JobRegister: React.FC = () => {
               type="text"
               id="storeName"
               name="storeName"
+              placeholder="例: 本社、支店、工場、店舗"
               value={storeName}
               onChange={(event) => setStoreName(event.target.value)}
               className={styles.input}
@@ -73,6 +75,7 @@ const JobRegister: React.FC = () => {
               type="text"
               id="workplace"
               name="workplace"
+              placeholder="例: 本社、支店、工場、店舗"
               value={workplace}
               onChange={(event) => setWorkplace(event.target.value)}
               className={styles.input}
