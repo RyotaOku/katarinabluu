@@ -1,3 +1,4 @@
+// src/components/register.tsx
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/registerPage.module.css';
@@ -20,8 +21,10 @@ const RegisterPage: React.FC = () => {
       >
         ←
       </button>
-      <h1>アプリをはじめよう</h1>
-      <p>有効なメールアドレスを入力してください。</p>
+      <h1 className={styles.header}>アプリをはじめよう</h1>
+      <p className={styles.description}>
+        有効なメールアドレスを入力してください。
+      </p>
       <form
         className={styles.form}
         onSubmit={handleRegister}

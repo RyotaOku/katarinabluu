@@ -16,14 +16,14 @@
     cursor: pointer;
   }
   
-  h1 {
+  .header {
     margin-top: 20px;
     margin-bottom: 10px;
     font-size: 24px;
     font-weight: bold;
   }
   
-  p {
+  .description {
     margin-bottom: 30px;
     color: #666666;
   }

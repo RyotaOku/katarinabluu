@@ -6,7 +6,7 @@ const HomePage: React.FC = () => {
   const router = useRouter();
 
   const handleMainButtonClick = () => {
-    router.push('/registerPage');
+    router.push('/register');
   };
 
   return (
