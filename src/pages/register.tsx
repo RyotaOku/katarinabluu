@@ -58,7 +58,7 @@ const RegisterPage: React.FC = () => {
         />
         <button
           type="submit"
-          className={`${styles.submitButton} ${!isEmailValid ? styles.disabled : ''}`}
+          className={`${!isEmailValid ? styles.disabled : styles.submitButton} }`}
           onClick={handleSubmitClick}
           disabled={!isEmailValid}
         >

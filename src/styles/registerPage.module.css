@@ -80,6 +80,16 @@
 .disabled {
   background-color: #ccc;
   cursor: not-allowed;
+  padding: 5px 10px;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.disabled:hover {
+  cursor: not-allowed;
 }
 
 .submitButton:hover {
