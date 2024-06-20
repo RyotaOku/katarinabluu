@@ -2,21 +2,50 @@ import React from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import styles from '../styles/accRegister.module.css'; // Import CSS Module
 import router from 'next/router';
+import addData from '../lib/addData'; // Import the addData function
 
 const AccRegister: React.FC = () => {
   const [userName, setUserName] = React.useState('');
   const [gender, setGender] = React.useState('');
   const [birthday, setBirthday] = React.useState('');
+  const [email, setEmail] = React.useState(''); // Added email state
   const [password, setPassword] = React.useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Implement form submission logic here
-    console.log('Form submitted:', { userName, gender, birthday, password }); // Example logging
-  };
 
-  const handlePageChange = () => {
-    router.push('/jobRegister');
+    const auth = getAuth();
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
+      console.log('User created:', user);
+
+      // Prepare additional user data
+      const additionalData = {
+        userName,
+        gender,
+        birthday,
+      };
+
+      // Save additional user data to Firestore
+      const { result, error } = await addData(
+        'users',
+        user.uid,
+        additionalData,
+      );
+      if (error) {
+        console.error('Error adding additional data:', error);
+      } else {
+        console.log('Additional data added:', result);
+      }
+
+      // Redirect to jobRegister after successful sign-up
+      router.push('/jobRegister');
+    } catch (error) {}
   };
 
   return (
@@ -38,6 +67,7 @@ const AccRegister: React.FC = () => {
         onChange={(event) => setUserName(event.target.value)}
         className={styles.formInput}
       />
+
       <label
         htmlFor="gender"
         className={styles.formLabel}
@@ -55,6 +85,7 @@ const AccRegister: React.FC = () => {
         <option value="male">男性</option>
         <option value="female">女性</option>
       </select>
+
       <label
         htmlFor="birthday"
         className={styles.formLabel}
@@ -69,6 +100,22 @@ const AccRegister: React.FC = () => {
         onChange={(event) => setBirthday(event.target.value)}
         className={styles.formInput}
       />
+
+      <label
+        htmlFor="email"
+        className={styles.formLabel}
+      >
+        メールアドレス
+      </label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value={email}
+        onChange={(event) => setEmail(event.target.value)}
+        className={styles.formInput}
+      />
+
       <label
         htmlFor="password"
         className={styles.formLabel}
@@ -83,10 +130,10 @@ const AccRegister: React.FC = () => {
         onChange={(event) => setPassword(event.target.value)}
         className={styles.formInput}
       />
+
       <button
         type="submit"
         className={styles.submitButton}
-        onClick={handlePageChange}
       >
         登録
       </button>
