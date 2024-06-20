@@ -66,4 +66,4 @@ const RegisterPage: React.FC = () => {
 //     const errorMessage = error.message;
 //     // ..
 //   });
-// export default RegisterPage;
+export default RegisterPage;
