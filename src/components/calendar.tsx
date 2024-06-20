@@ -6,7 +6,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const localizer = momentLocalizer(moment);
 
-const MyCalendar: React.FC = () => {
+const JobCalendar: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([
     {
       start: new Date(),
@@ -28,4 +28,4 @@ const MyCalendar: React.FC = () => {
   );
 };
 
-export default MyCalendar;
+export default JobCalendar;

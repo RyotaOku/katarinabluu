@@ -3,7 +3,7 @@ import router, { useRouter } from 'next/router';
 import styles from '../styles/appHome.module.css';
 import Image from 'next/image';
 
-const userHome: React.FC = () => {
+const UserHome: React.FC = () => {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -32,4 +32,4 @@ const userHome: React.FC = () => {
   );
 };
 
-export default userHome;
+export default UserHome;
