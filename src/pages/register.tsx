@@ -13,6 +13,10 @@ const RegisterPage: React.FC = () => {
     console.log({ email });
   };
 
+  const handleSubmitClick = () => {
+    router.push('/2auth');
+  };
+
   return (
     <div className={styles.container}>
       <button
@@ -41,6 +45,7 @@ const RegisterPage: React.FC = () => {
         <button
           type="submit"
           className={styles.submitButton}
+          onClick={handleSubmitClick}
         >
           認証コードを受け取る
         </button>
