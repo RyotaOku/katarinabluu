@@ -23,13 +23,13 @@ const AccRegister: React.FC = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className={styles.formContainer}
+        className={styles.container}
       >
         <div className={styles.labels}>
           <h1 className={styles.title}>ユーザー情報を登録</h1>
           <label
             htmlFor="userName"
-            className={styles.formLabel}
+            className={styles.label}
           >
             ユーザーネーム
             <input
@@ -38,13 +38,13 @@ const AccRegister: React.FC = () => {
               name="userName"
               value={userName}
               onChange={(event) => setUserName(event.target.value)}
-              className={styles.formInput}
+              className={styles.input}
             />
           </label>
           <div className={styles.ageGender}>
             <label
               htmlFor="gender"
-              className={styles.formLabel}
+              className={styles.label}
             >
               性別
               <select
@@ -52,7 +52,7 @@ const AccRegister: React.FC = () => {
                 name="gender"
                 value={gender}
                 onChange={(event) => setGender(event.target.value)}
-                className={styles.formSelect}
+                className={styles.select}
               >
                 <option value="">未選択</option>
                 <option value="male">男性</option>
@@ -61,7 +61,7 @@ const AccRegister: React.FC = () => {
             </label>
             <label
               htmlFor="birthday"
-              className={styles.formLabel}
+              className={styles.label}
             >
               生年月日:
               <input
@@ -70,13 +70,13 @@ const AccRegister: React.FC = () => {
                 name="birthday"
                 value={birthday}
                 onChange={(event) => setBirthday(event.target.value)}
-                className={styles.formInput}
+                className={styles.input}
               />
             </label>
           </div>
           <label
             htmlFor="password"
-            className={styles.formLabel}
+            className={styles.label}
           >
             パスワード
             <input
@@ -85,7 +85,7 @@ const AccRegister: React.FC = () => {
               name="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className={styles.formInput}
+              className={styles.input}
             />
           </label>
         </div>
