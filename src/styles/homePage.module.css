@@ -16,6 +16,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: #fefefe;
   gap: 10px;
   bottom: 0;
   width: 100%;
@@ -27,24 +28,6 @@
 
 .phoneMockup {
   position: relative;
-  width: 20rem;
-  height: 40rem;
-  background-color: #fefefe; /* Ensure this matches the container's background */
-  border: 2px solid black;
-  border-radius: 30px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-.notch {
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 7rem;
-  height: 20px;
-  background-color: black;
-  border-radius: 10px;
 }
 
 .actionSection {
