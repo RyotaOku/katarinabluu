@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/2authPage.module.css';
+import { FaChevronLeft } from 'react-icons/fa';
 
 const TwoAuthPage: React.FC = () => {
   const [code, setCode] = useState(['', '', '', '']);
@@ -41,6 +42,12 @@ const TwoAuthPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <button
+        className={styles.backButton}
+        onClick={() => router.back()}
+      >
+        <FaChevronLeft />
+      </button>
       <h1 className={styles.header}>認証コードを入力</h1>
       <p className={styles.description}>
         <span className={styles.email}>sample@mail.com</span>
