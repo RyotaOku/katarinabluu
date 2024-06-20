@@ -1,7 +1,7 @@
 import React from 'react';
 import UserHome from '../components/appHome';
 
-const App: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <div>
       <UserHome />
@@ -9,4 +9,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Home;
