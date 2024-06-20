@@ -128,6 +128,7 @@ const JobRegister: React.FC = () => {
           <button
             type="submit"
             className={styles.skipButton}
+            onClick={handleLogin}
           >
             今は登録しない
           </button>
