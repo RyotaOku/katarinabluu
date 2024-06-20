@@ -14,7 +14,6 @@ const HomePage: React.FC = () => {
     <div className={styles.container}>
       <div className={styles.title}>
         <h1>ShiftSynk: Hyper Line in wallet</h1>
-        <p></p>
       </div>
       <div className={styles.phoneMockup}>
         <Image
