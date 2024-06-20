@@ -54,7 +54,7 @@ const RegisterPage: React.FC = () => {
     </div>
   );
 };
-const auth = getAuth();
+// const auth = getAuth();
 // createUserWithEmailAndPassword(auth, email, password)
 //   .then((userCredential) => {
 //     // Signed up
