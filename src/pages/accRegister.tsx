@@ -1,4 +1,5 @@
 import React from 'react';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import styles from '../styles/accRegister.module.css'; // Import CSS Module
 
 const AccRegister: React.FC = () => {
@@ -87,4 +88,4 @@ const AccRegister: React.FC = () => {
   );
 };
 
-export default AccRegister;
+export default AccRegisterPage;
