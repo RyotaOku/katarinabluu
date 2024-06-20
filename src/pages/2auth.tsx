@@ -41,11 +41,13 @@ const TwoAuthPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.header}>認証コードを入力</h1>
-      <p className={styles.description}>
-        <span className={styles.email}>sample@mail.com</span>
-        にSMSで送信された4桁の認証コードを入力して下さい。
-      </p>
+      <div className={styles.header}>
+        <h1 className={styles.title}>認証コードを入力</h1>
+        <p className={styles.description}>
+          <span className={styles.email}>sample@mail.com</span>
+          にSMSで送信された4桁の認証コードを入力して下さい。
+        </p>
+      </div>
       <form className={styles.form}>
         <div className={styles.codeInput}>
           {code.map((digit, index) => (
