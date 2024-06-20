@@ -17,6 +17,10 @@ const LoginPage: React.FC = () => {
     router.push('/home');
   };
 
+  const handleRegisterButton = () => {
+    router.push('/register');
+  };
+
   return (
     <div className={styles.container}>
       <h1>ログイン</h1>
@@ -62,7 +66,12 @@ const LoginPage: React.FC = () => {
       </form>
       <div className={styles.register}>
         <p>アカウントを持っていない方は</p>
-        <a href="#">こちら</a>
+        <a
+          href="#"
+          onClick={handleRegisterButton}
+        >
+          こちら
+        </a>
       </div>
     </div>
   );
