@@ -1,6 +1,7 @@
 import React from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import styles from '../styles/accRegister.module.css'; // Import CSS Module
+import router from 'next/router';
 
 const AccRegister: React.FC = () => {
   const [userName, setUserName] = React.useState('');
@@ -12,6 +13,10 @@ const AccRegister: React.FC = () => {
     event.preventDefault();
     // Implement form submission logic here
     console.log('Form submitted:', { userName, gender, birthday, password }); // Example logging
+  };
+
+  const handlePageChange = () => {
+    router.push('/jobRegister');
   };
 
   return (
@@ -81,6 +86,7 @@ const AccRegister: React.FC = () => {
       <button
         type="submit"
         className={styles.submitButton}
+        onClick={handlePageChange}
       >
         登録
       </button>
