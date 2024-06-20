@@ -1,11 +1,19 @@
-// src/components/register.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/registerPage.module.css';
+import { FaChevronLeft } from 'react-icons/fa';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 const RegisterPage: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [isEmailValid, setIsEmailValid] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    // Regular expression to check if email is valid
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsEmailValid(emailRegex.test(email));
+  }, [email]);
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
@@ -14,21 +22,27 @@ const RegisterPage: React.FC = () => {
   };
 
   const handleSubmitClick = () => {
-    router.push('/2auth');
+    if (isEmailValid) {
+      router.push('/2auth');
+    }
   };
 
   return (
     <div className={styles.container}>
-      <button
-        className={styles.backButton}
-        onClick={() => router.back()}
-      >
-        ←
-      </button>
-      <h1 className={styles.header}>アプリをはじめよう</h1>
-      <p className={styles.description}>
-        有効なメールアドレスを入力してください。
-      </p>
+      <div className={styles.header}>
+        <button
+          className={styles.backButton}
+          onClick={() => router.back()}
+        >
+          <FaChevronLeft />
+        </button>
+        <div className={styles.text}>
+          <h1 className={styles.title}>アプリをはじめよう</h1>
+          <p className={styles.description}>
+            有効なメールアドレスを入力してください。
+          </p>
+        </div>
+      </div>
       <form
         className={styles.form}
         onSubmit={handleRegister}
@@ -44,8 +58,9 @@ const RegisterPage: React.FC = () => {
         />
         <button
           type="submit"
-          className={styles.submitButton}
+          className={`${styles.submitButton} ${!isEmailValid ? styles.disabled : ''}`}
           onClick={handleSubmitClick}
+          disabled={!isEmailValid}
         >
           認証コードを受け取る
         </button>
@@ -53,5 +68,16 @@ const RegisterPage: React.FC = () => {
     </div>
   );
 };
-
+// const auth = getAuth();
+// createUserWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed up
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // ..
+//   });
 export default RegisterPage;
