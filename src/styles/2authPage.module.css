@@ -27,7 +27,6 @@
   color: #666666;
   border: none;
   background: none;
-  cursor: pointer;
 }
 
 .description {
@@ -70,7 +69,6 @@
   background: none;
   border: none;
   color: #0070f3;
-  cursor: pointer;
   font-size: 14px;
 }
 

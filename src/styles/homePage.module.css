@@ -31,7 +31,6 @@
   padding: 5px 10px;
   border: none;
   border-radius: 50px;
-  cursor: pointer;
   width: 100%;
   font-weight: bold;
   transition: 100ms ease-in-out;
@@ -45,5 +44,4 @@
   color: #007afe;
   font-size: 1.4rem;
   font-weight: bold;
-  cursor: pointer;
 }
