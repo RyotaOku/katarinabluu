@@ -23,56 +23,84 @@ const LoginPage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1>ログイン</h1>
       <form
         onSubmit={handleSubmit}
-        className={styles.loginForm}
+        className={styles.form}
       >
-        <label
-          htmlFor="email"
-          className={styles.label}
-        >
-          メールアドレス
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          className={styles.input}
-        />
-        <label
-          htmlFor="password"
-          className={styles.label}
-        >
-          パスワード
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          className={styles.input}
-        />
-        <button
-          type="submit"
-          className={styles.submitButton}
-          onClick={handleLogin}
-        >
-          ログイン
-        </button>
+        <h1 className={styles.title}>ログイン</h1>
+        <div className={styles.inputs}>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="メールアドレス"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            className={styles.input}
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="パスワード"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            className={styles.input}
+          />
+
+          <a
+            href="#"
+            className={styles.forgot}
+          >
+            パスワードを忘れた方はこちら
+          </a>
+        </div>
+        <div className={styles.buttons}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            onClick={handleLogin}
+          >
+            ログイン
+          </button>
+
+          <div className={styles.or}>
+            <span>または</span>
+          </div>
+
+          <div className={styles.providers}>
+            <button
+              type="button"
+              className={styles.providerButton}
+            >
+              <Image
+                src="/providers/google.svg"
+                alt="Google"
+                width={20}
+                height={20}
+              />
+            </button>
+            <button
+              type="button"
+              className={styles.providerButton}
+            >
+              <Image
+                src="/providers/apple.svg"
+                alt="Apple"
+                width={20}
+                height={20}
+              />
+            </button>
+          </div>
+        </div>
       </form>
-      <div className={styles.register}>
-        <p>アカウントを持っていない方は</p>
-        <a
-          href="#"
-          onClick={handleRegisterButton}
-        >
-          こちら
-        </a>
-      </div>
+      <a
+        href="#"
+        onClick={handleRegisterButton}
+        className={styles.register}
+      >
+        アカウントを持っていない方はこちら
+      </a>
     </div>
   );
 };
