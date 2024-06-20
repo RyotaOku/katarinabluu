@@ -1,40 +1,55 @@
 /* accRegister.module.css */
 .formContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: fit-content;
-    margin: 0 auto;
-  }
-  
-  .formLabel {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .formInput {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .formSelect {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .submitButton {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  height: 100vh;
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  padding: 2rem 0;
+}
+
+.formLabel {
+  font-weight: bold;
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.formInput,
+.formSelect {
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #cccccc;
+  transition: 100ms ease-in-out;
+}
+
+.formInput:focus,
+.formSelect:focus {
+  outline: none;
+  border-bottom: 1px solid #0070f3;
+}
+
+.ageGender {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.submitButton {
+  padding: 5px 10px;
+  background-color: #0070f3;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 16px;
+}
