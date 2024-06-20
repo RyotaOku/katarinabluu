@@ -4,33 +4,60 @@ import styles from '../styles/loginPage.module.css';
 import Image from 'next/image';
 
 const LoginPage: React.FC = () => {
-  const router = useRouter();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-  const handleMainButtonClick = () => {
-    router.push('/register');
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Handle login logic here
+    console.log('Login attempted:', { email, password }); // Example logging
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.title}>
-        <h1>ShiftSynk: Hyper Line in wallet</h1>
-      </div>
-      <div className={styles.phoneMockup}>
-        <Image
-          src="/iphone.svg"
-          alt="Phone mockup"
-          width={300}
-          height={600}
-        />
-      </div>
-      <div className={styles.actionSection}>
-        <button
-          className={styles.mainButton}
-          onClick={handleMainButtonClick}
+      <h1>ログイン</h1>
+      <form
+        onSubmit={handleSubmit}
+        className={styles.loginForm}
+      >
+        <label
+          htmlFor="email"
+          className={styles.label}
         >
-          アプリを利用する
+          メールアドレス
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          className={styles.input}
+        />
+        <label
+          htmlFor="password"
+          className={styles.label}
+        >
+          パスワード
+        </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+          className={styles.input}
+        />
+        <button
+          type="submit"
+          className={styles.submitButton}
+        >
+          ログイン
         </button>
-        <p className={styles.existingAccount}>既にアカウントをお持ちの方</p>
+      </form>
+      <div className={styles.register}>
+        <p>アカウントを持っていない方は</p>
+        <a href="#">こちら</a>
       </div>
     </div>
   );

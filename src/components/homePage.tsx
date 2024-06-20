@@ -6,8 +6,11 @@ import Image from 'next/image';
 const HomePage: React.FC = () => {
   const router = useRouter();
 
-  const handleMainButtonClick = () => {
+  const handleRegisterButton = () => {
     router.push('/register');
+  };
+  const handleLoginButton = () => {
+    router.push('/login');
   };
 
   return (
@@ -26,11 +29,16 @@ const HomePage: React.FC = () => {
       <div className={styles.actionSection}>
         <button
           className={styles.mainButton}
-          onClick={handleMainButtonClick}
+          onClick={handleRegisterButton}
         >
           アプリを利用する
         </button>
-        <p className={styles.existingAccount}>既にアカウントをお持ちの方</p>
+        <p
+          className={styles.existingAccount}
+          onClick={handleLoginButton}
+        >
+          既にアカウントをお持ちの方
+        </p>
       </div>
     </div>
   );
