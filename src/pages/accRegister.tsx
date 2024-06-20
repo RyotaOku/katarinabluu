@@ -88,4 +88,4 @@ const AccRegister: React.FC = () => {
   );
 };
 
-export default AccRegisterPage;
+export default AccRegister;
