@@ -24,6 +24,10 @@ const JobRegister: React.FC = () => {
     }); // Example logging
   };
 
+  const handleLogin = () => {
+    router.push('/home');
+  };
+
   return (
     <div className={styles.container}>
       <h2>職場情報を登録</h2>
@@ -119,6 +123,7 @@ const JobRegister: React.FC = () => {
           <button
             type="submit"
             className={styles.submitButton}
+            onClick={handleLogin}
           >
             登録
           </button>
