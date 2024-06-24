@@ -1,7 +1,7 @@
 import { useAuth } from '@/context/auth';
 import { login, logout } from '@/lib/auth';
 import { useState, useEffect } from 'react';
-import styles from '../styles/Main.module.css';
+import styles from '@/styles/Main.module.css';
 
 export default function Main() {
   const user = useAuth();

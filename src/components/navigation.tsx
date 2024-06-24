@@ -4,8 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@chakra-ui/react';
 import { motion, cubicBezier } from 'framer-motion';
-import styles from '../styles/navigation.module.css';
-import { footerArray } from '../types/footerTypes'; // Ensure this is correctly defined and imported
+import styles from '@/styles/navigation.module.css';
+import { footerArray } from '@/types/footerTypes'; // Ensure this is correctly defined and imported
 
 const Navigation: React.FC = () => {
   const [pathStat, setPathStat] = useState('/');

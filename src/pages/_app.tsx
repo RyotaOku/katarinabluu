@@ -4,7 +4,7 @@ import { Dialog } from 'primereact/dialog';
 import '@/styles/reset.min.css';
 import { AuthProvider } from '@/context/auth';
 
-import '../styles/homePage.module.css';
+import '@/styles/homePage.module.css';
 
 import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.min.css';

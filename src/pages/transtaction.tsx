@@ -1,11 +1,9 @@
 // pages/index.tsx
 import React from 'react';
-import UserHome from '@/components/appHome';
-import JobCalendar from '@/components/calendar';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 
-const Home: React.FC = () => {
+const Transaction: React.FC = () => {
   return (
     <div>
       <Head>
@@ -21,12 +19,10 @@ const Home: React.FC = () => {
       </Head>
       <Navigation />
       <main>
-        <h1>シフト表だぜ</h1>
-        <JobCalendar />
-        <UserHome />
+        <p>lol</p>
       </main>
     </div>
   );
 };
 
-export default Home;
+export default Transaction;

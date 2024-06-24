@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { db } from '../../lib/firebase';
+import { db } from '@/@/lib/firebase';
 import { doc, deleteDoc } from 'firebase/firestore';
 
 export default async function handler(
