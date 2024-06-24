@@ -1,7 +1,9 @@
+// pages/index.tsx
 import React from 'react';
 import UserHome from '../components/appHome';
 import JobCalendar from '../components/calendar';
 import Head from 'next/head';
+import Navigation from '../components/navigation';
 
 const Home: React.FC = () => {
   return (
@@ -17,10 +19,10 @@ const Home: React.FC = () => {
           href="/favicon.ico"
         />
       </Head>
+      <Navigation />
       <main>
-        <h1> シフト表だぜ </h1>
+        <h1>シフト表だぜ</h1>
         <JobCalendar />
-
         <UserHome />
       </main>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/jobRegister.module.css';
+import styles from '@/styles/jobRegister.module.css';
 import router from 'next/router';
 
 const JobRegister: React.FC = () => {
@@ -25,7 +25,7 @@ const JobRegister: React.FC = () => {
   };
 
   const handleLogin = () => {
-    router.push('/home');
+    router.push('../home');
   };
 
   return (

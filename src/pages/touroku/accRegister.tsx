@@ -1,8 +1,8 @@
 import React from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import styles from '../styles/accRegister.module.css'; // Import CSS Module
+import styles from '@/styles/accRegister.module.css'; // Import CSS Module
 import router from 'next/router';
-import addData from '../lib/addData'; // Import the addData function
+import addData from '@/lib/addData'; // Import the addData function
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 const AccRegister: React.FC = () => {

@@ -1,7 +1,7 @@
 // pages/2auth.tsx
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
-import styles from '../styles/2authPage.module.css';
+import styles from '@/styles/2authPage.module.css';
 import { FaChevronLeft } from 'react-icons/fa';
 
 const TwoAuthPage: React.FC = () => {
