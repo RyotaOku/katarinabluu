@@ -7,7 +7,8 @@ import {
   OAuthProvider,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { auth } from '@/lib/firebase'; // Ensure your Firebase config and initialization are in this file
+import { auth, db } from '@/lib/firebase'; // Ensure your Firebase config and initialization are in this file
+import { doc, getDoc } from 'firebase/firestore';
 import styles from '../styles/loginPage.module.css';
 import Image from 'next/image';
 import { setUserSession } from '@/lib/session'; // Ensure correct import path
@@ -44,7 +45,18 @@ const LoginPage: React.FC = () => {
       const user = result.user;
       setUserSession(user.uid); // Store user ID in session
       console.log('Google login successful:', result);
-      router.push('/home');
+
+      // Check if user already completed registration
+      const userDoc = doc(db, 'users', user.uid);
+      const userDocSnapshot = await getDoc(userDoc);
+
+      if (userDocSnapshot.exists()) {
+        // User has already completed registration, redirect to home
+        router.push('/home');
+      } else {
+        // User has not completed registration, redirect to accRegister
+        router.push('/accRegister?provider=google');
+      }
     } catch (error) {
       console.error('Google login error:', error);
     }
@@ -57,7 +69,18 @@ const LoginPage: React.FC = () => {
       const user = result.user;
       setUserSession(user.uid); // Store user ID in session
       console.log('Apple login successful:', result);
-      router.push('/home');
+
+      // Check if user already completed registration
+      const userDoc = doc(db, 'users', user.uid);
+      const userDocSnapshot = await getDoc(userDoc);
+
+      if (userDocSnapshot.exists()) {
+        // User has already completed registration, redirect to home
+        router.push('/home');
+      } else {
+        // User has not completed registration, redirect to accRegister
+        router.push('/accRegister?provider=apple');
+      }
     } catch (error) {
       console.error('Apple login error:', error);
     }
