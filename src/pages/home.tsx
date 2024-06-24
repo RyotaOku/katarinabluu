@@ -4,7 +4,7 @@ import UserHome from '@/components/appHome';
 import JobCalendar from '@/components/calendar';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
-import { getUserSession } from '@/lib/session'; // Ensure correct import path
+import { getUserSession } from '@/lib/session';
 import router from 'next/router';
 
 const Home: React.FC = () => {
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
       setUserId(userId);
     } else {
       // Handle case where user is not logged in, e.g., redirect to login
-      router.push('/login');
+      router.push('/index');
     }
   }, []);
 
