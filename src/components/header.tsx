@@ -1,13 +1,12 @@
-// components/navigation.tsx
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@chakra-ui/react';
 import { motion, cubicBezier } from 'framer-motion';
 import styles from '@/styles/navigation.module.css';
-import { footerArray } from '@/types/footerTypes'; // Ensure this is correctly defined and imported
+import { footerArray } from '@/types/footerTypes';
 
-const Navigation: React.FC = () => {
+const Header: React.FC = () => {
   const [pathStat, setPathStat] = useState('/');
 
   useEffect(() => {
@@ -70,4 +69,4 @@ const Navigation: React.FC = () => {
   );
 };
 
-export default Navigation;
+export default Header;

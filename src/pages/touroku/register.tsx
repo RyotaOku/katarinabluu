@@ -23,7 +23,7 @@ const RegisterPage: React.FC = () => {
 
   const handleSubmitClick = () => {
     if (isEmailValid) {
-      router.push('/2auth');
+      router.push('/touroku/2auth');
     }
   };
 

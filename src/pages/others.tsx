@@ -1,13 +1,11 @@
 // pages/index.tsx
 import React, { useEffect, useState } from 'react';
-import UserHome from '@/components/appHome';
-import JobCalendar from '@/components/calendar';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 import { getUserSession } from '@/lib/session';
 import router from 'next/router';
 
-const Home: React.FC = () => {
+const Others: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -20,7 +18,6 @@ const Home: React.FC = () => {
       router.push('/index');
     }
   }, []);
-
   return (
     <div>
       <Head>
@@ -36,17 +33,10 @@ const Home: React.FC = () => {
       </Head>
       <Navigation />
       <main>
-        <h1>シフト表だぜ</h1>
-        {userId ?
-          <>
-            <p>Hello, User ID: {userId}</p>
-            <JobCalendar />
-            <UserHome />
-          </>
-        : <p>Loading...</p>}
+        <p>lol</p>
       </main>
     </div>
   );
 };
 
-export default Home;
+export default Others;
