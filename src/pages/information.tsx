@@ -24,7 +24,7 @@ const Information: React.FC = () => {
         <h1>Information Page</h1>
         {date ?
           <p>今日は: {date}</p>
-          : <p>No date selected</p>}
+        : <p>No date selected</p>}
       </main>
     </div>
   );

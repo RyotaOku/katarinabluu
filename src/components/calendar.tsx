@@ -19,15 +19,15 @@ const JobCalendar: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const today = moment().format('YYYY年MM月DD日');
   const dayOfWeek = {
-    'Sunday': '日',
-    'Monday': '月',
-    'Tuesday': '火',
-    'Wednesday': '水',
-    'Thursday': '木',
-    'Friday': '金',
-    'Saturday': '土'
+    Sunday: '日',
+    Monday: '月',
+    Tuesday: '火',
+    Wednesday: '水',
+    Thursday: '木',
+    Friday: '金',
+    Saturday: '土',
   }[moment().format('dddd')];
-  const shift = "今日シフトあるぜ"
+  const shift = '今日シフトあるぜ';
 
   const router = useRouter();
   const handleSelectSlot = (slotInfo: { start: Date }) => {
@@ -49,12 +49,15 @@ const JobCalendar: React.FC = () => {
         selectable
         onSelectSlot={handleSelectSlot}
       />
-      <div className='shift'>
-        <div style={{ fontSize: '15px' }}> {today}({dayOfWeek})</div>
+      <div className="shift">
+        <div style={{ fontSize: '15px' }}>
+          {' '}
+          {today}({dayOfWeek})
+        </div>
         <button>✙新規シフトを追加</button>
         {shift && (
           <>
-            {console.log("aaa")}
+            {console.log('aaa')}
             <p style={{ fontSize: '15px' }}>{shift}</p>
           </>
         )}
