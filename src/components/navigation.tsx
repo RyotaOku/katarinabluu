@@ -48,7 +48,7 @@ const Navigation: React.FC = () => {
         <nav className={styles.nav}>
           {footerArray.map((e, idx) => (
             <motion.div
-              className={`${styles.navItem} ${pathStat === e.path ? styles.active : ''}`}
+              className={styles.navItem}
               key={idx}
               variants={variant}
               initial="hidden"
@@ -56,11 +56,11 @@ const Navigation: React.FC = () => {
             >
               <Link
                 href={e.path}
-                className={styles.button}
+                className={`${styles.button} ${pathStat === e.path ? styles.active : ''}`}
               >
                 <Icon as={e.icon} />
                 <span>{e.label}</span>
-                {pathStat === e.path && <div className={styles.border}></div>}
+                {/* {pathStat === e.path && <div className={styles.border}></div>} */}
               </Link>
             </motion.div>
           ))}

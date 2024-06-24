@@ -8,7 +8,7 @@ import {
 } from 'react-icons/fa'; // Example icons
 
 export const footerArray = [
-  { path: '/home', label: 'カレンダー', icon: FaCalendarAlt },
+  { path: '/home', label: 'シフト', icon: FaCalendarAlt },
   { path: '/statistics', label: '給料計算', icon: FaCalculator },
   { path: '/execution', label: '家計簿', icon: FaRunning },
   { path: '/transactions', label: '入出金', icon: FaMoneyBillAlt },
