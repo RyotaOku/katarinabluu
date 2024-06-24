@@ -13,7 +13,10 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@firebase/firestore": "^4.6.3",
+    "@mui/material": "^5.15.20",
     "@next/font": "^14.2.3",
     "chart.js": "^4.4.3",
     "cookies-next": "^4.2.1",
