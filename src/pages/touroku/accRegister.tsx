@@ -1,33 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import styles from '@/styles/accRegister.module.css'; // Import CSS Module
-import router from 'next/router';
+import router, { useRouter } from 'next/router';
 import addData from '@/lib/addData'; // Import the addData function
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
-const handleJobRegister = () => {
-  router.push('/touroku/jobRegister');
-};
-
 const AccRegister: React.FC = () => {
-  const [userName, setUserName] = React.useState('');
-  const [gender, setGender] = React.useState('');
-  const [birthday, setBirthday] = React.useState('');
-  const [email, setEmail] = React.useState(''); // Added email state
-  const [password, setPassword] = React.useState('');
-  const [showPassword, setShowPassword] = React.useState(false); // State to manage password visibility
+  const [userName, setUserName] = useState('');
+  const [gender, setGender] = useState('');
+  const [birthday, setBirthday] = useState('');
+  const [email, setEmail] = useState(''); // Added email state
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
+  const [isGoogleLogin, setIsGoogleLogin] = useState(false);
+  const router = useRouter();
+  const { provider } = router.query;
+
+  useEffect(() => {
+    if (provider === 'google' || provider === 'apple') {
+      setIsGoogleLogin(true);
+    }
+  }, [provider]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const auth = getAuth();
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
-      const user = userCredential.user;
+      let user;
+      if (isGoogleLogin) {
+        // User is already authenticated with Google, no need to create a new account
+        user = auth.currentUser;
+        if (!user) {
+          throw new Error('User is not authenticated');
+        }
+      } else {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password,
+        );
+        user = userCredential.user;
+      }
       console.log('User created:', user);
 
       // Prepare additional user data
@@ -132,35 +146,36 @@ const AccRegister: React.FC = () => {
           />
         </label>
 
-        <label
-          htmlFor="password"
-          className={styles.label}
-        >
-          パスワード
-          <div className={styles.passwordContainer}>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              id="password"
-              name="password"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              className={styles.input}
-            />
-            <span
-              className={styles.eyeIcon}
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ?
-                <FaEye />
-              : <FaEyeSlash />}
-            </span>
-          </div>
-        </label>
+        {!isGoogleLogin && (
+          <label
+            htmlFor="password"
+            className={styles.label}
+          >
+            パスワード
+            <div className={styles.passwordContainer}>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                id="password"
+                name="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                className={styles.input}
+              />
+              <span
+                className={styles.eyeIcon}
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ?
+                  <FaEye />
+                : <FaEyeSlash />}
+              </span>
+            </div>
+          </label>
+        )}
       </div>
       <button
         type="submit"
         className={styles.submitButton}
-        onClick={handleJobRegister}
       >
         次へ
       </button>

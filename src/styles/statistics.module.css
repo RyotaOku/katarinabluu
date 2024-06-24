@@ -1,0 +1,139 @@
+/* styles/statistics.module.css */
+.main {
+  padding: 1rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.header p {
+  font-size: 1.5rem;
+}
+
+.toggleButtons {
+  display: flex;
+}
+
+.toggleButtons button {
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  border: none;
+  background: #f0f0f0;
+  cursor: pointer;
+}
+
+.toggleButtons .active {
+  background: #4caf50;
+  color: white;
+}
+
+.chartSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.chart {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.chartText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.balanceLabel {
+  font-size: 1rem;
+  color: gray;
+}
+
+.balance {
+  font-size: 2rem;
+  color: #4caf50;
+  margin: 1rem 0;
+}
+
+.arrowContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 200px;
+  margin-top: 1rem;
+}
+
+.arrowButton {
+  border: none;
+  background: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.details {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 400px;
+}
+
+.detailValue {
+  font-weight: bold;
+  color: #4caf50;
+}
+
+.transactions {
+  width: 100%;
+}
+
+.transactionSection {
+  margin-bottom: 1rem;
+}
+
+.transactionHeader {
+  display: flex;
+  justify-content: space-between;
+  background: #f0f0f0;
+  padding: 0.5rem;
+}
+
+.transactionItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.categoryColor {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.amount {
+  font-weight: bold;
+}
+
+.income {
+  color: #4caf50;
+}
+
+.expense {
+  color: #f44336;
+}

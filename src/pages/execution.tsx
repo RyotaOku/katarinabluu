@@ -28,13 +28,13 @@ const Execution: React.FC = () => {
 
   useEffect(() => {
     // User verification
-    const userId = getUserSession();
-    if (userId) {
-      setUserId(userId);
-    } else {
-      // Handle case where user is not logged in, e.g., redirect to login
-      router.push('/index');
-    }
+    // const userId = getUserSession();
+    // if (userId) {
+    //   setUserId(userId);
+    // } else {
+    //   // Handle case where user is not logged in, e.g., redirect to login
+    //   router.push('/index');
+    // }
   }, []);
   return (
     <div>
