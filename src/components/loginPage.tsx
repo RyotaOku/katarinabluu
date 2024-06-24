@@ -1,5 +1,12 @@
 import React from 'react';
-import router, { useRouter } from 'next/router';
+import router from 'next/router';
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  OAuthProvider,
+} from 'firebase/auth';
+import { auth, db } from '@/lib/firebase';
 import styles from '../styles/loginPage.module.css';
 import Image from 'next/image';
 
@@ -19,6 +26,28 @@ const LoginPage: React.FC = () => {
 
   const handleRegisterButton = () => {
     router.push('/register');
+  };
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log('Google login successful:', result);
+      router.push('/home');
+    } catch (error) {
+      console.error('Google login error:', error);
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    const provider = new OAuthProvider('apple.com');
+    try {
+      const result = await signInWithPopup(auth, provider);
+      console.log('Apple login successful:', result);
+      router.push('/home');
+    } catch (error) {
+      console.error('Apple login error:', error);
+    }
   };
 
   return (
@@ -72,6 +101,7 @@ const LoginPage: React.FC = () => {
             <button
               type="button"
               className={styles.providerButton}
+              onClick={handleGoogleLogin}
             >
               <Image
                 src="/providers/google.svg"
@@ -83,6 +113,7 @@ const LoginPage: React.FC = () => {
             <button
               type="button"
               className={styles.providerButton}
+              onClick={handleAppleLogin}
             >
               <Image
                 src="/providers/apple.svg"
