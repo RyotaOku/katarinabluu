@@ -11,6 +11,7 @@ const Home: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    // User verification
     const userId = getUserSession();
     if (userId) {
       setUserId(userId);
