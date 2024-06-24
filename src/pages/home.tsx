@@ -11,13 +11,14 @@ const Home: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    const userId = getUserSession();
-    if (userId) {
-      setUserId(userId);
-    } else {
-      // Handle case where user is not logged in, e.g., redirect to login
-      router.push('/index');
-    }
+    // User verification
+    // const userId = getUserSession();
+    // if (userId) {
+    //   setUserId(userId);
+    // } else {
+    //   // Handle case where user is not logged in, e.g., redirect to login
+    //   router.push('/index');
+    // }
   }, []);
 
   return (
