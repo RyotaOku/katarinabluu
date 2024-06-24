@@ -1,6 +1,6 @@
 import React from 'react';
 import router, { useRouter } from 'next/router';
-import styles from '../styles/appHome.module.css';
+import styles from '@/styles/appHome.module.css';
 import Image from 'next/image';
 
 const UserHome: React.FC = () => {

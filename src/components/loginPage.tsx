@@ -7,7 +7,7 @@ import {
   OAuthProvider,
 } from 'firebase/auth';
 import { auth, db } from '@/lib/firebase';
-import styles from '../styles/loginPage.module.css';
+import styles from '@/styles/loginPage.module.css';
 import Image from 'next/image';
 
 const LoginPage: React.FC = () => {
