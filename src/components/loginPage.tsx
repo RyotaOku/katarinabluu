@@ -5,23 +5,32 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   OAuthProvider,
+  signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { auth, db } from '@/lib/firebase';
+import { auth } from '@/lib/firebase'; // Ensure your Firebase config and initialization are in this file
 import styles from '../styles/loginPage.module.css';
 import Image from 'next/image';
+import { setUserSession } from '@/lib/session'; // Ensure correct import path
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle login logic here
-    console.log('Login attempted:', { email, password }); // Example logging
-  };
-
-  const handleLogin = () => {
-    router.push('/home');
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
+      setUserSession(user.uid); // Store user ID in session
+      console.log('Email login successful:', user);
+      router.push('/home');
+    } catch (error) {
+      console.error('Email login error:', error);
+    }
   };
 
   const handleRegisterButton = () => {
@@ -32,6 +41,8 @@ const LoginPage: React.FC = () => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      setUserSession(user.uid); // Store user ID in session
       console.log('Google login successful:', result);
       router.push('/home');
     } catch (error) {
@@ -43,6 +54,8 @@ const LoginPage: React.FC = () => {
     const provider = new OAuthProvider('apple.com');
     try {
       const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      setUserSession(user.uid); // Store user ID in session
       console.log('Apple login successful:', result);
       router.push('/home');
     } catch (error) {
@@ -76,7 +89,6 @@ const LoginPage: React.FC = () => {
             onChange={(event) => setPassword(event.target.value)}
             className={styles.input}
           />
-
           <a
             href="#"
             className={styles.forgot}
@@ -88,15 +100,12 @@ const LoginPage: React.FC = () => {
           <button
             type="submit"
             className={styles.submitButton}
-            onClick={handleLogin}
           >
             ログイン
           </button>
-
           <div className={styles.or}>
             <span>または</span>
           </div>
-
           <div className={styles.providers}>
             <button
               type="button"
