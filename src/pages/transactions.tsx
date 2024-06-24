@@ -1,9 +1,22 @@
 // pages/index.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
+import { getUserSession } from '@/lib/session';
+import router from 'next/router';
 
 const Transactions: React.FC = () => {
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userId = getUserSession();
+    if (userId) {
+      setUserId(userId);
+    } else {
+      // Handle case where user is not logged in, e.g., redirect to login
+      router.push('/index');
+    }
+  }, []);
   return (
     <div>
       <Head>
