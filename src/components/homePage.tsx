@@ -7,7 +7,7 @@ const HomePage: React.FC = () => {
   const router = useRouter();
 
   const handleRegisterButton = () => {
-    router.push('/register');
+    router.push('/touroku/register');
   };
   const handleLoginButton = () => {
     router.push('/login');
