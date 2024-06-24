@@ -12,5 +12,5 @@ export const footerArray = [
   { path: '/statistics', label: '統計計算', icon: FaCalculator },
   { path: '/execution', label: '実行計算', icon: FaRunning },
   { path: '/transactions', label: '入出金', icon: FaMoneyBillAlt },
-  { path: '/other', label: 'その他', icon: FaEllipsisH },
+  { path: '/others', label: 'その他', icon: FaEllipsisH },
 ];

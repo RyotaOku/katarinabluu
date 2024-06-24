@@ -3,7 +3,7 @@ import React from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 
-const Transaction: React.FC = () => {
+const Transactions: React.FC = () => {
   return (
     <div>
       <Head>
@@ -25,4 +25,4 @@ const Transaction: React.FC = () => {
   );
 };
 
-export default Transaction;
+export default Transactions;
