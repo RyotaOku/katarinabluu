@@ -5,6 +5,10 @@ import router from 'next/router';
 import addData from '@/lib/addData'; // Import the addData function
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
+const handleJobRegister = () => {
+  router.push('/touroku/jobRegister');
+};
+
 const AccRegister: React.FC = () => {
   const [userName, setUserName] = React.useState('');
   const [gender, setGender] = React.useState('');
@@ -156,6 +160,7 @@ const AccRegister: React.FC = () => {
       <button
         type="submit"
         className={styles.submitButton}
+        onClick={handleJobRegister}
       >
         次へ
       </button>

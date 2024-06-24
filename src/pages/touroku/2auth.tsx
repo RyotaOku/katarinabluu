@@ -12,7 +12,7 @@ const TwoAuthPage: React.FC = () => {
   useEffect(() => {
     if (code.every((digit) => digit !== '')) {
       // When all code inputs are filled, navigate to the next page
-      router.push('/accRegister');
+      router.push('/touroku/accRegister');
     }
   }, [code, router]);
 
