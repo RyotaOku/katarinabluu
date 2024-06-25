@@ -66,93 +66,87 @@ const Execution: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className={styles.transactionList}>
-              <div className={styles.transaction}>
-                <div className={styles.transactionDate}>
+            <div className={styles.transactions}>
+              <div className={styles.transactionSection}>
+                <div className={styles.transactionHeader}>
                   <p>05/26 (木)</p>
                   <p>¥38,050</p>
                 </div>
-                <div className={styles.transactionDetails}>
-                  <div className={styles.transactionItem}>
-                    <span
-                      className={styles.categoryColor}
-                      style={{ backgroundColor: '#FF6384' }}
-                    ></span>
-                    <span>ファミリーマート</span>
-                    <span>-¥1,300</span>
-                  </div>
-                  <div className={styles.transactionItem}>
-                    <span
-                      className={styles.categoryColor}
-                      style={{ backgroundColor: '#36A2EB' }}
-                    ></span>
-                    <span>定期代</span>
-                    <span>-¥24,230</span>
-                  </div>
-                  <div className={styles.transactionItem}>
-                    <span
-                      className={styles.categoryColor}
-                      style={{ backgroundColor: '#FFCE56' }}
-                    ></span>
-                    <span>スーパー</span>
-                    <span>-¥12,520</span>
-                  </div>
+                <div className={styles.transactionItem}>
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: '#FF6384' }}
+                  ></span>
+                  <span>ファミリーマート</span>
+                  <span>-¥1,300</span>
+                </div>
+                <div className={styles.transactionItem}>
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: '#36A2EB' }}
+                  ></span>
+                  <span>定期代</span>
+                  <span>-¥24,230</span>
+                </div>
+                <div className={styles.transactionItem}>
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: '#FFCE56' }}
+                  ></span>
+                  <span>スーパー</span>
+                  <span>-¥12,520</span>
                 </div>
               </div>
-              <div className={styles.transaction}>
-                <div className={styles.transactionDate}>
+              <div className={styles.transactionSection}>
+                <div className={styles.transactionHeader}>
                   <p>05/25 (水)</p>
                   <p>¥75,200</p>
                 </div>
-                <div className={styles.transactionDetails}>
-                  <div className={styles.transactionItem}>
-                    <span
-                      className={styles.categoryColor}
-                      style={{ backgroundColor: '#4BC0C0' }}
-                    ></span>
-                    <span>化粧水</span>
-                    <span>-¥2,400</span>
-                  </div>
-                  <div className={styles.transactionItem}>
-                    <span
-                      className={styles.categoryColor}
-                      style={{ backgroundColor: '#FF6384' }}
-                    ></span>
-                    <span>バイト</span>
-                    <span>+¥75,200</span>
-                  </div>
-                  <div className={styles.transactionItem}>
-                    <span
-                      className={styles.categoryColor}
-                      style={{ backgroundColor: '#FFCE56' }}
-                    ></span>
-                    <span>焼肉</span>
-                    <span>-¥9,900</span>
-                  </div>
+                <div className={styles.transactionItem}>
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: '#4BC0C0' }}
+                  ></span>
+                  <span>化粧水</span>
+                  <span>-¥2,400</span>
+                </div>
+                <div className={styles.transactionItem}>
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: '#FF6384' }}
+                  ></span>
+                  <span>バイト</span>
+                  <span>+¥75,200</span>
+                </div>
+                <div className={styles.transactionItem}>
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: '#FFCE56' }}
+                  ></span>
+                  <span>焼肉</span>
+                  <span>-¥9,900</span>
                 </div>
               </div>
-              <div className={styles.transaction}>
-                <div className={styles.transactionDate}>
+              <div className={styles.transactionSection}>
+                <div className={styles.transactionHeader}>
                   <p>05/24 (火)</p>
                   <p>¥3,200</p>
                 </div>
-                <div className={styles.transactionDetails}>
-                  <div className={styles.transactionItem}>
-                    <span
-                      className={styles.categoryColor}
-                      style={{ backgroundColor: '#FF6384' }}
-                    ></span>
-                    <span>バイト</span>
-                    <span>+¥3,200</span>
-                  </div>
-                  <div className={styles.transactionItem}>
-                    <span
-                      className={styles.categoryColor}
-                      style={{ backgroundColor: '#FFCE56' }}
-                    ></span>
-                    <span>焼肉</span>
-                    <span>-¥3,200</span>
-                  </div>
+                <div className={styles.transactionItem}>
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: '#FF6384' }}
+                  ></span>
+                  <span>バイト</span>
+                  <span>+¥3,200</span>
+                </div>
+                <div className={styles.transactionItem}>
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: '#FFCE56' }}
+                  ></span>
+                  <span>焼肉</span>
+                  <span>-¥3,200</span>
                 </div>
               </div>
             </div>

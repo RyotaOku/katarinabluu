@@ -33,7 +33,7 @@
 }
 
 .toggleButtons .active {
-  background: #4caf50;
+  background: #3498db;
   color: white;
 }
 
@@ -46,8 +46,8 @@
 
 .chart {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 20rem;
+  height: 20rem;
 }
 
 .chartText {
@@ -65,7 +65,7 @@
 
 .balance {
   font-size: 2rem;
-  color: #4caf50;
+  color: #3498db;
   margin: 1rem 0;
 }
 
@@ -80,7 +80,7 @@
 .arrowButton {
   border: none;
   background: none;
-  font-size: 1.5rem;
+  font-size: 2rem;
   cursor: pointer;
 }
 
@@ -93,35 +93,45 @@
 
 .detailValue {
   font-weight: bold;
-  color: #4caf50;
+  color: #3498db;
 }
 
 .transactions {
   width: 100%;
+  font-size: 1.4rem;
 }
 
 .transactionSection {
   margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
 }
 
 .transactionHeader {
   display: flex;
   justify-content: space-between;
   background: #f0f0f0;
-  padding: 0.5rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  align-items: center;
 }
 
 .transactionItem {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 0.5rem;
+  align-items: center;
+  padding: 0.8rem 1rem;
   border-bottom: 1px solid #e0e0e0;
 }
 
 .categoryColor {
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 2rem;
+  height: 2rem;
   border-radius: 50%;
   margin-right: 0.5rem;
 }
@@ -131,7 +141,7 @@
 }
 
 .income {
-  color: #4caf50;
+  color: #3498db;
 }
 
 .expense {

@@ -40,39 +40,51 @@
   color: #2ecc71;
 }
 
-.transactionList {
+.transactionSection {
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  border-left: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;
 }
 
-.transaction {
-  padding: 16px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  margin-bottom: 16px;
-}
-
-.transactionDate {
+.transactionHeader {
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-.transactionDetails {
-  margin-top: 8px;
+  background: #f0f0f0;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  align-items: center;
 }
 
 .transactionItem {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.transactionItem:last-child {
-  border-bottom: none;
+.categoryColor {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.amount {
+  font-weight: bold;
+}
+
+.income {
+  color: #3498db;
+}
+
+.expense {
+  color: #f44336;
 }
 
 .categoryColor {
@@ -84,17 +96,19 @@
 
 .floatingButton {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  z-index: 10;
+  bottom: 9rem;
+  right: 2rem;
   background-color: #3498db;
   color: #ffffff;
   border: none;
   border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  font-size: 2rem;
+  width: 5rem;
+  height: 5rem;
+  font-size: 3.4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  box-shadow: 2px 4px 4px rgba(79, 79, 79, 0.1);
 }

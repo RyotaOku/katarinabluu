@@ -24,7 +24,7 @@ const Statistics: React.FC = () => {
     datasets: [
       {
         data: [11400, 51400 - 11400],
-        backgroundColor: ['#4CAF50', '#E0E0E0'],
+        backgroundColor: ['#3498db', '#E0E0E0'],
         borderWidth: 0,
         cutout: '80%',
       },
