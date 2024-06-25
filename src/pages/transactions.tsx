@@ -19,7 +19,7 @@ const Transactions: React.FC = () => {
     // }
   }, []);
   return (
-    <div>
+    <Navigation>
       <Head>
         <title>Calendar App</title>
         <meta
@@ -31,11 +31,10 @@ const Transactions: React.FC = () => {
           href="/favicon.ico"
         />
       </Head>
-      <Navigation />
       <main>
         <p>lol</p>
       </main>
-    </div>
+    </Navigation>
   );
 };
 

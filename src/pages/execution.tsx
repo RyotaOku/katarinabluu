@@ -37,7 +37,7 @@ const Execution: React.FC = () => {
     // }
   }, []);
   return (
-    <div>
+    <Navigation>
       <Head>
         <title>Calendar App</title>
         <meta
@@ -49,7 +49,6 @@ const Execution: React.FC = () => {
           href="/favicon.ico"
         />
       </Head>
-      <Navigation />
       <main>
         <div className={styles.container}>
           <div className={styles.content}>
@@ -161,7 +160,7 @@ const Execution: React.FC = () => {
           <button className={styles.floatingButton}>+</button>
         </div>
       </main>
-    </div>
+    </Navigation>
   );
 };
 

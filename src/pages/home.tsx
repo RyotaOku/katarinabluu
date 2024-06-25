@@ -22,7 +22,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <Navigation>
       <Head>
         <title>Calendar App</title>
         <meta
@@ -34,7 +34,6 @@ const Home: React.FC = () => {
           href="/favicon.ico"
         />
       </Head>
-      <Navigation />
       <main>
         <h1>シフト表だぜ</h1>
         {userId ?
@@ -45,7 +44,7 @@ const Home: React.FC = () => {
           </>
         : <p>Loading...</p>}
       </main>
-    </div>
+    </Navigation>
   );
 };
 

@@ -19,7 +19,7 @@ const Information: React.FC = () => {
   };
 
   return (
-    <div>
+    <Navigation>
       <Head>
         <title>Shift Information Page</title>
         <meta
@@ -31,7 +31,6 @@ const Information: React.FC = () => {
           href="/favicon.ico"
         />
       </Head>
-      <Navigation />
       <main>
         <h1>Shift を追加</h1>
         <div>
@@ -89,7 +88,7 @@ const Information: React.FC = () => {
         </div>
         <button>完了する</button>
       </main>
-    </div>
+    </Navigation>
   );
 };
 

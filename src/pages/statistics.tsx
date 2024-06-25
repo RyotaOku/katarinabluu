@@ -32,7 +32,7 @@ const Statistics: React.FC = () => {
   };
 
   return (
-    <div>
+    <Navigation>
       <Head>
         <title>Statistics</title>
         <meta
@@ -44,7 +44,6 @@ const Statistics: React.FC = () => {
           href="/favicon.ico"
         />
       </Head>
-      <Navigation />
       <main className={styles.main}>
         <div className={styles.container}>
           <header className={styles.header}>
@@ -136,7 +135,7 @@ const Statistics: React.FC = () => {
           </div>
         </div>
       </main>
-    </div>
+    </Navigation>
   );
 };
 

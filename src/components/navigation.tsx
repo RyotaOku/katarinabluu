@@ -7,7 +7,11 @@ import { motion, cubicBezier } from 'framer-motion';
 import styles from '@/styles/navigation.module.css';
 import { footerArray } from '@/types/footerTypes'; // Ensure this is correctly defined and imported
 
-const Navigation: React.FC = () => {
+interface FooterProps {
+  children: React.ReactNode;
+}
+
+const Navigation = ({ children }: FooterProps) => {
   const [pathStat, setPathStat] = useState('/');
 
   useEffect(() => {
@@ -30,7 +34,7 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.profile}>
           <Image
@@ -44,6 +48,7 @@ const Navigation: React.FC = () => {
         <div className={styles.date}>20日5月2024年</div>
         <div className={styles.dropdown}>▼</div>
       </header>
+      <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
         <nav className={styles.nav}>
           {footerArray.map((e, idx) => (

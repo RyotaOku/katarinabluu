@@ -5,7 +5,7 @@ import Navigation from '@/components/navigation';
 
 const ProfileDetail: React.FC = () => {
   return (
-    <div>
+    <Navigation>
       <Head>
         <title>Calendar App</title>
         <meta
@@ -17,11 +17,10 @@ const ProfileDetail: React.FC = () => {
           href="/favicon.ico"
         />
       </Head>
-      <Navigation />
       <main>
         <p>lol</p>
       </main>
-    </div>
+    </Navigation>
   );
 };
 

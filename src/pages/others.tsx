@@ -25,7 +25,7 @@ const Others: React.FC = () => {
     // }
   }, []);
   return (
-    <div>
+    <Navigation>
       <Head>
         <title>Calendar App</title>
         <meta
@@ -37,7 +37,6 @@ const Others: React.FC = () => {
           href="/favicon.ico"
         />
       </Head>
-      <Navigation />
       <main>
         <div className={styles.container}>
           <div className={styles.content}>
@@ -99,7 +98,7 @@ const Others: React.FC = () => {
           </div>
         </div>
       </main>
-    </div>
+    </Navigation>
   );
 };
 
