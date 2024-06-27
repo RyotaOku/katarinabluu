@@ -84,10 +84,10 @@ const Salary: React.FC = () => {
   };
 
   return (
-    <Navigation>
+    <Navigation title={''}>
       <div className={styles.container}>
         <Head>
-          <title>Add Part Time Page</title>
+          <title>Salary Page</title>
           <meta
             name="description"
             content="Information about shifts"
@@ -97,6 +97,12 @@ const Salary: React.FC = () => {
             href="/favicon.ico"
           />
         </Head>
+        <h1
+          onClick={() => router.back()}
+          style={{ cursor: 'pointer' }}
+        >
+          ＜
+        </h1>
         <main className={styles.main}>
           <h1>給料日</h1>
           <div className={styles.formGroup}>

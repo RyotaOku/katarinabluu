@@ -35,6 +35,29 @@
   border-radius: 4px;
 }
 
+.inputField {
+  width: calc(100% - 100px);
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.button {
+  padding: 8px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  cursor: pointer;
+  background-color: #90bef3;
+}
+
+.activeButton {
+  background-color: #0070f3;
+  color: white;
+}
+
 .colorPickerWrapper {
   position: relative;
 }

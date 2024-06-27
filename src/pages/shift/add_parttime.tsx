@@ -8,15 +8,17 @@ import Navigation from '@/components/navigation';
 
 const Part_Time: React.FC = () => {
   const router = useRouter();
-  const { date } = router.query;
   const [selectedColor, setSelectedColor] = useState('#FF4500');
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const [isNightShiftPay, setIsNightShiftPay] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [overtime, setOvertime] = useState(false); //残業
   const salary_deadlines: string[] = Array.from(
     { length: 30 },
     (_, i) => `${i + 1}日`,
   ).concat('月末');
   const [selectedDeadline, setSelectedDeadline] = useState('月末');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   const handleDeadlineClick = () => {
     setModalIsOpen(true);
   };
@@ -39,13 +41,20 @@ const Part_Time: React.FC = () => {
     setSelectedColor(color);
     setShowColorPicker(false);
   };
+  //深夜時給の処理
+  const [inputMode, setInputMode] = useState<'yen' | 'percent'>('yen');
+
+  const overtimeClick = () => {
+    setOvertime(true);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {};
   const salary_day = () => {
-    //給料日の追加設定ボタンを押されたとき
-    router.push('/shift/salary_day');
+    router.push('/shift/salary_day'); //給料日の追加設定ボタンを押されたとき
   };
 
   return (
-    <Navigation>
+    <Navigation title={''}>
       <div className={styles.container}>
         <Head>
           <title>Add Part Time Page</title>
@@ -58,6 +67,12 @@ const Part_Time: React.FC = () => {
             href="/favicon.ico"
           />
         </Head>
+        <h1
+          onClick={() => router.back()}
+          style={{ cursor: 'pointer' }}
+        >
+          ＜
+        </h1>
         <main className={styles.main}>
           <h1>バイト先を追加</h1>
 
@@ -233,25 +248,112 @@ const Part_Time: React.FC = () => {
               >
                 深夜給料
               </label>
-              <input
-                type="text"
-                id="nightShiftPay"
-                className={styles.input}
-                placeholder="18時30分以降"
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label
-                className={styles.label}
-                htmlFor="overtimePay"
-              >
-                残業手当
+              <label>
+                <input
+                  type="radio"
+                  name="nightShiftPay"
+                  value="yes"
+                  checked={isNightShiftPay}
+                  onChange={() => setIsNightShiftPay(true)}
+                />{' '}
+                あり
               </label>
-              <input
-                type="text"
-                id="overtimePay"
-                className={styles.input}
-              />
+              <label>
+                <input
+                  type="radio"
+                  name="nightShiftPay"
+                  value="no"
+                  checked={!isNightShiftPay}
+                  onChange={() => setIsNightShiftPay(false)}
+                />{' '}
+                なし
+              </label>
+            </div>
+
+            {isNightShiftPay && (
+              <div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>深夜給料</label>
+                  <input
+                    type="text"
+                    className={styles.inputField}
+                    // value={inputValue}
+                    onChange={handleInputChange}
+                    placeholder={inputMode === 'yen' ? '円' : '%'}
+                  />
+                  <button
+                    className={inputMode === 'yen' ? styles.button : ''}
+                    onClick={() => setInputMode('yen')}
+                  >
+                    円
+                  </button>
+                  <button
+                    className={inputMode === 'percent' ? styles.button : ''}
+                    onClick={() => setInputMode('percent')}
+                  >
+                    %
+                  </button>
+                </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>開始時間</label>
+                  <input
+                    type="time"
+                    id="start"
+                    name="start"
+                    defaultValue={'22:00'}
+                  />
+
+                  <label className={styles.label}>終了時間</label>
+                  <input
+                    type="time"
+                    id="end"
+                    name="end"
+                    defaultValue={'05:00'}
+                  />
+                </div>
+              </div>
+            )}
+
+            <div>
+              <div className={styles.formGroup}>
+                <label
+                  className={styles.label}
+                  htmlFor="overtimePay"
+                >
+                  {' '}
+                  残業手当{' '}
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="overtime"
+                    value="yes"
+                    onChange={() => setOvertime(true)}
+                  />
+                  {' あり'}
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="overtime"
+                    value="no"
+                    onChange={() => setOvertime(false)}
+                  />
+                  {'なし'}
+                </label>
+              </div>
+              {overtime && (
+                <div>
+                  <div className={styles.formGroup}>
+                    <label className={styles.label}>適用時間</label>
+                    <input
+                      type="text"
+                      className={styles.inputField}
+                      value={''}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

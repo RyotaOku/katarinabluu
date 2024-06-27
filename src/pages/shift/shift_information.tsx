@@ -51,7 +51,7 @@ const Information: React.FC = () => {
               type="datetime-local"
               id="start"
               name="start"
-              value={date ? `${date}T09:00` : ''}
+              defaultValue={date ? `${date}T09:00` : ''}
             />
           </div>
           <div className={styles.formGroup}>
@@ -60,7 +60,7 @@ const Information: React.FC = () => {
               type="datetime-local"
               id="end"
               name="end"
-              value={date ? `${date}T09:00` : ''}
+              defaultValue={date ? `${date}T09:00` : ''}
             />
           </div>
           <div className={styles.formGroup}>
@@ -71,12 +71,14 @@ const Information: React.FC = () => {
               defaultValue="00:30"
             />
           </div>
-          <p>給料：10000円</p>
           <div className={styles.formGroup}>
-            <label htmlFor="salary">給料の個別設定</label>
+            <label htmlFor="salary">給料：10000円</label>
+            <label htmlFor="salary">給料の個別設定：</label>
             <input
               type="text"
               id="salary"
+              pattern="[0-9]*" //数字だけ入力するように
+              title="数字を入力してください"
             />
           </div>
           <p className={styles.sectionTitle}>その他</p>
