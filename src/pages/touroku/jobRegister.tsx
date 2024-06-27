@@ -25,7 +25,7 @@ const JobRegister: React.FC = () => {
   };
 
   const handleLogin = () => {
-    router.push('@/home');
+    router.push('/home');
   };
 
   return (
