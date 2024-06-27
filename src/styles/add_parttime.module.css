@@ -1,3 +1,4 @@
+/* styles/add_parttime.module.css */
 .container {
   padding: 20px;
 }
@@ -6,35 +7,105 @@
   padding: 20px;
 }
 
-.deadlineInput {
-  border: 1px solid #ccc;
-  padding: 10px;
-  cursor: pointer;
+.section {
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: bold;
   margin-bottom: 10px;
 }
 
 .formGroup {
-  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.btn {
-  background-color: green;
-  color: white;
+.label {
+  flex: 1;
+  font-size: 14px;
+}
+
+.input {
+  flex: 2;
   padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.colorPickerWrapper {
+  position: relative;
+}
+
+.selectedColor {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.colorPicker {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  width: 62px;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-top: 5px;
+  margin-left: -5px;
+  z-index: 10;
+}
+
+.colorOption {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.addButton {
+  background: none;
   border: none;
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-left: 10px;
+}
+
+.salaryType {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.salaryType label {
+  margin-right: 10px;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 15px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 .modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: auto;
-  bottom: auto;
-  transform: translate(-50%, -50%);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: white;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 8px 8px 0 0;
+  max-height: 50%;
+  overflow-y: auto;
   outline: none;
 }
 
@@ -47,6 +118,18 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.modalContent {
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
+}
+
 .modalItem {
   padding: 10px;
   border-bottom: 1px solid #ccc;
@@ -56,8 +139,7 @@
 .modalCloseBtn {
   background-color: red;
   color: white;
-  padding: 10px;
+  padding: 5px 10px;
   border: none;
   cursor: pointer;
-  margin-top: 20px;
 }

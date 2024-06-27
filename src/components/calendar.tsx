@@ -26,7 +26,7 @@ const JobCalendar: React.FC = () => {
 
   const shift_resign = () => {
     const selectedDateFormatted = moment(selectedDate).format('YYYY-MM-DD');
-    router.push(`/shift_information?date=${selectedDateFormatted}`);
+    router.push(`/shift/shift_information?date=${selectedDateFormatted}`);
   };
 
   const today = moment(selectedDate).format('YYYY年MM月DD日');

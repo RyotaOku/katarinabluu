@@ -2,7 +2,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import styles from '../styles/shift_information.module.css';
+import styles from '@/styles/shift_information.module.css';
 import Navigation from '@/components/navigation';
 import UserHome from '@/components/appHome';
 
@@ -16,7 +16,7 @@ const Information: React.FC = () => {
     'MC Donald',
   ];
   const add_part_time = () => {
-    router.push('/add_parttime');
+    router.push('/shift/add_parttime');
   };
   return (
     <Navigation title={''}>

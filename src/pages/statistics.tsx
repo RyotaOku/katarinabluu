@@ -1,17 +1,65 @@
 // pages/statistics.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 import styles from '@/styles/statistics.module.css';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import dayjs from 'dayjs';
+import { getUserSession } from '@/lib/session';
+import getDocument from '@/lib/getData'; // Import the getDocument function
+import { useRouter } from 'next/router';
 
 const pageTitle = '給料計算';
 
 Chart.register(ArcElement, Tooltip, Legend);
 
+interface UserData {
+  userName: string;
+  salary: number;
+  total: number;
+  workHours: string;
+  transactions: { name: string; amount: number; color: string }[];
+  fixedTransactions: { name: string; amount: number; color: string }[];
+  income: number;
+  fixedExpenses: number;
+}
+
 const Statistics: React.FC = () => {
+  const [userId, setUserId] = useState<string | null>(null);
+  const [data, setData] = useState<UserData | null>(null); // State to store fetched data
+  const [userName, setUserName] = useState<string>('Unknown User'); // State to store user name
+  const router = useRouter();
+
+  useEffect(() => {
+    // User verification
+    const fetchUserSession = async () => {
+      const userId = await getUserSession();
+      if (userId) {
+        setUserId(userId);
+        fetchData(userId); // Fetch data from Firestore
+      } else {
+        router.push('/'); // Redirect to login if not logged in
+      }
+    };
+
+    fetchUserSession();
+  }, [router]);
+
+  const fetchData = async (userId: string) => {
+    const { result, error } = await getDocument('users', userId);
+    if (error) {
+      console.error('Error fetching data:', error);
+    } else if (result && result.exists()) {
+      const userData = result.data() as UserData;
+      console.log('Fetched user data:', userData); // Debugging: print fetched data
+      setData(userData);
+      setUserName(userData.userName);
+    } else {
+      console.error('No such document!');
+    }
+  };
+
   const [currentMonth, setCurrentMonth] = useState(dayjs());
 
   const handlePreviousMonth = () => {
@@ -22,10 +70,11 @@ const Statistics: React.FC = () => {
     setCurrentMonth(currentMonth.add(1, 'month'));
   };
 
-  const data = {
+  // Example data, replace with data fetched from Firestore
+  const chartData = {
     datasets: [
       {
-        data: [11400, 51400 - 11400],
+        data: [data?.salary ?? 0, (data?.total ?? 0) - (data?.salary ?? 0)],
         backgroundColor: ['#3498db', '#E0E0E0'],
         borderWidth: 0,
         cutout: '80%',
@@ -55,15 +104,19 @@ const Statistics: React.FC = () => {
               <button>年</button>
             </div>
           </header>
+          <div className={styles.debug}>
+            <p>Debug: User Name: {userName}</p> {/* Debug information */}
+            <p>Debug: User ID: {userId}</p> {/* Debug information */}
+          </div>
           <div className={styles.chartSection}>
             <div className={styles.chart}>
               <Doughnut
-                data={data}
+                data={chartData}
                 options={{ maintainAspectRatio: false }}
               />
               <div className={styles.chartText}>
                 <p className={styles.balanceLabel}>差し引いた今月の給料</p>
-                <p className={styles.balance}>¥11400</p>
+                <p className={styles.balance}>¥{data?.salary ?? 0}</p>
               </div>
             </div>
             <div className={styles.arrowContainer}>
@@ -82,10 +135,14 @@ const Statistics: React.FC = () => {
             </div>
             <div className={styles.details}>
               <p>
-                勤務時間 <span className={styles.detailValue}>0h00m</span>
+                勤務時間{' '}
+                <span className={styles.detailValue}>
+                  {data?.workHours ?? '0h00m'}
+                </span>
               </p>
               <p>
-                給料込み <span className={styles.detailValue}>¥51400</span>
+                給料込み{' '}
+                <span className={styles.detailValue}>¥{data?.total ?? 0}</span>
               </p>
             </div>
           </div>
@@ -93,46 +150,42 @@ const Statistics: React.FC = () => {
             <div className={styles.transactionSection}>
               <div className={styles.transactionHeader}>
                 <p>給料</p>
-                <p className={styles.income}>¥34,200</p>
+                <p className={styles.income}>¥{data?.income ?? 0}</p>
               </div>
-              <div className={styles.transactionItem}>
-                <span
-                  className={styles.categoryColor}
-                  style={{ backgroundColor: '#FF6384' }}
-                ></span>
-                <span>ファミリーマート比花屋店</span>
-                <span className={styles.amount}>¥1,000</span>
-              </div>
-              <div className={styles.transactionItem}>
-                <span
-                  className={styles.categoryColor}
-                  style={{ backgroundColor: '#36A2EB' }}
-                ></span>
-                <span>セブンイレブン四番街中野店</span>
-                <span className={styles.amount}>¥8,200</span>
-              </div>
+              {/* Render transactions dynamically if data is available */}
+              {data?.transactions?.map((transaction, index) => (
+                <div
+                  key={index}
+                  className={styles.transactionItem}
+                >
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: transaction.color }}
+                  ></span>
+                  <span>{transaction.name}</span>
+                  <span className={styles.amount}>¥{transaction.amount}</span>
+                </div>
+              ))}
             </div>
             <div className={styles.transactionSection}>
               <div className={styles.transactionHeader}>
                 <p>固定費</p>
-                <p className={styles.expense}>¥9,200</p>
+                <p className={styles.expense}>¥{data?.fixedExpenses ?? 0}</p>
               </div>
-              <div className={styles.transactionItem}>
-                <span
-                  className={styles.categoryColor}
-                  style={{ backgroundColor: '#FFCE56' }}
-                ></span>
-                <span>AmazonPrime</span>
-                <span className={styles.amount}>-¥1,000</span>
-              </div>
-              <div className={styles.transactionItem}>
-                <span
-                  className={styles.categoryColor}
-                  style={{ backgroundColor: '#4BC0C0' }}
-                ></span>
-                <span>携帯料金</span>
-                <span className={styles.amount}>-¥8,200</span>
-              </div>
+              {/* Render fixed expenses dynamically if data is available */}
+              {data?.fixedTransactions?.map((transaction, index) => (
+                <div
+                  key={index}
+                  className={styles.transactionItem}
+                >
+                  <span
+                    className={styles.categoryColor}
+                    style={{ backgroundColor: transaction.color }}
+                  ></span>
+                  <span>{transaction.name}</span>
+                  <span className={styles.amount}>¥{transaction.amount}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
