@@ -19,7 +19,7 @@ const Information: React.FC = () => {
     router.push('/shift/add_parttime');
   };
   return (
-    <Navigation>
+    <Navigation title={''}>
       <div className={styles.container}>
         <Head>
           <title>Shift Information Page</title>

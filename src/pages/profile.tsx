@@ -5,7 +5,7 @@ import Navigation from '@/components/navigation';
 
 const ProfileDetail: React.FC = () => {
   return (
-    <Navigation>
+    <Navigation title={''}>
       <Head>
         <title>Calendar App</title>
         <meta

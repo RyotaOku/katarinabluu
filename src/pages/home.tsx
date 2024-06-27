@@ -17,12 +17,12 @@ const Home: React.FC = () => {
       setUserId(userId);
     } else {
       // Handle case where user is not logged in, e.g., redirect to login
-      router.push('/index');
+      router.push('/');
     }
   }, []);
 
   return (
-    <Navigation>
+    <Navigation title={''}>
       <Head>
         <title>Calendar App</title>
         <meta

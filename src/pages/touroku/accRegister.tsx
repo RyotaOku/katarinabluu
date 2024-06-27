@@ -64,7 +64,7 @@ const AccRegister: React.FC = () => {
       }
 
       // Redirect to jobRegister after successful sign-up
-      router.push('/jobRegister');
+      router.push('/touroku/jobRegister');
     } catch (error) {
       console.error('Error creating user:', error);
     }
