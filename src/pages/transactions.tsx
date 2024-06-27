@@ -43,7 +43,7 @@ const Transactions: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Navigation>
+      <Navigation title={''}>
         <Head>
           <title>Calendar App</title>
           <meta

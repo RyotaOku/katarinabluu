@@ -8,7 +8,7 @@ import router from 'next/router';
 const AddTransactions: React.FC = () => {
   return (
     <div className={styles.container}>
-      <Navigation>
+      <Navigation title={''}>
         <Head>
           <title>Calendar App</title>
           <meta

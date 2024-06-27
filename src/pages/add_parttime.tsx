@@ -26,7 +26,7 @@ const Information: React.FC = () => {
   };
 
   return (
-    <Navigation>
+    <Navigation title={''}>
       <div className={styles.container}>
         <Head>
           <title>Add Part Time Page</title>

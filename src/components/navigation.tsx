@@ -1,5 +1,6 @@
 // components/navigation.tsx
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@chakra-ui/react';
@@ -9,9 +10,10 @@ import { footerArray } from '@/types/footerTypes'; // Ensure this is correctly d
 
 interface FooterProps {
   children: React.ReactNode;
+  title: string; // Add the title prop
 }
 
-const Navigation = ({ children }: FooterProps) => {
+const Navigation = ({ children, title }: FooterProps) => {
   const [pathStat, setPathStat] = useState('/');
 
   useEffect(() => {
@@ -35,6 +37,17 @@ const Navigation = ({ children }: FooterProps) => {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>{title}</title>
+        <meta
+          name="description"
+          content="あなたのジョブシフト"
+        />
+        <link
+          rel="icon"
+          href="/favicon.ico"
+        />
+      </Head>
       <header className={styles.header}>
         <div className={styles.profile}>
           <Image

@@ -22,7 +22,7 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <Navigation>
+    <Navigation title={''}>
       <Head>
         <title>Calendar App</title>
         <meta
