@@ -1,31 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '@/styles/jobRegister.module.css';
-import router from 'next/router';
+import { useRouter } from 'next/router';
+import addData from '@/lib/addData'; // Import the addData function
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const JobRegister: React.FC = () => {
   // State variables for form fields
-  const [companyName, setCompanyName] = React.useState('');
-  const [storeName, setStoreName] = React.useState('');
-  const [workplace, setWorkplace] = React.useState('');
-  const [payrollDate, setPayrollDate] = React.useState('');
-  const [closingDate, setClosingDate] = React.useState('');
-  const [hourlyWage, setHourlyWage] = React.useState(0); // Initialize as 0
+  const [companyName, setCompanyName] = useState('');
+  const [storeName, setStoreName] = useState('');
+  const [workplace, setWorkplace] = useState('');
+  const [payrollDate, setPayrollDate] = useState('');
+  const [closingDate, setClosingDate] = useState('');
+  const [hourlyWage, setHourlyWage] = useState(0); // Initialize as 0
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const [userId, setUserId] = useState<string | null>(null); // State variable for user ID
+  const router = useRouter();
+
+  useEffect(() => {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        console.error('No user is signed in');
+        router.push('/login'); // Redirect to login page if no user is signed in
+      }
+    });
+  }, [router]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Handle form submission here
-    console.log('Job registration submitted:', {
+
+    if (!userId) {
+      console.error('No user is signed in');
+      return;
+    }
+
+    const jobData = {
       companyName,
       storeName,
       workplace,
       payrollDate,
       closingDate,
       hourlyWage,
-    }); // Example logging
+    };
+
+    try {
+      // Save job data to Firestore under the user's document
+      const { result, error } = await addData(
+        `users/${userId}/jobs`,
+        companyName,
+        jobData,
+      );
+      if (error) {
+        console.error('Error adding job data:', error);
+      } else {
+        console.log('Job data added:', result);
+      }
+
+      // Redirect to home or another page after successful registration
+      router.push('/home');
+    } catch (error) {
+      console.error('Error saving job data:', error);
+    }
   };
 
-  const handleLogin = () => {
-    router.push('@/home');
+  const handleSkip = () => {
+    router.push('/home');
   };
 
   return (
@@ -119,23 +160,22 @@ const JobRegister: React.FC = () => {
               id="hourlyWage"
               name="hourlyWage"
               value={hourlyWage}
-              onChange={(event) => setHourlyWage(parseInt(event.target.value))} // Use parseInt to convert string to int
+              onChange={(event) => setHourlyWage(parseInt(event.target.value))}
               className={styles.input}
             />
           </label>
         </div>
         <div className={styles.buttons}>
           <button
-            type="submit"
+            type="button"
             className={styles.skipButton}
-            onClick={handleLogin}
+            onClick={handleSkip}
           >
             今は登録しない
           </button>
           <button
             type="submit"
             className={styles.submitButton}
-            onClick={handleLogin}
           >
             登録
           </button>
