@@ -58,7 +58,7 @@ const Navigation = ({ children, title }: FooterProps) => {
             className={styles.profileImage}
           />
         </div>
-        <div className={styles.date}>20日5月2024年</div>
+        <div className={styles.date}>{title}</div>
         <div className={styles.dropdown}>▼</div>
       </header>
       <main className={styles.main}>{children}</main>

@@ -5,6 +5,8 @@ import Navigation from '@/components/navigation';
 import styles from '@/styles/transactions.module.css';
 import router from 'next/router';
 
+const pageTitle = '入出金';
+
 const transactions = [
   {
     date: '05/26 (木)',
@@ -43,11 +45,11 @@ const Transactions: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Navigation title={''}>
+      <Navigation title={pageTitle}>
         <Head>
           <title>Calendar App</title>
           <meta
-            name="description"
+            name={pageTitle}
             content="あなたのジョブシフト"
           />
           <link

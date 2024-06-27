@@ -13,7 +13,7 @@ const handleProfileEdit = () => {
   router.push('/profile');
 };
 const handleAddJob = () => {
-  router.push('/touroku/jobRegister');
+  router.push('/add_parttime');
 };
 
 const Others: React.FC = () => {
