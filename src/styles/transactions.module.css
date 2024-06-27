@@ -1,88 +1,93 @@
 /* styles/transactions.module.css */
 .container {
-    font-family: Arial, sans-serif;
-  }
-  
-  .searchBar {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .searchInput {
-    flex-grow: 1;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .cancelButton {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: none;
-    background-color: #f5f5f5;
-    cursor: pointer;
-  }
-  
-  .transactionsList {
-    padding: 10px;
-  }
-  
-  .transaction {
-    margin-bottom: 20px;
-  }
-  
-  .date {
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-  
-  .total {
-    font-size: 0.9em;
-    color: gray;
-    margin-bottom: 10px;
-  }
-  
-  .entry {
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-  }
-  
-  .entryDot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 10px;
-  }
-  
-  .entryLabel {
-    flex-grow: 1;
-  }
-  
-  .entryAmount {
-    color: #888;
-  }
-  
-  .footer {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-    border-top: 1px solid #ddd;
-  }
-  
-  .addButton {
-    width: 50px;
-    height: 50px;
-    border: none;
-    border-radius: 50%;
-    background-color: #007bff;
-    color: white;
-    font-size: 30px;
-    line-height: 50px;
-    text-align: center;
-    cursor: pointer;
-  }
-  
+  font-family: Arial, sans-serif;
+}
+
+.searchBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.searchInput {
+  flex-grow: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.cancelButton {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.transactionsList {
+  padding: 10px;
+}
+
+.transaction {
+  margin-bottom: 20px;
+}
+
+.date {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.total {
+  font-size: 0.9em;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+.entry {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.entryDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.entryLabel {
+  flex-grow: 1;
+}
+
+.entryAmount {
+  color: #888;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  position: relative;
+}
+
+.addButton {
+  position: fixed;
+  right: 20px;
+  bottom: 80px; /* Adjust this value to place the button above the footer */
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  font-size: 30px;
+  line-height: 50px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure the button is above other elements */
+}

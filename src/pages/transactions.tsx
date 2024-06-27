@@ -1,9 +1,8 @@
-// pages/index.tsx
-import React, { useEffect, useState } from 'react';
+// pages/transactions.tsx
+import React, { useState } from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 import styles from '@/styles/transactions.module.css';
-import { getUserSession } from '@/lib/session';
 import router from 'next/router';
 
 const transactions = [
@@ -36,69 +35,72 @@ const transactions = [
 ];
 
 const Transactions: React.FC = () => {
-  const [userId, setUserId] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  useEffect(() => {
-    // User verification
-    // const userId = getUserSession();
-    // if (userId) {
-    //   setUserId(userId);
-    // } else {
-    //   // Handle case where user is not logged in, e.g., redirect to login
-    //   router.push('/index');
-    // }
-  }, []);
+  const filteredTransactions = transactions.filter((transaction) =>
+    transaction.entries.some((entry) => entry.label.includes(searchTerm)),
+  );
+
   return (
-    <Navigation>
-      <Head>
-        <title>Calendar App</title>
-        <meta
-          name="description"
-          content="あなたのジョブシフト"
-        />
-        <link
-          rel="icon"
-          href="/favicon.ico"
-        />
-      </Head>
-      <main>
-        <div className={styles.searchBar}>
-          <input
-            type="text"
-            placeholder="検索"
-            className={styles.searchInput}
+    <div className={styles.container}>
+      <Navigation>
+        <Head>
+          <title>Calendar App</title>
+          <meta
+            name="description"
+            content="あなたのジョブシフト"
           />
-          <button className={styles.cancelButton}>キャンセル</button>
-        </div>
-        <div className={styles.transactionsList}>
-          {transactions.map((transaction, index) => (
-            <div
-              key={index}
-              className={styles.transaction}
+          <link
+            rel="icon"
+            href="/favicon.ico"
+          />
+        </Head>
+        <main>
+          <div className={styles.searchBar}>
+            <input
+              type="text"
+              placeholder="検索"
+              className={styles.searchInput}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button
+              className={styles.cancelButton}
+              onClick={() => setSearchTerm('')}
             >
-              <div className={styles.date}>{transaction.date}</div>
-              <div className={styles.total}>{transaction.total}</div>
-              {transaction.entries.map((entry, entryIndex) => (
-                <div
-                  key={entryIndex}
-                  className={styles.entry}
-                >
-                  <span
-                    className={styles.entryDot}
-                    style={{ backgroundColor: entry.color }}
-                  />
-                  <span className={styles.entryLabel}>{entry.label}</span>
-                  <span className={styles.entryAmount}>{entry.amount}</span>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-        <div className={styles.footer}>
-          <button className={styles.addButton}>+</button>
-        </div>
-      </main>
-    </Navigation>
+              キャンセル
+            </button>
+          </div>
+          <div className={styles.transactionsList}>
+            {filteredTransactions.map((transaction, index) => (
+              <div
+                key={index}
+                className={styles.transaction}
+              >
+                <div className={styles.date}>{transaction.date}</div>
+                <div className={styles.total}>{transaction.total}</div>
+                {transaction.entries.map((entry, entryIndex) => (
+                  <div
+                    key={entryIndex}
+                    className={styles.entry}
+                  >
+                    <span
+                      className={styles.entryDot}
+                      style={{ backgroundColor: entry.color }}
+                    />
+                    <span className={styles.entryLabel}>{entry.label}</span>
+                    <span className={styles.entryAmount}>{entry.amount}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className={styles.footer}>
+            <button className={styles.addButton}>+</button>
+          </div>
+        </main>
+      </Navigation>
+    </div>
   );
 };
 
