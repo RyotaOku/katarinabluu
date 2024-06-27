@@ -17,7 +17,6 @@
     "@emotion/styled": "^11.11.5",
     "@firebase/firestore": "^4.6.3",
     "@mui/material": "^5.15.20",
-    "@next/font": "^14.2.3",
     "chart.js": "^4.4.3",
     "cookies-next": "^4.2.1",
     "date-fns": "^3.6.0",
