@@ -7,8 +7,13 @@ import styles from '@/styles/others.module.css';
 import Image from 'next/image';
 import router from 'next/router';
 
+const pageTitle = 'その他';
+
 const handleProfileEdit = () => {
   router.push('/profile');
+};
+const handleAddJob = () => {
+  router.push('/touroku/jobRegister');
 };
 
 const Others: React.FC = () => {
@@ -25,11 +30,11 @@ const Others: React.FC = () => {
     // }
   }, []);
   return (
-    <Navigation>
+    <Navigation title={pageTitle}>
       <Head>
         <title>Calendar App</title>
         <meta
-          name="description"
+          name={pageTitle}
           content="あなたのジョブシフト"
         />
         <link
@@ -69,6 +74,14 @@ const Others: React.FC = () => {
               </div>
               <div className={styles.section}>
                 <h3 className={styles.sectionTitle}>機能</h3>
+                <div className={styles.sectionItem}>
+                  <span
+                    className={styles.sectionText}
+                    onClick={handleAddJob}
+                  >
+                    バイト情報追加
+                  </span>
+                </div>
                 <div className={styles.sectionItem}>
                   <span className={styles.sectionText}>収支分析</span>
                 </div>

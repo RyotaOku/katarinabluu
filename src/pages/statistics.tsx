@@ -81,7 +81,7 @@ const Statistics: React.FC = () => {
   };
 
   return (
-    <Navigation>
+    <Navigation title={''}>
       <Head>
         <title>Statistics</title>
         <meta
