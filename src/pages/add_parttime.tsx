@@ -26,89 +26,90 @@ const Information: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Add Part Time Page</title>
-        <meta
-          name="description"
-          content="Information about shifts"
-        />
-        <link
-          rel="icon"
-          href="/favicon.ico"
-        />
-      </Head>
-      <Navigation />
-      <main className={styles.main}>
-        <h1>バイトを追加</h1>
-        <p>表示色：</p>
-        <p>ジャンル：</p>
-        <p>基本情報</p>
-        <p>
-          バイト先 <input type="text" />
-        </p>
-
-        <label htmlFor="deadline">締切</label>
-        <div
-          onClick={handleDeadlineClick}
-          className={styles.deadlineInput}
-        >
-          {selectedDeadline}
-        </div>
-
-        <p>給料日</p>
-        <div>
-          <label htmlFor="payday">給料日</label>
-          <input
-            type="date"
-            id="payday"
+    <Navigation>
+      <div className={styles.container}>
+        <Head>
+          <title>Add Part Time Page</title>
+          <meta
+            name="description"
+            content="Information about shifts"
           />
-        </div>
-
-        <p>給料：10000円</p>
-        <div>
-          <label htmlFor="salary">給料の個別設定</label>
-          <input
-            type="text"
-            id="salary"
+          <link
+            rel="icon"
+            href="/favicon.ico"
           />
-        </div>
-        <p>その他</p>
-        <div className={styles.formGroup}>
-          <label htmlFor="memo">メモ</label>
-          <input
-            type="text"
-            id="memo"
-            placeholder="メモを入力"
-          />
-        </div>
-        <button className={styles.btn}>完了する</button>
-      </main>
+        </Head>
+        <main className={styles.main}>
+          <h1>バイトを追加</h1>
+          <p>表示色：</p>
+          <p>ジャンル：</p>
+          <p>基本情報</p>
+          <p>
+            バイト先 <input type="text" />
+          </p>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        className={styles.modal}
-        overlayClassName={styles.overlay}
-      >
-        <h2>締切を選択</h2>
-        {salary_deadlines.map((value, index) => (
+          <label htmlFor="deadline">締切</label>
           <div
-            key={index}
-            onClick={() => handleDeadlineSelect(value)}
-            className={styles.modalItem}
+            onClick={handleDeadlineClick}
+            className={styles.deadlineInput}
           >
-            {value}
+            {selectedDeadline}
           </div>
-        ))}
-        <button
-          onClick={() => setModalIsOpen(false)}
-          className={styles.modalCloseBtn}
+
+          <p>給料日</p>
+          <div>
+            <label htmlFor="payday">給料日</label>
+            <input
+              type="date"
+              id="payday"
+            />
+          </div>
+
+          <p>給料：10000円</p>
+          <div>
+            <label htmlFor="salary">給料の個別設定</label>
+            <input
+              type="text"
+              id="salary"
+            />
+          </div>
+          <p>その他</p>
+          <div className={styles.formGroup}>
+            <label htmlFor="memo">メモ</label>
+            <input
+              type="text"
+              id="memo"
+              placeholder="メモを入力"
+            />
+          </div>
+          <button className={styles.btn}>完了する</button>
+        </main>
+
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={() => setModalIsOpen(false)}
+          className={styles.modal}
+          overlayClassName={styles.overlay}
         >
-          閉じる
-        </button>
-      </Modal>
-    </div>
+          <h2>締切を選択</h2>
+          {salary_deadlines.map((value, index) => (
+            <div
+              key={index}
+              onClick={() => handleDeadlineSelect(value)}
+              className={styles.modalItem}
+            >
+              {value}
+            </div>
+          ))}
+          <button
+            onClick={() => setModalIsOpen(false)}
+            className={styles.modalCloseBtn}
+          >
+            閉じる
+          </button>
+        </Modal>
+      </div>
+    </Navigation>
   );
 };
 
