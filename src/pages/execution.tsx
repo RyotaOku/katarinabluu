@@ -10,6 +10,8 @@ import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 
 Chart.register(ArcElement, Tooltip, Legend);
 
+const pageTitle = '家計簿';
+
 const data = {
   labels: ['収入', '支出'],
   datasets: [
@@ -37,11 +39,11 @@ const Execution: React.FC = () => {
     // }
   }, []);
   return (
-    <Navigation title={''}>
+    <Navigation title={pageTitle}>
       <Head>
         <title>Calendar App</title>
         <meta
-          name="description"
+          name={pageTitle}
           content="あなたのジョブシフト"
         />
         <link

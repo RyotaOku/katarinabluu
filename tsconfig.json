@@ -27,7 +27,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src/pages/shift"
-  ],
+, "src/lib/getData.js"  ],
   "exclude": [
     "node_modules"
   ]

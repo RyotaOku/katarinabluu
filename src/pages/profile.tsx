@@ -3,13 +3,15 @@ import React from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 
+const pageTitle = 'プロファイル';
+
 const ProfileDetail: React.FC = () => {
   return (
-    <Navigation title={''}>
+    <Navigation title={pageTitle}>
       <Head>
         <title>Calendar App</title>
         <meta
-          name="description"
+          name={pageTitle}
           content="あなたのジョブシフト"
         />
         <link
