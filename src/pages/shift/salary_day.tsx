@@ -1,4 +1,3 @@
-// pages/information.tsx
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -16,20 +15,8 @@ const Salary: React.FC = () => {
   const [selectedMonthly, setSelectedMonthly] = useState('当月');
   const [selectedDay, setSelectedDay] = useState('1日');
   const [isSwitchOn, setIsSwitchOn] = useState(false);
-  const [isAnotherSwitchOn, setIsAnotherSwitchOn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isBeforeSwitchOn, setIsBeforeSwitchOn] = useState(false);
-  const [isAfterSwitchOn, setIsAfterSwitchOn] = useState(false);
 
-  const handleBeforeSwitchChange = () => {
-    setIsBeforeSwitchOn(!isBeforeSwitchOn);
-    setIsAfterSwitchOn(false); //switch の操作
-  };
-
-  const handleAfterSwitchChange = () => {
-    setIsAfterSwitchOn(!isAfterSwitchOn);
-    setIsBeforeSwitchOn(false);
-  };
   const Modal: React.FC<{
     isOpen: boolean;
     onClose: () => void;
@@ -141,29 +128,26 @@ const Salary: React.FC = () => {
             </label>
           </div>
 
-          <div className={styles.formGroup}>
-            <label className={styles.switchLabel}>土日祝日の前日</label>
-            <label className={styles.switch}>
-              <input
-                type="checkbox"
-                checked={isBeforeSwitchOn}
-                onChange={handleBeforeSwitchChange}
-              />
-              <span className={styles.slider}></span>
-            </label>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label className={styles.switchLabel}>土日祝日の翌日</label>
-            <label className={styles.switch}>
-              <input
-                type="checkbox"
-                checked={isAfterSwitchOn}
-                onChange={handleAfterSwitchChange}
-              />
-              <span className={styles.slider}></span>
-            </label>
-          </div>
+          {isSwitchOn && (
+            <div className={styles.formGroup}>
+              <label>
+                <input
+                  type="radio"
+                  name="salaryType"
+                  value="before"
+                />
+                土日祝日の前日
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="salaryType"
+                  value="after"
+                />
+                土日祝日の翌日
+              </label>
+            </div>
+          )}
 
           <p className={styles.note}>
             ※給料日が土日祝日の場合カレンダー上の表示と給料日の通知を前後の平日に変更することができます。
