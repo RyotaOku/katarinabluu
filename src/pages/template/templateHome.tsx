@@ -5,7 +5,7 @@ import Navigation from '@/components/navigation';
 import styles from '@/styles/transactions.module.css';
 import router from 'next/router';
 
-const AddTransactions: React.FC = () => {
+const template: React.FC = () => {
   return (
     <div className={styles.container}>
       <Navigation>
@@ -26,4 +26,4 @@ const AddTransactions: React.FC = () => {
   );
 };
 
-export default AddTransactions;
+export default template;
