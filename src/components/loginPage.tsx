@@ -55,7 +55,7 @@ const LoginPage: React.FC = () => {
         router.push('/home');
       } else {
         // User has not completed registration, redirect to accRegister
-        router.push('/accRegister?provider=google');
+        router.push('/touroku/accRegister?provider=google');
       }
     } catch (error) {
       console.error('Google login error:', error);
