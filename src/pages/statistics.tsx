@@ -7,6 +7,8 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import dayjs from 'dayjs';
 
+const pageTitle = '給料計算';
+
 Chart.register(ArcElement, Tooltip, Legend);
 
 const Statistics: React.FC = () => {
@@ -32,11 +34,11 @@ const Statistics: React.FC = () => {
   };
 
   return (
-    <Navigation title={''}>
+    <Navigation title={pageTitle}>
       <Head>
         <title>Statistics</title>
         <meta
-          name="description"
+          name={pageTitle}
           content="Statistics Page"
         />
         <link

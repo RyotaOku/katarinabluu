@@ -7,6 +7,8 @@ import Navigation from '@/components/navigation';
 import { getUserSession } from '@/lib/session';
 import router from 'next/router';
 
+const pageTitle = 'ホーム';
+
 const Home: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -22,11 +24,11 @@ const Home: React.FC = () => {
   }, []);
 
   return (
-    <Navigation title={''}>
+    <Navigation title={pageTitle}>
       <Head>
         <title>Calendar App</title>
         <meta
-          name="description"
+          name={pageTitle}
           content="あなたのジョブシフト"
         />
         <link
