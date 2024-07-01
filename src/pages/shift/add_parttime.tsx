@@ -1,4 +1,3 @@
-// pages/information.tsx
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
@@ -12,21 +11,12 @@ const Part_Time: React.FC = () => {
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [isNightShiftPay, setIsNightShiftPay] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [overtime, setOvertime] = useState(false); //残業
-  const salary_deadlines: string[] = Array.from(
+  const [overtime, setOvertime] = useState(false);
+  const salaryDeadlines: string[] = Array.from(
     { length: 30 },
     (_, i) => `${i + 1}日`,
   ).concat('月末');
   const [selectedDeadline, setSelectedDeadline] = useState('月末');
-
-  const handleDeadlineClick = () => {
-    setModalIsOpen(true);
-  };
-
-  const handleDeadlineSelect = (value: string) => {
-    setSelectedDeadline(value);
-    setModalIsOpen(false);
-  };
   const colors = [
     '#FF4500',
     '#FFA500',
@@ -37,24 +27,32 @@ const Part_Time: React.FC = () => {
     '#800080',
     '#FFC0CB',
   ];
+  const [inputMode, setInputMode] = useState<'yen' | 'percent'>('yen');
+  const [input_over_time_Mode, setOvertimeMode] = useState<'yen' | 'percent'>(
+    'yen',
+  );
+  const handleDeadlineClick = () => setModalIsOpen(true);
+  const handleDeadlineSelect = (value: string) => {
+    setSelectedDeadline(value);
+    setModalIsOpen(false);
+  };
   const handleColorClick = (color: string) => {
     setSelectedColor(color);
     setShowColorPicker(false);
   };
-  //深夜時給の処理
-  const [inputMode, setInputMode] = useState<'yen' | 'percent'>('yen');
-
-  const overtimeClick = () => {
-    setOvertime(true);
-  };
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {};
-  const salary_day = () => {
-    router.push('/shift/salary_day'); //給料日の追加設定ボタンを押されたとき
+
+  const salaryDay = () => router.push('/shift/salary_day');
+
+  const toggleInputMode = (mode: 'yen' | 'percent') => {
+    setInputMode(mode);
+  };
+  const overtimeInputMode = (mode: 'yen' | 'percent') => {
+    setOvertimeMode(mode);
   };
 
   return (
-    <Navigation title={''}>
+    <Navigation title="">
       <div className={styles.container}>
         <Head>
           <title>Add Part Time Page</title>
@@ -98,7 +96,7 @@ const Part_Time: React.FC = () => {
                   className={styles.selectedColor}
                   style={{ backgroundColor: selectedColor }}
                   onClick={() => setShowColorPicker(!showColorPicker)}
-                ></div>
+                />
                 {showColorPicker && (
                   <div className={styles.colorPicker}>
                     {colors.map((color) => (
@@ -107,7 +105,7 @@ const Part_Time: React.FC = () => {
                         className={styles.colorOption}
                         style={{ backgroundColor: color }}
                         onClick={() => handleColorClick(color)}
-                      ></div>
+                      />
                     ))}
                   </div>
                 )}
@@ -118,8 +116,8 @@ const Part_Time: React.FC = () => {
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>給料情報</h2>
             <div
-              onClick={handleDeadlineClick}
               className={styles.formGroup}
+              onClick={handleDeadlineClick}
             >
               <label
                 className={styles.label}
@@ -131,7 +129,6 @@ const Part_Time: React.FC = () => {
                 type="text"
                 id="deadline"
                 className={styles.input}
-                placeholder="毎月の月末 (祝日除く)"
                 value={selectedDeadline}
                 readOnly
               />
@@ -151,12 +148,11 @@ const Part_Time: React.FC = () => {
               />
               <button
                 className={styles.addButton}
-                onClick={salary_day}
+                onClick={salaryDay}
               >
                 + 給料日の追加設定
               </button>
             </div>
-
             <div className={styles.formGroup}>
               <label
                 className={styles.label}
@@ -277,19 +273,18 @@ const Part_Time: React.FC = () => {
                   <input
                     type="text"
                     className={styles.inputField}
-                    // value={inputValue}
                     onChange={handleInputChange}
                     placeholder={inputMode === 'yen' ? '円' : '%'}
                   />
                   <button
                     className={inputMode === 'yen' ? styles.button : ''}
-                    onClick={() => setInputMode('yen')}
+                    onClick={() => toggleInputMode('yen')}
                   >
                     円
                   </button>
                   <button
                     className={inputMode === 'percent' ? styles.button : ''}
-                    onClick={() => setInputMode('percent')}
+                    onClick={() => toggleInputMode('percent')}
                   >
                     %
                   </button>
@@ -300,66 +295,90 @@ const Part_Time: React.FC = () => {
                     type="time"
                     id="start"
                     name="start"
-                    defaultValue={'22:00'}
+                    defaultValue="22:00"
                   />
-
                   <label className={styles.label}>終了時間</label>
                   <input
                     type="time"
                     id="end"
                     name="end"
-                    defaultValue={'05:00'}
+                    defaultValue="05:00"
                   />
                 </div>
               </div>
             )}
 
-            <div>
-              <div className={styles.formGroup}>
-                <label
-                  className={styles.label}
-                  htmlFor="overtimePay"
-                >
-                  {' '}
-                  残業手当{' '}
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="overtime"
-                    value="yes"
-                    onChange={() => setOvertime(true)}
-                  />
-                  {' あり'}
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="overtime"
-                    value="no"
-                    onChange={() => setOvertime(false)}
-                  />
-                  {'なし'}
-                </label>
-              </div>
-              {overtime && (
-                <div>
-                  <div className={styles.formGroup}>
-                    <label className={styles.label}>適用時間</label>
-                    <input
-                      type="text"
-                      className={styles.inputField}
-                      value={''}
-                    />
-                  </div>
-                </div>
-              )}
+            <div className={styles.formGroup}>
+              <label
+                className={styles.label}
+                htmlFor="overtimePay"
+              >
+                残業手当
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="overtime"
+                  value="yes"
+                  checked={overtime}
+                  onChange={() => setOvertime(true)}
+                />{' '}
+                あり
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="overtime"
+                  value="no"
+                  checked={!overtime}
+                  onChange={() => setOvertime(false)}
+                />{' '}
+                なし
+              </label>
             </div>
+
+            {overtime && (
+              <div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>適用時間</label>
+                  <input
+                    type="text"
+                    className={styles.inputField}
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label}>残業手当</label>
+                  <input
+                    type="text"
+                    className={styles.inputField}
+                    onChange={handleInputChange}
+                    placeholder={input_over_time_Mode === 'yen' ? '円' : '%'}
+                  />
+                  <button
+                    className={
+                      input_over_time_Mode === 'yen' ? styles.button : ''
+                    }
+                    onClick={() => overtimeInputMode('yen')}
+                  >
+                    円
+                  </button>
+                  <button
+                    className={
+                      input_over_time_Mode === 'percent' ? styles.button : ''
+                    }
+                    onClick={() => overtimeInputMode('percent')}
+                  >
+                    %
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           <button className={styles.submitButton}>バイト先を追加する</button>
         </main>
       </div>
+
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
@@ -376,7 +395,7 @@ const Part_Time: React.FC = () => {
           </button>
         </div>
         <div className={styles.modalContent}>
-          {salary_deadlines.map((value, index) => (
+          {salaryDeadlines.map((value, index) => (
             <div
               key={index}
               onClick={() => handleDeadlineSelect(value)}
