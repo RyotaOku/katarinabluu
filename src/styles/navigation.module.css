@@ -18,28 +18,30 @@
   position: fixed;
   top: 0;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   align-items: center;
   padding: 1rem 1.6rem;
   background-color: #f8f9fa;
 }
 
 .profile {
-  display: flex;
-  align-items: center;
+  text-align: left;
 }
 
 .profileImage {
   border-radius: 50%;
+  border: 1px solid #b8b8b8;
 }
 
-.date {
-  font-size: 1rem;
+.title {
+  font-size: 1.4rem;
+  text-align: center;
 }
 
 .dropdown {
-  font-size: 1.2rem;
+  font-size: 1.6rem;
+  text-align: right;
 }
 
 .footer {
@@ -78,5 +80,5 @@
 }
 
 .active {
-  color: #0070f3;
+  color: var(--primary);
 }

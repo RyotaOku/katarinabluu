@@ -33,7 +33,7 @@ const Header: React.FC = () => {
       <header className={styles.header}>
         <div className={styles.profile}>
           <Image
-            src="/profile.jpg" // Ensure you have this image or replace it with a correct path
+            src="/user.svg" // Ensure you have this image or replace it with a correct path
             alt="Profile"
             width={40}
             height={40}

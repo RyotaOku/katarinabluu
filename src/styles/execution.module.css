@@ -29,15 +29,15 @@
 }
 
 .income {
-  color: #3498db;
+  color: var(--blue);
 }
 
 .expense {
-  color: #e74c3c;
+  color: var(--red);
 }
 
 .balance {
-  color: #2ecc71;
+  color: var(--green);
 }
 
 .transactionSection {

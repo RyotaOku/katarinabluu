@@ -31,7 +31,7 @@
 }
 
 .toggleButtons .active {
-  background: #3498db;
+  background: var(--primary);
   color: white;
 }
 
@@ -63,7 +63,7 @@
 
 .balance {
   font-size: 2rem;
-  color: #3498db;
+  color: var(--primary);
   margin: 1rem 0;
 }
 
@@ -89,7 +89,7 @@
 
 .detailValue {
   font-weight: bold;
-  color: #3498db;
+  color: var(--primary);
 }
 
 .transactions {
@@ -137,9 +137,9 @@
 }
 
 .income {
-  color: #3498db;
+  color: var(--blue);
 }
 
 .expense {
-  color: #f44336;
+  color: var(--red);
 }

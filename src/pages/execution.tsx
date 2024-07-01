@@ -25,6 +25,39 @@ const data = {
   ],
 };
 
+const transactions = [
+  {
+    date: '05/26 (木)',
+    total: 38050,
+    items: [
+      {
+        categoryColor: '#FF6384',
+        description: 'ファミリーマート',
+        amount: -1300,
+      },
+      { categoryColor: '#36A2EB', description: '定期代', amount: -24230 },
+      { categoryColor: '#FFCE56', description: 'スーパー', amount: -12520 },
+    ],
+  },
+  {
+    date: '05/25 (水)',
+    total: 75200,
+    items: [
+      { categoryColor: '#4BC0C0', description: '化粧水', amount: -2400 },
+      { categoryColor: '#FF6384', description: 'バイト', amount: 75200 },
+      { categoryColor: '#FFCE56', description: '焼肉', amount: -9900 },
+    ],
+  },
+  {
+    date: '05/24 (火)',
+    total: 3200,
+    items: [
+      { categoryColor: '#FF6384', description: 'バイト', amount: 3200 },
+      { categoryColor: '#FFCE56', description: '焼肉', amount: -3200 },
+    ],
+  },
+];
+
 const Execution: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -38,6 +71,7 @@ const Execution: React.FC = () => {
     //   router.push('/index');
     // }
   }, []);
+
   return (
     <Navigation title={pageTitle}>
       <Head>
@@ -69,88 +103,34 @@ const Execution: React.FC = () => {
               </div>
             </div>
             <div className={styles.transactions}>
-              <div className={styles.transactionSection}>
-                <div className={styles.transactionHeader}>
-                  <p>05/26 (木)</p>
-                  <p>¥38,050</p>
+              {transactions.map((transaction, index) => (
+                <div
+                  className={styles.transactionSection}
+                  key={index}
+                >
+                  <div className={styles.transactionHeader}>
+                    <p>{transaction.date}</p>
+                    <p>¥{transaction.total.toLocaleString()}</p>
+                  </div>
+                  {transaction.items.map((item, idx) => (
+                    <div
+                      className={styles.transactionItem}
+                      key={idx}
+                    >
+                      <span
+                        className={styles.categoryColor}
+                        style={{ backgroundColor: item.categoryColor }}
+                      ></span>
+                      <span>{item.description}</span>
+                      <span>
+                        {item.amount > 0 ?
+                          `+¥${item.amount.toLocaleString()}`
+                        : `-¥${Math.abs(item.amount).toLocaleString()}`}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-                <div className={styles.transactionItem}>
-                  <span
-                    className={styles.categoryColor}
-                    style={{ backgroundColor: '#FF6384' }}
-                  ></span>
-                  <span>ファミリーマート</span>
-                  <span>-¥1,300</span>
-                </div>
-                <div className={styles.transactionItem}>
-                  <span
-                    className={styles.categoryColor}
-                    style={{ backgroundColor: '#36A2EB' }}
-                  ></span>
-                  <span>定期代</span>
-                  <span>-¥24,230</span>
-                </div>
-                <div className={styles.transactionItem}>
-                  <span
-                    className={styles.categoryColor}
-                    style={{ backgroundColor: '#FFCE56' }}
-                  ></span>
-                  <span>スーパー</span>
-                  <span>-¥12,520</span>
-                </div>
-              </div>
-              <div className={styles.transactionSection}>
-                <div className={styles.transactionHeader}>
-                  <p>05/25 (水)</p>
-                  <p>¥75,200</p>
-                </div>
-                <div className={styles.transactionItem}>
-                  <span
-                    className={styles.categoryColor}
-                    style={{ backgroundColor: '#4BC0C0' }}
-                  ></span>
-                  <span>化粧水</span>
-                  <span>-¥2,400</span>
-                </div>
-                <div className={styles.transactionItem}>
-                  <span
-                    className={styles.categoryColor}
-                    style={{ backgroundColor: '#FF6384' }}
-                  ></span>
-                  <span>バイト</span>
-                  <span>+¥75,200</span>
-                </div>
-                <div className={styles.transactionItem}>
-                  <span
-                    className={styles.categoryColor}
-                    style={{ backgroundColor: '#FFCE56' }}
-                  ></span>
-                  <span>焼肉</span>
-                  <span>-¥9,900</span>
-                </div>
-              </div>
-              <div className={styles.transactionSection}>
-                <div className={styles.transactionHeader}>
-                  <p>05/24 (火)</p>
-                  <p>¥3,200</p>
-                </div>
-                <div className={styles.transactionItem}>
-                  <span
-                    className={styles.categoryColor}
-                    style={{ backgroundColor: '#FF6384' }}
-                  ></span>
-                  <span>バイト</span>
-                  <span>+¥3,200</span>
-                </div>
-                <div className={styles.transactionItem}>
-                  <span
-                    className={styles.categoryColor}
-                    style={{ backgroundColor: '#FFCE56' }}
-                  ></span>
-                  <span>焼肉</span>
-                  <span>-¥3,200</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
           <button className={styles.floatingButton}>+</button>
