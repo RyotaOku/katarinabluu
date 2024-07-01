@@ -126,7 +126,7 @@ const AddTransaction: React.FC = () => {
                   className={styles.commentInput}
                 />
 
-                <span>{isIncome ? '+' : '-'}</span>
+                <span>{isIncome ? '+' : '-'}¥</span>
 
                 <input
                   type="number"
