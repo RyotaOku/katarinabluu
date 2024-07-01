@@ -40,7 +40,6 @@
 
 .dropdown {
   font-size: 1.2rem;
-  cursor: pointer;
 }
 
 .footer {
@@ -70,8 +69,6 @@
 .button {
   color: #000;
   background: none;
-  border: none;
-  cursor: pointer;
   outline: none;
   padding: 0.2rem 1rem;
   font-size: 1.2rem;

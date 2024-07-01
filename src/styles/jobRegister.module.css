@@ -26,7 +26,6 @@
 .input,
 .select {
   padding: 10px;
-  border: none;
   border-bottom: 1px solid #cccccc;
   transition: 100ms ease-in-out;
 }
@@ -53,7 +52,6 @@
 }
 
 .skipButton {
-  border: none;
   background: none;
   color: #0070f3;
   font-size: 1.6rem;
@@ -64,7 +62,6 @@
   padding: 5px 10px;
   background-color: #0070f3;
   color: #ffffff;
-  border: none;
   border-radius: 50px;
   font-size: 1.6rem;
   font-weight: bold;

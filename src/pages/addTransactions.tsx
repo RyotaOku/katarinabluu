@@ -23,7 +23,7 @@ const AddTransaction: React.FC = () => {
   const [isIncome, setIsIncome] = useState<boolean>(false);
 
   const handleCategoryClick = (category: string) => {
-    setEntries([...entries, { category, amount: 0, comment: '' }]); // Adds a placeholder entry
+    setEntries([...entries, { category, amount: 0, comment: '' }]);
   };
 
   const handleAmountChange = (index: number, amount: number) => {
@@ -49,7 +49,6 @@ const AddTransaction: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    // Add submit logic here
     console.log('Submitted entries:', entries);
     toast.success('登録成功ですわ！', {
       position: 'top-right',
@@ -117,7 +116,6 @@ const AddTransaction: React.FC = () => {
                 <div className={styles.entryIcon}>
                   {IconComponent && <IconComponent />}
                 </div>
-
                 <input
                   type="text"
                   placeholder="タイトル"
@@ -125,9 +123,7 @@ const AddTransaction: React.FC = () => {
                   onChange={(e) => handleCommentChange(index, e.target.value)}
                   className={styles.commentInput}
                 />
-
                 <span>{isIncome ? '+' : '-'}¥</span>
-
                 <input
                   type="number"
                   value={Math.abs(entry.amount)}
@@ -136,7 +132,6 @@ const AddTransaction: React.FC = () => {
                   }
                   className={styles.amountInput}
                 />
-
                 <FaTrash
                   onClick={() => handleDelete(index)}
                   className={styles.deleteIcon}

@@ -27,11 +27,9 @@
 .switchButton {
   flex: 1;
   padding: 8px 16px;
-  border: none;
   background: none;
   font-size: 1.6rem;
   font-weight: bold;
-  cursor: pointer;
 }
 
 .expenditure {
@@ -96,14 +94,12 @@
 .amountInput {
   width: 6rem;
   text-align: right;
-  border: none;
   background: none;
   font-size: 1.8rem;
   min-width: 1.2rem;
 }
 
 .commentInput {
-  border: none;
   background: none;
   font-size: 1.8rem;
   min-width: 1.2rem;
@@ -180,14 +176,13 @@
 .submitButton {
   padding: 8px 16px;
   color: white;
-  border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-right: 16px;
+  transition: 120ms ease-in-out;
 }
 
 .submitButton:hover {
-  background-color: #0056b3;
+  opacity: 0.5;
 }
 
 .incomeButton {

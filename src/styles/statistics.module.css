@@ -27,9 +27,7 @@
 .toggleButtons button {
   padding: 0.5rem 1rem;
   margin-left: 0.5rem;
-  border: none;
   background: #f0f0f0;
-  cursor: pointer;
 }
 
 .toggleButtons .active {
@@ -78,10 +76,8 @@
 }
 
 .arrowButton {
-  border: none;
   background: none;
   font-size: 2rem;
-  cursor: pointer;
 }
 
 .details {
