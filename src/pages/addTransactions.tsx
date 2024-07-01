@@ -117,7 +117,17 @@ const AddTransaction: React.FC = () => {
                 <div className={styles.entryIcon}>
                   {IconComponent && <IconComponent />}
                 </div>
-                <span>{entry.category}</span>
+
+                <input
+                  type="text"
+                  placeholder="タイトル"
+                  value={entry.comment}
+                  onChange={(e) => handleCommentChange(index, e.target.value)}
+                  className={styles.commentInput}
+                />
+
+                <span>{isIncome ? '+' : '-'}</span>
+
                 <input
                   type="number"
                   value={Math.abs(entry.amount)}
@@ -126,14 +136,7 @@ const AddTransaction: React.FC = () => {
                   }
                   className={styles.amountInput}
                 />
-                <span>{isIncome ? '+' : '-'}</span>
-                <input
-                  type="text"
-                  placeholder="コメント"
-                  value={entry.comment}
-                  onChange={(e) => handleCommentChange(index, e.target.value)}
-                  className={styles.commentInput}
-                />
+
                 <FaTrash
                   onClick={() => handleDelete(index)}
                   className={styles.deleteIcon}
@@ -150,7 +153,6 @@ const AddTransaction: React.FC = () => {
               onClick={() => handleCategoryClick(icon.key)}
             >
               <icon.icon />
-              <span>{icon.key}</span>
             </div>
           ))}
         </div>
