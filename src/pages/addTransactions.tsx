@@ -5,6 +5,11 @@ import { FaTrash, FaTimes } from 'react-icons/fa';
 import Navigation from '@/components/navigation';
 import styles from '@/styles/addTransactions.module.css';
 import { iconMappings } from '@/types/icon';
+import Head from 'next/head';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const pageTitle = '入出金';
 
 interface TransactionEntry {
   category: string;
@@ -43,13 +48,41 @@ const AddTransaction: React.FC = () => {
     router.push('/transactions');
   };
 
+  const handleSubmit = () => {
+    // Add submit logic here
+    console.log('Submitted entries:', entries);
+    toast.success('登録成功ですわ！', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    setTimeout(() => {
+      router.push('/transactions');
+    }, 3000);
+  };
+
   const total = entries.reduce(
     (sum, entry) => sum + (isIncome ? entry.amount : -entry.amount),
     0,
   );
 
   return (
-    <Navigation title="Add Transaction">
+    <Navigation title={pageTitle}>
+      <Head>
+        <title>Calendar App</title>
+        <meta
+          name={pageTitle}
+          content="あなたのジョブシフト"
+        />
+        <link
+          rel="icon"
+          href="/favicon.ico"
+        />
+      </Head>
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.switch}>
@@ -93,6 +126,7 @@ const AddTransaction: React.FC = () => {
                   }
                   className={styles.amountInput}
                 />
+                <span>{isIncome ? '+' : '-'}</span>
                 <input
                   type="text"
                   placeholder="コメント"
@@ -100,7 +134,6 @@ const AddTransaction: React.FC = () => {
                   onChange={(e) => handleCommentChange(index, e.target.value)}
                   className={styles.commentInput}
                 />
-                <span>{isIncome ? '+' : '-'}</span>
                 <FaTrash
                   onClick={() => handleDelete(index)}
                   className={styles.deleteIcon}
@@ -121,11 +154,22 @@ const AddTransaction: React.FC = () => {
             </div>
           ))}
         </div>
-        <div className={styles.total}>
-          <span>合計</span>
-          <span>¥{total.toLocaleString()}</span>
+        <div
+          className={`${styles.bottomSection} ${isIncome ? styles.incomeBorder : styles.expenditureBorder}`}
+        >
+          <div className={styles.total}>
+            <span>{isIncome ? '収入' : '支出'} 合計</span>
+            <span> ¥{total.toLocaleString()}</span>
+          </div>
+          <button
+            className={`${styles.submitButton} ${isIncome ? styles.incomeButton : styles.expenditureButton}`}
+            onClick={handleSubmit}
+          >
+            Submit
+          </button>
         </div>
       </div>
+      <ToastContainer />
     </Navigation>
   );
 };
