@@ -76,18 +76,19 @@
 
 .addButton {
   position: fixed;
-  right: 20px;
-  bottom: 80px; /* Adjust this value to place the button above the footer */
-  width: 50px;
-  height: 50px;
+  z-index: 10;
+  bottom: 9rem;
+  right: 2rem;
+  background-color: #007bff;
+  color: #ffffff;
   border: none;
   border-radius: 50%;
-  background-color: #007bff;
-  color: white;
-  font-size: 30px;
-  line-height: 50px;
-  text-align: center;
+  width: 5rem;
+  height: 5rem;
+  font-size: 3.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure the button is above other elements */
+  box-shadow: 2px 4px 4px rgba(79, 79, 79, 0.1);
 }
