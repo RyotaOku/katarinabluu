@@ -1,3 +1,4 @@
+// types/icon.ts
 import { IconType } from 'react-icons';
 import {
   FaWallet,
@@ -24,7 +25,7 @@ interface IconMapping {
   icon: IconType;
 }
 
-const iconMappings: IconMapping[] = [
+export const iconMappings: IconMapping[] = [
   { key: '一般財務', icon: FaWallet }, // General Finance
   { key: '財布', icon: FaWallet }, // Wallet
   { key: '豚の貯金箱', icon: FaPiggyBank }, // Piggy Bank
@@ -40,7 +41,7 @@ const iconMappings: IconMapping[] = [
   { key: '衛生用品費', icon: FaMugHot }, // Personal Care
   { key: '医療費', icon: FaBriefcaseMedical }, // Healthcare
   { key: '税金', icon: FaCalculator }, // Taxes
-  { key: 'フィットネス・レクリエーション費', icon: FaDumbbell }, // Fitness & Recreation
+  { key: '運動費', icon: FaDumbbell }, // Fitness & Recreation
   { key: '旅行費', icon: FaSuitcase }, // Travel
   { key: '教育費', icon: FaGraduationCap }, // Education
 ];

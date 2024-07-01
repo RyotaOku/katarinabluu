@@ -1,0 +1,136 @@
+
+/* styles/addTransactions.module.css */
+.container {
+    padding: 16px;
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .switch {
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .switchButton {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    background: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .expenditure {
+    background-color: red;
+    color: white;
+  }
+  
+  .income {
+    background-color: blue;
+    color: white;
+  }
+  
+  .switchButton.active {
+    opacity: 1;
+  }
+  
+  .switchButton:not(.active) {
+    background-color: white;
+    color: black;
+    opacity: 1;
+  }
+  
+  .closeIcon {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .entries {
+    flex: 1;
+    margin-top: 16px;
+    overflow-y: auto;
+  }
+  
+  .entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .entryIcon {
+    margin-right: 8px;
+  }
+  
+  .entry span {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .amountInput {
+    width: 60px;
+    text-align: center;
+    border: none;
+    background: none;
+    font-size: 16px;
+  }
+  
+  .commentInput {
+    flex: 1;
+    margin-left: 8px;
+    margin-right: 16px;
+    border: none;
+    background: none;
+    font-size: 16px;
+  }
+  
+  .entry input:focus {
+    outline: none;
+  }
+  
+  .deleteIcon {
+    cursor: pointer;
+    color: #888;
+  }
+  
+  .iconGrid {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  
+  .icon {
+    width: 20%;
+    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .icon:hover {
+    background: #f0f0f0;
+  }
+  
+  .total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 16px;
+    position: fixed;
+    bottom: 60px; /* Adjust according to the height of the navigation bar */
+    left: 0;
+    right: 0;
+    background-color: white;
+    border-top: 1px solid #eee;
+  }
+  

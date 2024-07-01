@@ -7,6 +7,10 @@ import router from 'next/router';
 
 const pageTitle = '入出金';
 
+const handleAddButton = () => {
+  router.push('/addTransactions');
+};
+
 const transactions = [
   {
     date: '05/26 (木)',
@@ -98,7 +102,12 @@ const Transactions: React.FC = () => {
             ))}
           </div>
           <div className={styles.footer}>
-            <button className={styles.addButton}>+</button>
+            <button
+              className={styles.addButton}
+              onClick={handleAddButton}
+            >
+              +
+            </button>
           </div>
         </main>
       </Navigation>
