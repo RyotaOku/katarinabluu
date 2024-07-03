@@ -17,9 +17,9 @@ const transactions = [
     incomeTotal: '¥1,300',
     expenseTotal: '¥36,750',
     entries: [
-      { label: 'ファミリーマート', amount: '-¥1,300', color: 'yellow' },
-      { label: '定期代', amount: '-¥24,230', color: 'red' },
-      { label: 'スーパー', amount: '-¥12,520', color: 'yellow' },
+      { label: 'ファミリーマート', amount: '-¥1,300', color: 'var(--yellow)' },
+      { label: '定期代', amount: '-¥24,230', color: 'var(--red)' },
+      { label: 'スーパー', amount: '-¥12,520', color: 'var(--yellow)' },
     ],
   },
   {
@@ -27,9 +27,9 @@ const transactions = [
     incomeTotal: '¥75,200',
     expenseTotal: '¥6,900',
     entries: [
-      { label: '化粧品', amount: '-¥2,400', color: 'blue' },
-      { label: 'バイト', amount: '+¥75,200', color: 'green' },
-      { label: '焼肉', amount: '-¥4,500', color: 'red' },
+      { label: '化粧品', amount: '-¥2,400', color: 'var(--blue)' },
+      { label: 'バイト', amount: '+¥75,200', color: 'var(--green)' },
+      { label: '焼肉', amount: '-¥4,500', color: 'var(--red)' },
     ],
   },
   {
@@ -37,8 +37,8 @@ const transactions = [
     incomeTotal: '¥3,200',
     expenseTotal: '¥2,000',
     entries: [
-      { label: '外食', amount: '-¥2,000', color: 'orange' },
-      { label: '親からお金', amount: '+¥3,200', color: 'pink' },
+      { label: '外食', amount: '-¥2,000', color: 'var(--orange)' },
+      { label: '親からお金', amount: '+¥3,200', color: 'var(--pink)' },
     ],
   },
 ];

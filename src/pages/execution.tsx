@@ -31,29 +31,33 @@ const transactions = [
     total: 38050,
     items: [
       {
-        categoryColor: '#FF6384',
+        categoryColor: 'var(--red)',
         description: 'ファミリーマート',
         amount: -1300,
       },
-      { categoryColor: '#36A2EB', description: '定期代', amount: -24230 },
-      { categoryColor: '#FFCE56', description: 'スーパー', amount: -12520 },
+      { categoryColor: 'var(--blue)', description: '定期代', amount: -24230 },
+      {
+        categoryColor: 'var(--yellow)',
+        description: 'スーパー',
+        amount: -12520,
+      },
     ],
   },
   {
     date: '05/25 (水)',
     total: 75200,
     items: [
-      { categoryColor: '#4BC0C0', description: '化粧水', amount: -2400 },
-      { categoryColor: '#FF6384', description: 'バイト', amount: 75200 },
-      { categoryColor: '#FFCE56', description: '焼肉', amount: -9900 },
+      { categoryColor: 'var(--cyan)', description: '化粧水', amount: -2400 },
+      { categoryColor: 'var(--red)', description: 'バイト', amount: 75200 },
+      { categoryColor: 'var(--yellow)', description: '焼肉', amount: -9900 },
     ],
   },
   {
     date: '05/24 (火)',
     total: 3200,
     items: [
-      { categoryColor: '#FF6384', description: 'バイト', amount: 3200 },
-      { categoryColor: '#FFCE56', description: '焼肉', amount: -3200 },
+      { categoryColor: 'var(--red)', description: 'バイト', amount: 3200 },
+      { categoryColor: 'var(--yellow)', description: '焼肉', amount: -3200 },
     ],
   },
 ];

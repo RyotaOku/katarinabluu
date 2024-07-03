@@ -15,6 +15,7 @@ interface TransactionEntry {
   category: string;
   amount: number;
   comment: string;
+  bgColor: string; // Added background color property
 }
 
 const AddTransaction: React.FC = () => {
@@ -23,7 +24,14 @@ const AddTransaction: React.FC = () => {
   const [isIncome, setIsIncome] = useState<boolean>(false);
 
   const handleCategoryClick = (category: string) => {
-    setEntries([...entries, { category, amount: 0, comment: '' }]);
+    const iconMapping = iconMappings.find((icon) => icon.key === category);
+    if (iconMapping) {
+      const { color } = iconMapping;
+      setEntries([
+        ...entries,
+        { category, amount: 0, comment: '', bgColor: color },
+      ]);
+    }
   };
 
   const handleAmountChange = (index: number, amount: number) => {
@@ -113,7 +121,10 @@ const AddTransaction: React.FC = () => {
                 key={index}
                 className={styles.entry}
               >
-                <div className={styles.entryIcon}>
+                <div
+                  className={styles.entryIcon}
+                  style={{ backgroundColor: entry.bgColor }}
+                >
                   {IconComponent && <IconComponent />}
                 </div>
                 <input
