@@ -10,7 +10,7 @@ import {
 export const footerArray = [
   { path: '/home', label: 'シフト', icon: FaCalendarAlt },
   { path: '/statistics', label: '給料計算', icon: FaCalculator },
-  { path: '/execution', label: '家計簿', icon: FaRunning },
+  { path: '/execution', label: '強AI', icon: FaRunning },
   { path: '/transactions', label: '入出金', icon: FaMoneyBillAlt },
   { path: '/others', label: 'その他', icon: FaEllipsisH },
 ];

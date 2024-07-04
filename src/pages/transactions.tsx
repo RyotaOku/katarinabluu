@@ -8,6 +8,10 @@ import { getFirestore, collection, getDocs, doc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getUserSession } from '@/lib/session';
 import { getDocument } from '@/lib/getData';
+import { Pie } from 'react-chartjs-2';
+import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
+
+Chart.register(ArcElement, Tooltip, Legend);
 
 const pageTitle = '入出金';
 
@@ -120,6 +124,29 @@ const Transactions: React.FC = () => {
     );
   });
 
+  const data = {
+    labels: ['収入', '支出'],
+    datasets: [
+      {
+        label: '円',
+        data: transactions.reduce(
+          (acc, transaction) => {
+            if (transaction.isIncome) {
+              acc[0] += transaction.amount;
+            } else {
+              acc[1] += transaction.amount;
+            }
+            return acc;
+          },
+          [0, 0],
+        ),
+        backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+        borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+        borderWidth: 1,
+      },
+    ],
+  };
+
   return (
     <div className={styles.container}>
       <Navigation title={pageTitle}>
@@ -135,6 +162,33 @@ const Transactions: React.FC = () => {
           />
         </Head>
         <main>
+          <div className={styles.chartSection}>
+            <Pie data={data} />
+            <div className={styles.chartDetails}>
+              <p>
+                収入{' '}
+                <span className={styles.income}>
+                  ¥{data.datasets[0].data[0].toLocaleString()}
+                </span>
+              </p>
+              <p>
+                支出{' '}
+                <span className={styles.expense}>
+                  ¥{data.datasets[0].data[1].toLocaleString()}
+                </span>
+              </p>
+              <p>
+                収支{' '}
+                <span className={styles.balance}>
+                  ¥
+                  {(
+                    data.datasets[0].data[0] - data.datasets[0].data[1]
+                  ).toLocaleString()}
+                </span>
+              </p>
+            </div>
+          </div>
+
           <div className={styles.searchBar}>
             <input
               type="text"
@@ -173,7 +227,6 @@ const Transactions: React.FC = () => {
                       {transaction.isIncome ? '+' : '-'}¥
                       {Math.abs(transaction.amount).toLocaleString()}
                     </span>
-                    z
                   </div>
                 </div>
                 <div className={styles.entries}>
