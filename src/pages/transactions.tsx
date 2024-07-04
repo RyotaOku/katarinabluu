@@ -1,9 +1,9 @@
-// pages/transactions.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 import styles from '@/styles/transactions.module.css';
 import router from 'next/router';
+import getDocuments from '@/lib/getData';
 
 const pageTitle = '入出金';
 
@@ -11,43 +11,35 @@ const handleAddButton = () => {
   router.push('/addTransactions');
 };
 
-const transactions = [
-  {
-    date: '05/26 (木)',
-    incomeTotal: '¥1,300',
-    expenseTotal: '¥36,750',
-    entries: [
-      { label: 'ファミリーマート', amount: '-¥1,300', color: 'var(--yellow)' },
-      { label: '定期代', amount: '-¥24,230', color: 'var(--red)' },
-      { label: 'スーパー', amount: '-¥12,520', color: 'var(--yellow)' },
-    ],
-  },
-  {
-    date: '05/25 (水)',
-    incomeTotal: '¥75,200',
-    expenseTotal: '¥6,900',
-    entries: [
-      { label: '化粧品', amount: '-¥2,400', color: 'var(--blue)' },
-      { label: 'バイト', amount: '+¥75,200', color: 'var(--green)' },
-      { label: '焼肉', amount: '-¥4,500', color: 'var(--red)' },
-    ],
-  },
-  {
-    date: '05/24 (火)',
-    incomeTotal: '¥3,200',
-    expenseTotal: '¥2,000',
-    entries: [
-      { label: '外食', amount: '-¥2,000', color: 'var(--orange)' },
-      { label: '親からお金', amount: '+¥3,200', color: 'var(--pink)' },
-    ],
-  },
-];
+interface Transaction {
+  amount: number;
+  bgColor: string;
+  category: string;
+  comment: string;
+  date: string;
+}
 
 const Transactions: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  const filteredTransactions = transactions.filter((transaction) =>
-    transaction.entries.some((entry) => entry.label.includes(searchTerm)),
+  useEffect(() => {
+    async function fetchData() {
+      const { result, error } = await getDocuments('transactions');
+      if (error) {
+        console.error(error);
+      } else {
+        setTransactions(result as Transaction[]);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const filteredTransactions = transactions.filter(
+    (transaction) =>
+      transaction.category.includes(searchTerm) ||
+      transaction.comment.includes(searchTerm),
   );
 
   return (
@@ -87,31 +79,28 @@ const Transactions: React.FC = () => {
                 className={styles.transaction}
               >
                 <div className={styles.header}>
-                  <div className={styles.date}>{transaction.date}</div>
+                  <div className={styles.date}>
+                    {new Date(transaction.date).toLocaleDateString()}
+                  </div>
                   <div className={styles.total}>
                     <span className={styles.income}>
-                      + {transaction.incomeTotal}
-                    </span>
-                    {' / '}
-                    <span className={styles.expense}>
-                      - {transaction.expenseTotal}
+                      Amount: {transaction.amount}
                     </span>
                   </div>
                 </div>
                 <div className={styles.entries}>
-                  {transaction.entries.map((entry, entryIndex) => (
-                    <div
-                      key={entryIndex}
-                      className={styles.entry}
-                    >
-                      <span
-                        className={styles.entryDot}
-                        style={{ backgroundColor: entry.color }}
-                      />
-                      <span className={styles.entryLabel}>{entry.label}</span>
-                      <span className={styles.entryAmount}>{entry.amount}</span>
-                    </div>
-                  ))}
+                  <div className={styles.entry}>
+                    <span
+                      className={styles.entryDot}
+                      style={{ backgroundColor: transaction.bgColor }}
+                    />
+                    <span className={styles.entryLabel}>
+                      {transaction.category}
+                    </span>
+                    <span className={styles.entryAmount}>
+                      {transaction.comment}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}

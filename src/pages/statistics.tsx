@@ -14,13 +14,19 @@ const pageTitle = '給料計算';
 
 Chart.register(ArcElement, Tooltip, Legend);
 
+interface Transaction {
+  name: string;
+  amount: number;
+  color: string;
+}
+
 interface UserData {
   userName: string;
   salary: number;
   total: number;
   workHours: string;
-  transactions: { name: string; amount: number; color: string }[];
-  fixedTransactions: { name: string; amount: number; color: string }[];
+  transactions: Transaction[];
+  fixedTransactions: Transaction[];
   income: number;
   fixedExpenses: number;
 }
@@ -50,8 +56,8 @@ const Statistics: React.FC = () => {
     const { result, error } = await getDocument('users', userId);
     if (error) {
       console.error('Error fetching data:', error);
-    } else if (result && result.exists()) {
-      const userData = result.data() as UserData;
+    } else if (result) {
+      const userData = result as UserData;
       console.log('Fetched user data:', userData); // Debugging: print fetched data
       setData(userData);
       setUserName(userData.userName);
