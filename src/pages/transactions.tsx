@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Navigation from '@/components/navigation';
 import styles from '@/styles/transactions.module.css';
 import router from 'next/router';
-import getDocuments from '@/lib/getData';
+import getDocument from '@/lib/getData'; // Import the getDocument function
 
 const pageTitle = '入出金';
 
@@ -20,27 +20,40 @@ interface Transaction {
 }
 
 const Transactions: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const { result, error } = await getDocuments('transactions');
-      if (error) {
-        console.error(error);
-      } else {
-        setTransactions(result as Transaction[]);
+      try {
+        const { result, error } = await getDocument('transactions');
+        if (error) {
+          console.error('Error fetching transactions:', error);
+        } else {
+          console.log('Fetched transactions:', result);
+          setTransactions(result as Transaction[]);
+        }
+      } catch (error) {
+        console.error('Error in fetchData:', error);
       }
     }
 
     fetchData();
   }, []);
 
-  const filteredTransactions = transactions.filter(
-    (transaction) =>
-      transaction.category.includes(searchTerm) ||
-      transaction.comment.includes(searchTerm),
-  );
+  const filteredTransactions = transactions.filter((transaction) => {
+    const hasCategory = transaction.category !== undefined;
+    const hasComment = transaction.comment !== undefined;
+
+    if (!hasCategory || !hasComment) {
+      console.log('Transaction missing category or comment:', transaction);
+    }
+
+    return (
+      (hasCategory && transaction.category.includes(searchTerm)) ||
+      (hasComment && transaction.comment.includes(searchTerm))
+    );
+  });
 
   return (
     <div className={styles.container}>
