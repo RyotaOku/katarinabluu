@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Icon } from '@chakra-ui/react';
 import { motion, cubicBezier } from 'framer-motion';
 import styles from '@/styles/navigation.module.css';
+import { FaBars } from 'react-icons/fa';
 import { footerArray } from '@/types/footerTypes'; // Ensure this is correctly defined and imported
 
 interface FooterProps {
@@ -51,15 +52,17 @@ const Navigation = ({ children, title }: FooterProps) => {
       <header className={styles.header}>
         <div className={styles.profile}>
           <Image
-            src="/profile.jpg" // Ensure you have this image or replace it with a correct path
+            src="/user.svg" // Ensure you have this image or replace it with a correct path
             alt="Profile"
             width={40}
             height={40}
             className={styles.profileImage}
           />
         </div>
-        <div className={styles.date}>{title}</div>
-        <div className={styles.dropdown}>▼</div>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.dropdown}>
+          <Icon as={FaBars} />
+        </div>
       </header>
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
