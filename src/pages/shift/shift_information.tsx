@@ -1,10 +1,10 @@
-// pages/information.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import styles from '@/styles/shift_information.module.css';
 import Navigation from '@/components/navigation';
-import UserHome from '@/components/appHome';
+import { getUserSession } from '@/lib/session';
+import addData from '@/lib/addData';
 
 const Information: React.FC = () => {
   const router = useRouter();
@@ -18,6 +18,56 @@ const Information: React.FC = () => {
   const add_part_time = () => {
     router.push('/shift/add_parttime');
   };
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // User verification
+    const userId = getUserSession();
+    if (userId) {
+      setUserId(userId);
+    } else {
+      // Handle case where user is not logged in, e.g., redirect to login
+      router.push('/');
+    }
+  }, []);
+  // State variables for form data
+  const [formData, setFormData] = useState({
+    part_time: part_time[2],
+    start: date ? `${date}T09:00` : '',
+    end: date ? `${date}T09:00` : '',
+    break_time: '00:30',
+    salary: '',
+    memo: '',
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const { result, error } = await addData('users', userId, formData);
+
+    if (error) {
+      console.log('error  ');
+      // setError(error.message);
+    } else {
+      console.log('Document successfully written!', result);
+    }
+
+    setLoading(false);
+  };
+
   return (
     <Navigation title={''}>
       <div className={styles.container}>
@@ -33,64 +83,84 @@ const Information: React.FC = () => {
           />
         </Head>
         <main className={styles.main}>
-          {date ?
-            <p>今日は: {date}</p>
-          : <p>No date selected</p>}
-          <h1>Shift を追加</h1>
+          <p>Hello, User ID: {userId}</p>
+          <h1
+            onClick={() => router.back()}
+            style={{ cursor: 'pointer' }}
+          >
+            ＜
+          </h1>
+
           <p className={styles.sectionTitle}>基本情報</p>
-          <p>バイト先 : {part_time[1]}</p>
+          <p>バイト先 : {formData.part_time}</p>
           <button
             className={styles.partTimeButton}
             onClick={add_part_time}
           >
             +バイト先を追加
           </button>
-          <div className={styles.formGroup}>
-            <label htmlFor="start">勤務時間</label>
-            <input
-              type="datetime-local"
-              id="start"
-              name="start"
-              defaultValue={date ? `${date}T09:00` : ''}
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="end">終了時間</label>
-            <input
-              type="datetime-local"
-              id="end"
-              name="end"
-              defaultValue={date ? `${date}T09:00` : ''}
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="break_time">休憩時間</label>
-            <input
-              type="time"
-              id="break_time"
-              defaultValue="00:30"
-            />
-          </div>
-          <div className={styles.formGroup}>
-            <label htmlFor="salary">給料：10000円</label>
-            <label htmlFor="salary">給料の個別設定：</label>
-            <input
-              type="text"
-              id="salary"
-              pattern="[0-9]*" //数字だけ入力するように
-              title="数字を入力してください"
-            />
-          </div>
-          <p className={styles.sectionTitle}>その他</p>
-          <div className={styles.formGroup}>
-            <label htmlFor="memo">メモ</label>
-            <input
-              type="text"
-              id="memo"
-              placeholder="メモを入力"
-            />
-          </div>
-          <button className={styles.btn}>完了する</button>
+          <form onSubmit={handleSubmit}>
+            <div className={styles.formGroup}>
+              <label htmlFor="start">勤務時間</label>
+              <input
+                type="datetime-local"
+                id="start"
+                name="start"
+                value={formData.start}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="end">終了時間</label>
+              <input
+                type="datetime-local"
+                id="end"
+                name="end"
+                value={formData.end}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="break_time">休憩時間</label>
+              <input
+                type="time"
+                id="break_time"
+                value={formData.break_time}
+                onChange={handleChange}
+              />
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="salary">給料：10000円</label>
+              <label htmlFor="salary">給料の個別設定：</label>
+              <input
+                type="text"
+                id="salary"
+                pattern="[0-9]*" //数字だけ入力するように
+                title="数字を入力してください"
+                value={formData.salary}
+                onChange={handleChange}
+              />
+            </div>
+            <p className={styles.sectionTitle}>その他</p>
+            <div className={styles.formGroup}>
+              <label htmlFor="memo">メモ</label>
+              <input
+                type="text"
+                id="memo"
+                placeholder="メモを入力"
+                value={formData.memo}
+                onChange={handleChange}
+              />
+            </div>
+            <button
+              type="submit"
+              className={styles.btn}
+              disabled={loading}
+            >
+              {loading ? 'Loading...' : '完了する'}
+            </button>
+          </form>
+          {error && <p>Error: {error}</p>}
         </main>
       </div>
     </Navigation>

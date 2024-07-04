@@ -8,6 +8,8 @@ import { iconMappings } from '@/types/icon';
 import Head from 'next/head';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import addData from '@/lib/addData'; // Import the addData function
+import { getUserSession } from '@/lib/session';
 
 const pageTitle = '入出金';
 
@@ -15,6 +17,8 @@ interface TransactionEntry {
   category: string;
   amount: number;
   comment: string;
+  bgColor: string;
+  date: string; // Added date property
 }
 
 const AddTransaction: React.FC = () => {
@@ -23,7 +27,15 @@ const AddTransaction: React.FC = () => {
   const [isIncome, setIsIncome] = useState<boolean>(false);
 
   const handleCategoryClick = (category: string) => {
-    setEntries([...entries, { category, amount: 0, comment: '' }]); // Adds a placeholder entry
+    const iconMapping = iconMappings.find((icon) => icon.key === category);
+    if (iconMapping) {
+      const { color } = iconMapping;
+      const currentDate = new Date().toISOString();
+      setEntries([
+        ...entries,
+        { category, amount: 0, comment: '', bgColor: color, date: currentDate },
+      ]);
+    }
   };
 
   const handleAmountChange = (index: number, amount: number) => {
@@ -48,21 +60,46 @@ const AddTransaction: React.FC = () => {
     router.push('/transactions');
   };
 
-  const handleSubmit = () => {
-    // Add submit logic here
+  const handleSubmit = async () => {
     console.log('Submitted entries:', entries);
-    toast.success('登録成功ですわ！', {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    setTimeout(() => {
-      router.push('/transactions');
-    }, 3000);
+    try {
+      // Store each entry in Firestore
+      const userId = getUserSession(); // Replace with your method to get user ID
+      if (!userId) {
+        console.error('No user is signed in');
+        return;
+      }
+
+      for (const entry of entries) {
+        const entryId = `${entry.category}-${new Date().toISOString()}`; // Create a unique ID for each entry
+        const { result, error } = await addData(
+          `users/${userId}/transactions`,
+          entryId,
+          entry,
+        );
+        if (error) {
+          console.error('Error adding transaction data:', error);
+        } else {
+          console.log('Transaction data added:', result);
+        }
+      }
+
+      toast.success('登録成功ですわ！', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      setTimeout(() => {
+        router.push('/transactions');
+      }, 3000);
+    } catch (error) {
+      console.error('Error saving transaction data:', error);
+    }
   };
 
   const total = entries.reduce(
@@ -114,10 +151,20 @@ const AddTransaction: React.FC = () => {
                 key={index}
                 className={styles.entry}
               >
-                <div className={styles.entryIcon}>
+                <div
+                  className={styles.entryIcon}
+                  style={{ backgroundColor: entry.bgColor }}
+                >
                   {IconComponent && <IconComponent />}
                 </div>
-                <span>{entry.category}</span>
+                <input
+                  type="text"
+                  placeholder="タイトル"
+                  value={entry.comment}
+                  onChange={(e) => handleCommentChange(index, e.target.value)}
+                  className={styles.commentInput}
+                />
+                <span>{isIncome ? '+' : '-'}¥</span>
                 <input
                   type="number"
                   value={Math.abs(entry.amount)}
@@ -125,14 +172,6 @@ const AddTransaction: React.FC = () => {
                     handleAmountChange(index, parseFloat(e.target.value))
                   }
                   className={styles.amountInput}
-                />
-                <span>{isIncome ? '+' : '-'}</span>
-                <input
-                  type="text"
-                  placeholder="コメント"
-                  value={entry.comment}
-                  onChange={(e) => handleCommentChange(index, e.target.value)}
-                  className={styles.commentInput}
                 />
                 <FaTrash
                   onClick={() => handleDelete(index)}
@@ -150,7 +189,6 @@ const AddTransaction: React.FC = () => {
               onClick={() => handleCategoryClick(icon.key)}
             >
               <icon.icon />
-              <span>{icon.key}</span>
             </div>
           ))}
         </div>

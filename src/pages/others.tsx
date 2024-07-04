@@ -48,6 +48,7 @@ const Others: React.FC = () => {
             <div className={styles.profileSection}>
               <Image
                 src="/images/profile.jpg" // Ensure you have this image or replace it with a correct path
+                //src="/user.svg" // Ensure you have this image or replace it with a correct path
                 alt="Profile"
                 width={80}
                 height={80}

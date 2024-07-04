@@ -27,13 +27,11 @@
 .toggleButtons button {
   padding: 0.5rem 1rem;
   margin-left: 0.5rem;
-  border: none;
   background: #f0f0f0;
-  cursor: pointer;
 }
 
 .toggleButtons .active {
-  background: #3498db;
+  background: var(--primary);
   color: white;
 }
 
@@ -65,7 +63,7 @@
 
 .balance {
   font-size: 2rem;
-  color: #3498db;
+  color: var(--primary);
   margin: 1rem 0;
 }
 
@@ -78,10 +76,8 @@
 }
 
 .arrowButton {
-  border: none;
   background: none;
   font-size: 2rem;
-  cursor: pointer;
 }
 
 .details {
@@ -93,7 +89,7 @@
 
 .detailValue {
   font-weight: bold;
-  color: #3498db;
+  color: var(--primary);
 }
 
 .transactions {
@@ -141,9 +137,9 @@
 }
 
 .income {
-  color: #3498db;
+  color: var(--blue);
 }
 
 .expense {
-  color: #f44336;
+  color: var(--red);
 }

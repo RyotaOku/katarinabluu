@@ -1,9 +1,9 @@
-// pages/transactions.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 import styles from '@/styles/transactions.module.css';
 import router from 'next/router';
+import getDocument from '@/lib/getData'; // Import the getDocument function
 
 const pageTitle = '入出金';
 
@@ -11,41 +11,49 @@ const handleAddButton = () => {
   router.push('/addTransactions');
 };
 
-const transactions = [
-  {
-    date: '05/26 (木)',
-    total: '¥38,050',
-    entries: [
-      { label: 'ファミリーマート', amount: '+¥1,300', color: 'yellow' },
-      { label: '定期代', amount: '-¥24,230', color: 'red' },
-      { label: 'スーパー', amount: '-¥12,520', color: 'yellow' },
-    ],
-  },
-  {
-    date: '05/25 (水)',
-    total: '¥75,200 / ¥6,900',
-    entries: [
-      { label: '化粧品', amount: '-¥2,400', color: 'blue' },
-      { label: 'バイト', amount: '+¥75,200', color: 'green' },
-      { label: '焼肉', amount: '-¥4,500', color: 'red' },
-    ],
-  },
-  {
-    date: '05/24 (火)',
-    total: '¥3,200 / ¥2,000',
-    entries: [
-      { label: '外食', amount: '-¥2,000', color: 'orange' },
-      { label: '親からお金', amount: '+¥3,200', color: 'pink' },
-    ],
-  },
-];
+interface Transaction {
+  amount: number;
+  bgColor: string;
+  category: string;
+  comment: string;
+  date: string;
+}
 
 const Transactions: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
-  const filteredTransactions = transactions.filter((transaction) =>
-    transaction.entries.some((entry) => entry.label.includes(searchTerm)),
-  );
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { result, error } = await getDocument('transactions');
+        if (error) {
+          console.error('Error fetching transactions:', error);
+        } else {
+          console.log('Fetched transactions:', result);
+          setTransactions(result as Transaction[]);
+        }
+      } catch (error) {
+        console.error('Error in fetchData:', error);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const filteredTransactions = transactions.filter((transaction) => {
+    const hasCategory = transaction.category !== undefined;
+    const hasComment = transaction.comment !== undefined;
+
+    if (!hasCategory || !hasComment) {
+      console.log('Transaction missing category or comment:', transaction);
+    }
+
+    return (
+      (hasCategory && transaction.category.includes(searchTerm)) ||
+      (hasComment && transaction.comment.includes(searchTerm))
+    );
+  });
 
   return (
     <div className={styles.container}>
@@ -74,7 +82,7 @@ const Transactions: React.FC = () => {
               className={styles.cancelButton}
               onClick={() => setSearchTerm('')}
             >
-              キャンセル
+              クリア
             </button>
           </div>
           <div className={styles.transactionsList}>
@@ -83,32 +91,39 @@ const Transactions: React.FC = () => {
                 key={index}
                 className={styles.transaction}
               >
-                <div className={styles.date}>{transaction.date}</div>
-                <div className={styles.total}>{transaction.total}</div>
-                {transaction.entries.map((entry, entryIndex) => (
-                  <div
-                    key={entryIndex}
-                    className={styles.entry}
-                  >
+                <div className={styles.header}>
+                  <div className={styles.date}>
+                    {new Date(transaction.date).toLocaleDateString()}
+                  </div>
+                  <div className={styles.total}>
+                    <span className={styles.income}>
+                      Amount: {transaction.amount}
+                    </span>
+                  </div>
+                </div>
+                <div className={styles.entries}>
+                  <div className={styles.entry}>
                     <span
                       className={styles.entryDot}
-                      style={{ backgroundColor: entry.color }}
+                      style={{ backgroundColor: transaction.bgColor }}
                     />
-                    <span className={styles.entryLabel}>{entry.label}</span>
-                    <span className={styles.entryAmount}>{entry.amount}</span>
+                    <span className={styles.entryLabel}>
+                      {transaction.category}
+                    </span>
+                    <span className={styles.entryAmount}>
+                      {transaction.comment}
+                    </span>
                   </div>
-                ))}
+                </div>
               </div>
             ))}
           </div>
-          <div className={styles.footer}>
-            <button
-              className={styles.addButton}
-              onClick={handleAddButton}
-            >
-              +
-            </button>
-          </div>
+          <button
+            className={styles.addButton}
+            onClick={handleAddButton}
+          >
+            +
+          </button>
         </main>
       </Navigation>
     </div>

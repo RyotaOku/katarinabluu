@@ -29,15 +29,15 @@
 }
 
 .income {
-  color: #3498db;
+  color: var(--blue);
 }
 
 .expense {
-  color: #e74c3c;
+  color: var(--red);
 }
 
 .balance {
-  color: #2ecc71;
+  color: var(--green);
 }
 
 .transactionSection {
@@ -45,14 +45,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-left: 1px solid #f0f0f0;
-  border-right: 1px solid #f0f0f0;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
 }
 
 .transactionHeader {
   display: flex;
   justify-content: space-between;
-  background: #f0f0f0;
+  background: #e4e4e4;
   width: 100%;
   padding: 0.8rem 1rem;
   align-items: center;
@@ -101,7 +101,6 @@
   right: 2rem;
   background-color: #007bff;
   color: #ffffff;
-  border: none;
   border-radius: 50%;
   width: 5rem;
   height: 5rem;
@@ -109,6 +108,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
   box-shadow: 2px 4px 4px rgba(79, 79, 79, 0.1);
 }

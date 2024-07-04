@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   padding: 16px;
-  background-color: #00bcd4;
+  background-color: var(--primary);
   border-radius: 8px;
   margin-bottom: 16px;
   color: #fff;
@@ -33,7 +33,7 @@
 }
 
 .name {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   margin: 0;
 }
 
@@ -47,10 +47,8 @@
   margin-top: 8px;
   padding: 8px 16px;
   background-color: #fff;
-  color: #00bcd4;
-  border: none;
+  color: var(--primary);
   border-radius: 4px;
-  cursor: pointer;
 }
 
 .sections {
@@ -75,7 +73,6 @@
   background-color: #f5f5f5;
   border-radius: 4px;
   margin-bottom: 8px;
-  cursor: pointer;
 }
 
 .sectionIcon {
