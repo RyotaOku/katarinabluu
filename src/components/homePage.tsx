@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
-        <h1>ShiftSynk: Hyper Line in wallet</h1>
+        <h1 className={styles.titleText}>ShiftSynk: Hyper Line in wallet</h1>
       </div>
       <div className={styles.phoneMockup}>
         <Image

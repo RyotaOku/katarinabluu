@@ -1,54 +1,151 @@
-// pages/transactions.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 import styles from '@/styles/transactions.module.css';
 import router from 'next/router';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, doc } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getUserSession } from '@/lib/session';
+import { getDocument } from '@/lib/getData';
+import { Pie } from 'react-chartjs-2';
+import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
+
+Chart.register(ArcElement, Tooltip, Legend);
 
 const pageTitle = '入出金';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyC17gWndexNK6-oqEC_yAwmjDmpx-f5Tl0',
+  authDomain: 'katarinabluu.firebaseapp.com',
+  projectId: 'katarinabluu',
+  storageBucket: 'katarinabluu.appspot.com',
+  messagingSenderId: '626019077247',
+  appId: '1:626019077247:web:0b27fabf8e56267456834a',
+  measurementId: 'G-DM4PBSEKZJ',
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
 const handleAddButton = () => {
   router.push('/addTransactions');
 };
 
-const transactions = [
-  {
-    date: '05/26 (木)',
-    incomeTotal: '¥1,300',
-    expenseTotal: '¥36,750',
-    entries: [
-      { label: 'ファミリーマート', amount: '-¥1,300', color: 'var(--yellow)' },
-      { label: '定期代', amount: '-¥24,230', color: 'var(--red)' },
-      { label: 'スーパー', amount: '-¥12,520', color: 'var(--yellow)' },
-    ],
-  },
-  {
-    date: '05/25 (水)',
-    incomeTotal: '¥75,200',
-    expenseTotal: '¥6,900',
-    entries: [
-      { label: '化粧品', amount: '-¥2,400', color: 'var(--blue)' },
-      { label: 'バイト', amount: '+¥75,200', color: 'var(--green)' },
-      { label: '焼肉', amount: '-¥4,500', color: 'var(--red)' },
-    ],
-  },
-  {
-    date: '05/24 (火)',
-    incomeTotal: '¥3,200',
-    expenseTotal: '¥2,000',
-    entries: [
-      { label: '外食', amount: '-¥2,000', color: 'var(--orange)' },
-      { label: '親からお金', amount: '+¥3,200', color: 'var(--pink)' },
-    ],
-  },
-];
+interface Transaction {
+  amount: number;
+  bgColor: string;
+  category: string;
+  comment: string;
+  date: string;
+  isIncome: boolean; // Added isIncome property
+}
+
+interface UserData {
+  userName: string;
+  transactions?: Transaction[];
+}
 
 const Transactions: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string>('Unknown User');
 
-  const filteredTransactions = transactions.filter((transaction) =>
-    transaction.entries.some((entry) => entry.label.includes(searchTerm)),
-  );
+  useEffect(() => {
+    const fetchUserSession = async () => {
+      const userId = await getUserSession();
+      if (userId) {
+        setUserId(userId);
+        fetchUserData(userId);
+      } else {
+        router.push('/login'); // Redirect to login if not authenticated
+      }
+    };
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchUserSession();
+      } else {
+        router.push('/login'); // Redirect to login if not authenticated
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
+  const fetchUserData = async (userId: string) => {
+    const { result, error } = await getDocument('users', userId);
+    if (error) {
+      console.error('Error fetching user data:', error);
+    } else if (result) {
+      const userData = result as UserData;
+      console.log('Fetched user data:', userData); // Debugging: print fetched data
+      setUserName(userData.userName);
+      if (userData.transactions) {
+        setTransactions(userData.transactions);
+      } else {
+        fetchTransactions(userId);
+      }
+    } else {
+      console.error('No such document!');
+    }
+  };
+
+  const fetchTransactions = async (uid: string) => {
+    try {
+      // Fetch transactions from a sub-collection within the user document
+      const userDocRef = doc(db, 'users', uid);
+      const transactionsColRef = collection(userDocRef, 'transactions');
+      const querySnapshot = await getDocs(transactionsColRef);
+      const documents = querySnapshot.docs.map(
+        (doc) => doc.data() as Transaction,
+      );
+      console.log('Fetched transactions:', documents);
+      setTransactions(documents);
+    } catch (error) {
+      console.error('Error fetching transactions:', error);
+    }
+  };
+
+  const filteredTransactions = transactions.filter((transaction) => {
+    const hasCategory = transaction.category !== undefined;
+    const hasComment = transaction.comment !== undefined;
+
+    if (!hasCategory || !hasComment) {
+      console.log('Transaction missing category or comment:', transaction);
+    }
+
+    return (
+      (hasCategory && transaction.category.includes(searchTerm)) ||
+      (hasComment && transaction.comment.includes(searchTerm))
+    );
+  });
+
+  const data = {
+    labels: ['収入', '支出'],
+    datasets: [
+      {
+        label: '円',
+        data: transactions.reduce(
+          (acc, transaction) => {
+            if (transaction.isIncome) {
+              acc[0] += transaction.amount;
+            } else {
+              acc[1] += transaction.amount;
+            }
+            return acc;
+          },
+          [0, 0],
+        ),
+        backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+        borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+        borderWidth: 1,
+      },
+    ],
+  };
 
   return (
     <div className={styles.container}>
@@ -65,6 +162,33 @@ const Transactions: React.FC = () => {
           />
         </Head>
         <main>
+          <div className={styles.chartSection}>
+            <Pie data={data} />
+            <div className={styles.chartDetails}>
+              <p>
+                収入{' '}
+                <span className={styles.income}>
+                  ¥{data.datasets[0].data[0].toLocaleString()}
+                </span>
+              </p>
+              <p>
+                支出{' '}
+                <span className={styles.expense}>
+                  ¥{data.datasets[0].data[1].toLocaleString()}
+                </span>
+              </p>
+              <p>
+                収支{' '}
+                <span className={styles.balance}>
+                  ¥
+                  {(
+                    data.datasets[0].data[0] - data.datasets[0].data[1]
+                  ).toLocaleString()}
+                </span>
+              </p>
+            </div>
+          </div>
+
           <div className={styles.searchBar}>
             <input
               type="text"
@@ -80,6 +204,10 @@ const Transactions: React.FC = () => {
               クリア
             </button>
           </div>
+          <div className={styles.debug}>
+            <p>Debug: User Name: {userName}</p> {/* Debug information */}
+            <p>Debug: User ID: {userId}</p> {/* Debug information */}
+          </div>
           <div className={styles.transactionsList}>
             {filteredTransactions.map((transaction, index) => (
               <div
@@ -87,31 +215,33 @@ const Transactions: React.FC = () => {
                 className={styles.transaction}
               >
                 <div className={styles.header}>
-                  <div className={styles.date}>{transaction.date}</div>
+                  <div className={styles.date}>
+                    {new Date(transaction.date).toLocaleDateString()}
+                  </div>
                   <div className={styles.total}>
-                    <span className={styles.income}>
-                      + {transaction.incomeTotal}
-                    </span>
-                    {' / '}
-                    <span className={styles.expense}>
-                      - {transaction.expenseTotal}
+                    <span
+                      className={
+                        transaction.isIncome ? styles.income : styles.expense
+                      }
+                    >
+                      {transaction.isIncome ? '+' : '-'}¥
+                      {Math.abs(transaction.amount).toLocaleString()}
                     </span>
                   </div>
                 </div>
                 <div className={styles.entries}>
-                  {transaction.entries.map((entry, entryIndex) => (
-                    <div
-                      key={entryIndex}
-                      className={styles.entry}
-                    >
-                      <span
-                        className={styles.entryDot}
-                        style={{ backgroundColor: entry.color }}
-                      />
-                      <span className={styles.entryLabel}>{entry.label}</span>
-                      <span className={styles.entryAmount}>{entry.amount}</span>
-                    </div>
-                  ))}
+                  <div className={styles.entry}>
+                    <span
+                      className={styles.entryDot}
+                      style={{ backgroundColor: transaction.bgColor }}
+                    />
+                    <span className={styles.entryLabel}>
+                      {transaction.category}
+                    </span>
+                    <span className={styles.entryAmount}>
+                      {transaction.comment}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}

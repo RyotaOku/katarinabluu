@@ -107,3 +107,57 @@
   align-items: center;
   box-shadow: 2px 4px 4px rgba(79, 79, 79, 0.1);
 }
+
+.transactionSection {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
+}
+
+.transactionHeader {
+  display: flex;
+  justify-content: space-between;
+  background: #e4e4e4;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  align-items: center;
+}
+
+.transactionItem {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.categoryColor {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.amount {
+  font-weight: bold;
+}
+
+.income {
+  color: #3498db;
+}
+
+.expense {
+  color: #f44336;
+}
+
+.categoryColor {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  margin-right: 8px;
+}

@@ -1,4 +1,3 @@
-// pages/addTransactions.tsx
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FaTrash, FaTimes } from 'react-icons/fa';
@@ -8,6 +7,8 @@ import { iconMappings } from '@/types/icon';
 import Head from 'next/head';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import addData from '@/lib/addData'; // Import the addData function
+import { getUserSession } from '@/lib/session';
 
 const pageTitle = '入出金';
 
@@ -15,7 +16,9 @@ interface TransactionEntry {
   category: string;
   amount: number;
   comment: string;
-  bgColor: string; // Added background color property
+  bgColor: string;
+  date: string; // Added date property
+  isIncome: boolean; // Added isIncome property
 }
 
 const AddTransaction: React.FC = () => {
@@ -27,9 +30,17 @@ const AddTransaction: React.FC = () => {
     const iconMapping = iconMappings.find((icon) => icon.key === category);
     if (iconMapping) {
       const { color } = iconMapping;
+      const currentDate = new Date().toISOString();
       setEntries([
         ...entries,
-        { category, amount: 0, comment: '', bgColor: color },
+        {
+          category,
+          amount: 0,
+          comment: '',
+          bgColor: color,
+          date: currentDate,
+          isIncome,
+        },
       ]);
     }
   };
@@ -56,24 +67,49 @@ const AddTransaction: React.FC = () => {
     router.push('/transactions');
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log('Submitted entries:', entries);
-    toast.success('登録成功ですわ！', {
-      position: 'top-right',
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-    setTimeout(() => {
-      router.push('/transactions');
-    }, 3000);
+    try {
+      const userId = await getUserSession(); // Replace with your method to get user ID
+      if (!userId) {
+        console.error('No user is signed in');
+        return;
+      }
+
+      for (const entry of entries) {
+        const entryId = `${entry.category}-${new Date().toISOString()}`; // Create a unique ID for each entry
+        const { result, error } = await addData(
+          `users/${userId}/transactions`,
+          entryId,
+          entry,
+        );
+        if (error) {
+          console.error('Error adding transaction data:', error);
+        } else {
+          console.log('Transaction data added:', result);
+        }
+      }
+
+      toast.success('登録成功ですわ！', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      setTimeout(() => {
+        router.push('/transactions');
+      }, 3000);
+    } catch (error) {
+      console.error('Error saving transaction data:', error);
+    }
   };
 
   const total = entries.reduce(
-    (sum, entry) => sum + (isIncome ? entry.amount : -entry.amount),
+    (sum, entry) => sum + (entry.isIncome ? entry.amount : -entry.amount),
     0,
   );
 
@@ -134,7 +170,7 @@ const AddTransaction: React.FC = () => {
                   onChange={(e) => handleCommentChange(index, e.target.value)}
                   className={styles.commentInput}
                 />
-                <span>{isIncome ? '+' : '-'}¥</span>
+                <span>{entry.isIncome ? '+' : '-'}¥</span>
                 <input
                   type="number"
                   value={Math.abs(entry.amount)}
