@@ -1,12 +1,19 @@
 // src/lib/getData.js
 import firebase_app from './auth';
-import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  getDocs,
+  listCollections,
+} from 'firebase/firestore';
 
 const db = getFirestore(firebase_app);
 
-export default async function getDocument(collection, id) {
+export async function getDocument(collectionName, id) {
   try {
-    const docRef = doc(db, collection, id);
+    const docRef = doc(db, collectionName, id);
     console.log('Document reference:', docRef);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
@@ -17,6 +24,35 @@ export default async function getDocument(collection, id) {
     }
   } catch (error) {
     console.error('Error getting document:', error);
+    return { result: null, error };
+  }
+}
+
+export async function getDocuments(collectionName) {
+  try {
+    const colRef = collection(db, collectionName);
+    console.log('Collection reference:', colRef);
+    const querySnapshot = await getDocs(colRef);
+    const documents = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    console.log('Fetched documents:', documents);
+    return { result: documents, error: null };
+  } catch (error) {
+    console.error('Error getting documents:', error);
+    return { result: null, error };
+  }
+}
+
+export async function listAllCollections() {
+  try {
+    const colRefs = await listCollections(db);
+    const collectionNames = colRefs.map((colRef) => colRef.id);
+    console.log('Available collections:', collectionNames);
+    return { result: collectionNames, error: null };
+  } catch (error) {
+    console.error('Error listing collections:', error);
     return { result: null, error };
   }
 }

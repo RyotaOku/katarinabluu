@@ -3,9 +3,24 @@ import Head from 'next/head';
 import Navigation from '@/components/navigation';
 import styles from '@/styles/transactions.module.css';
 import router from 'next/router';
-import getDocument from '@/lib/getData'; // Import the getDocument function
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
 const pageTitle = '入出金';
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyC17gWndexNK6-oqEC_yAwmjDmpx-f5Tl0',
+  authDomain: 'katarinabluu.firebaseapp.com',
+  projectId: 'katarinabluu',
+  storageBucket: 'katarinabluu.appspot.com',
+  messagingSenderId: '626019077247',
+  appId: '1:626019077247:web:0b27fabf8e56267456834a',
+  measurementId: 'G-DM4PBSEKZJ',
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const handleAddButton = () => {
   router.push('/addTransactions');
@@ -26,20 +41,30 @@ const Transactions: React.FC = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { result, error } = await getDocument('transactions');
-        if (error) {
-          console.error('Error fetching transactions:', error);
-        } else {
-          console.log('Fetched transactions:', result);
-          setTransactions(result as Transaction[]);
-        }
+        // Fetch transactions
+        const colRef = collection(db, 'transactions');
+        const querySnapshot = await getDocs(colRef);
+        const documents = querySnapshot.docs.map((doc) => doc.data());
+        console.log('Fetched transactions:', documents);
+        const filteredResult = documents.filter(isValidTransaction);
+        setTransactions(filteredResult as Transaction[]);
       } catch (error) {
-        console.error('Error in fetchData:', error);
+        console.error('Error fetching transactions:', error);
       }
     }
 
     fetchData();
   }, []);
+
+  const isValidTransaction = (doc: any): doc is Transaction => {
+    return (
+      typeof doc.amount === 'number' &&
+      typeof doc.bgColor === 'string' &&
+      typeof doc.category === 'string' &&
+      typeof doc.comment === 'string' &&
+      typeof doc.date === 'string'
+    );
+  };
 
   const filteredTransactions = transactions.filter((transaction) => {
     const hasCategory = transaction.category !== undefined;
