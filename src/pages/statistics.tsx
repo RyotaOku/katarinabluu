@@ -7,7 +7,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import dayjs from 'dayjs';
 import { getUserSession } from '@/lib/session';
-import getDocument from '@/lib/getData'; // Import the getDocument function
+import { getDocument } from '@/lib/getData'; // Import the getDocument function
 import { useRouter } from 'next/router';
 
 const pageTitle = '給料計算';
