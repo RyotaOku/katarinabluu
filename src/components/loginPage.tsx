@@ -35,7 +35,7 @@ const LoginPage: React.FC = () => {
   };
 
   const handleRegisterButton = () => {
-    router.push('/register');
+    router.push('/touroku/register');
   };
 
   const handleGoogleLogin = async () => {
