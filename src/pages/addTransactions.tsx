@@ -1,4 +1,3 @@
-// pages/addTransactions.tsx
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { FaTrash, FaTimes } from 'react-icons/fa';
@@ -19,6 +18,7 @@ interface TransactionEntry {
   comment: string;
   bgColor: string;
   date: string; // Added date property
+  isIncome: boolean; // Added isIncome property
 }
 
 const AddTransaction: React.FC = () => {
@@ -33,7 +33,14 @@ const AddTransaction: React.FC = () => {
       const currentDate = new Date().toISOString();
       setEntries([
         ...entries,
-        { category, amount: 0, comment: '', bgColor: color, date: currentDate },
+        {
+          category,
+          amount: 0,
+          comment: '',
+          bgColor: color,
+          date: currentDate,
+          isIncome,
+        },
       ]);
     }
   };
@@ -63,8 +70,7 @@ const AddTransaction: React.FC = () => {
   const handleSubmit = async () => {
     console.log('Submitted entries:', entries);
     try {
-      // Store each entry in Firestore
-      const userId = getUserSession(); // Replace with your method to get user ID
+      const userId = await getUserSession(); // Replace with your method to get user ID
       if (!userId) {
         console.error('No user is signed in');
         return;
@@ -103,7 +109,7 @@ const AddTransaction: React.FC = () => {
   };
 
   const total = entries.reduce(
-    (sum, entry) => sum + (isIncome ? entry.amount : -entry.amount),
+    (sum, entry) => sum + (entry.isIncome ? entry.amount : -entry.amount),
     0,
   );
 
@@ -164,7 +170,7 @@ const AddTransaction: React.FC = () => {
                   onChange={(e) => handleCommentChange(index, e.target.value)}
                   className={styles.commentInput}
                 />
-                <span>{isIncome ? '+' : '-'}¥</span>
+                <span>{entry.isIncome ? '+' : '-'}¥</span>
                 <input
                   type="number"
                   value={Math.abs(entry.amount)}
