@@ -21,13 +21,13 @@ const Others: React.FC = () => {
 
   useEffect(() => {
     // User verification
-    // const userId = getUserSession();
-    // if (userId) {
-    //   setUserId(userId);
-    // } else {
-    //   // Handle case where user is not logged in, e.g., redirect to login
-    //   router.push('/index');
-    // }
+    const userId = getUserSession();
+    if (userId) {
+      setUserId(userId);
+    } else {
+      // Handle case where user is not logged in, e.g., redirect to login
+      router.push('/index');
+    }
   }, []);
   return (
     <Navigation title={pageTitle}>
@@ -47,7 +47,8 @@ const Others: React.FC = () => {
           <div className={styles.content}>
             <div className={styles.profileSection}>
               <Image
-                src="/user.svg" // Ensure you have this image or replace it with a correct path
+                src="/images/profile.jpg" // Ensure you have this image or replace it with a correct path
+                //src="/user.svg" // Ensure you have this image or replace it with a correct path
                 alt="Profile"
                 width={80}
                 height={80}
