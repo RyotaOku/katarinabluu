@@ -1,37 +1,103 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, momentLocalizer, Event } from 'react-big-calendar';
+import React, { useState } from 'react';
+import { Calendar, momentLocalizer, Event, View } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useRouter } from 'next/router';
 import styles from '../styles/calendar.module.css';
+import CustomMonthView from './customMonthView';
 
 const localizer = momentLocalizer(moment);
 
 const JobCalendar: React.FC = () => {
-  const [events, setEvents] = useState<Event[]>([
+  const part_time_jobs: {
+    job: string;
+    start_time: string;
+    end_time: string;
+    days: string;
+    colors: string;
+  }[] = [
     {
-      start: new Date(),
-      end: new Date(moment().add(1, 'hours').toDate()),
-      title: 'Sample Event',
+      job: 'コンビニ店員',
+      start_time: '08:00',
+      end_time: '14:00',
+      days: '2024-07-21',
+      colors: '#FF4500',
     },
-  ]);
+    {
+      job: 'コンビニ店員',
+      start_time: '08:00',
+      end_time: '14:00',
+      days: '2024-07-22',
+      colors: '#FF4500',
+    },
+    {
+      job: 'コンビニ店員',
+      start_time: '08:00',
+      end_time: '14:00',
+      days: '2024-07-23',
+      colors: '#FF4500',
+    },
+    {
+      job: 'ファミリーレストランのキッチンスタッフ',
+      start_time: '17:00',
+      end_time: '22:00',
+      days: '2024-07-20',
+      colors: '#008000',
+    },
+    {
+      job: 'カフェのバリスタ',
+      start_time: '07:00',
+      end_time: '12:00',
+      days: '2024-07-11',
+      colors: '#000000',
+    },
+    {
+      job: 'ファミリーレストランのキッチンスタッフ',
+      start_time: '09:00',
+      end_time: '15:00',
+      days: '2024-07-04',
+      colors: '#008000',
+    },
+    {
+      job: '工場のライン作業員',
+      start_time: '06:00',
+      end_time: '14:00',
+      days: '2024-07-03',
+      colors: '#FFF333',
+    },
+    {
+      job: 'ファミリーレストランのキッチンスタッフ',
+      start_time: '18:00',
+      end_time: '23:00',
+      days: '2024-07-01',
+      colors: '#008000',
+    },
+  ];
+
+  const events: Event[] = part_time_jobs.map((job) => ({
+    start: new Date(`${job.days}T${job.start_time}`),
+    end: new Date(`${job.days}T${job.end_time}`),
+    title: job.job,
+    resource: { color: job.colors },
+  }));
 
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [view, setView] = useState<View>('month'); // State để lưu trữ view hiện tại của lịch
   const router = useRouter();
 
   const handleSelectSlot = (slotInfo: { start: Date }) => {
     setSelectedDate(slotInfo.start);
   };
-  const shift = 'シフト時間'; //shiftがある時、働く時間帯を表示
 
   const shift_resign = () => {
     const selectedDateFormatted = moment(selectedDate).format('YYYY-MM-DD');
     router.push(`/shift/shift_information?date=${selectedDateFormatted}`);
   };
 
-  const today = moment(selectedDate).format('YYYY年MM月DD日');
+  const today = moment(selectedDate).format('YYYY-MM-DD');
+  const todayFormatted = moment(selectedDate).format('YYYY年MM月DD日');
   const dayOfWeek = {
-    //日付をとる処理
+    // Xử lý hiển thị ngày trong tuần
     Sunday: '日',
     Monday: '月',
     Tuesday: '火',
@@ -51,8 +117,14 @@ const JobCalendar: React.FC = () => {
     return {};
   };
 
+  const changeCalendar = () => {
+    const newView: View = view === 'month' ? 'week' : 'month';
+    setView(newView);
+  };
+
   return (
-    <div style={{ height: '100vh' }}>
+    <div style={{ height: 'auto' }}>
+      <button onClick={changeCalendar}>Change View</button>
       <Calendar
         localizer={localizer}
         events={events}
@@ -62,15 +134,43 @@ const JobCalendar: React.FC = () => {
         selectable
         onSelectSlot={handleSelectSlot}
         dayPropGetter={dayPropGetter}
+        eventPropGetter={(
+          event: Event,
+          start: Date,
+          end: Date,
+          isSelected: boolean,
+        ) => {
+          const backgroundColor = event.resource?.color || '#3174ad';
+          return { style: { backgroundColor } };
+        }}
+        view={view}
+        onView={(view: View) => setView(view)}
+        views={{
+          month: true,
+          week: true,
+        }}
       />
       <div className="shift">
         <div style={{ fontSize: '15px' }}>
-          {today}({dayOfWeek})
+          {todayFormatted}({dayOfWeek})
         </div>
         <button onClick={shift_resign}>✙新規シフトを追加</button>
-        {shift && (
+        {part_time_jobs && (
           <>
-            <p style={{ fontSize: '15px' }}>{shift}</p>
+            {part_time_jobs.map((job, index) => (
+              <div
+                key={index}
+                style={{ marginBottom: '10px' }}
+              >
+                {job.days === today ?
+                  <>
+                    <p style={{ fontSize: '15px' }}>{job.start_time}</p>
+                    <p style={{ fontSize: '15px' }}> {job.end_time}</p>
+                    <p style={{ fontSize: '15px' }}>バイト先: {job.job}</p>
+                  </>
+                : null}
+              </div>
+            ))}
           </>
         )}
       </div>

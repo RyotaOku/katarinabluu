@@ -185,7 +185,6 @@ const Part_Time: React.FC = () => {
                   日給
                 </label>
               </div>
-              <button className={styles.addButton}>+ 給料の追加設定</button>
             </div>
           </div>
 
@@ -203,6 +202,10 @@ const Part_Time: React.FC = () => {
                 className={styles.input}
                 placeholder="420円"
               />
+              <label>
+                <input type="checkbox" />
+                上限
+              </label>
               <label>
                 <input
                   type="radio"
@@ -250,7 +253,7 @@ const Part_Time: React.FC = () => {
                   name="nightShiftPay"
                   value="yes"
                   checked={isNightShiftPay}
-                  onChange={() => setIsNightShiftPay(true)}
+                  onChange={() => setIsNightShiftPay(true)} //ありチェックされた時、下ののmodal表示される
                 />{' '}
                 あり
               </label>
@@ -266,7 +269,7 @@ const Part_Time: React.FC = () => {
               </label>
             </div>
 
-            {isNightShiftPay && (
+            {isNightShiftPay && ( //modal
               <div>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>深夜給料</label>
@@ -320,7 +323,7 @@ const Part_Time: React.FC = () => {
                   type="radio"
                   name="overtime"
                   value="yes"
-                  checked={overtime}
+                  checked={overtime} ////ありチェックされた時、下ののmodal表示される
                   onChange={() => setOvertime(true)}
                 />{' '}
                 あり
@@ -337,7 +340,7 @@ const Part_Time: React.FC = () => {
               </label>
             </div>
 
-            {overtime && (
+            {overtime && ( // over time modal
               <div>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>適用時間</label>

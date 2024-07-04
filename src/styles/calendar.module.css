@@ -8,3 +8,17 @@
     border: 1px solid black !important;
 
 }
+
+.jobDay::after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: #FF4500;
+    /* Default color, bạn có thể thay đổi */
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
