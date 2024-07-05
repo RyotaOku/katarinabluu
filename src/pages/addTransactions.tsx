@@ -170,7 +170,9 @@ const AddTransaction: React.FC = () => {
                   onChange={(e) => handleCommentChange(index, e.target.value)}
                   className={styles.commentInput}
                 />
-                <span>{entry.isIncome ? '+' : '-'}¥</span>
+                <span className={styles.yen}>
+                  {entry.isIncome ? '+' : '-'} ¥
+                </span>
                 <input
                   type="number"
                   value={Math.abs(entry.amount)}

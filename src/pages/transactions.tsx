@@ -124,22 +124,19 @@ const Transactions: React.FC = () => {
     );
   });
 
-  const data = {
+  const income = transactions
+    .filter((transaction) => transaction.isIncome)
+    .reduce((sum, transaction) => sum + transaction.amount, 0);
+  const expense = transactions
+    .filter((transaction) => !transaction.isIncome)
+    .reduce((sum, transaction) => sum + transaction.amount, 0);
+
+  const chartData = {
     labels: ['収入', '支出'],
     datasets: [
       {
         label: '円',
-        data: transactions.reduce(
-          (acc, transaction) => {
-            if (transaction.isIncome) {
-              acc[0] += transaction.amount;
-            } else {
-              acc[1] += transaction.amount;
-            }
-            return acc;
-          },
-          [0, 0],
-        ),
+        data: [income, expense],
         backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
         borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
         borderWidth: 1,
@@ -163,32 +160,28 @@ const Transactions: React.FC = () => {
         </Head>
         <main>
           <div className={styles.chartSection}>
-            <Pie data={data} />
+            <Pie data={chartData} />
             <div className={styles.chartDetails}>
               <p>
                 収入{' '}
                 <span className={styles.income}>
-                  ¥{data.datasets[0].data[0].toLocaleString()}
+                  ¥{income.toLocaleString()}
                 </span>
               </p>
               <p>
                 支出{' '}
                 <span className={styles.expense}>
-                  ¥{data.datasets[0].data[1].toLocaleString()}
+                  ¥{expense.toLocaleString()}
                 </span>
               </p>
               <p>
                 収支{' '}
                 <span className={styles.balance}>
-                  ¥
-                  {(
-                    data.datasets[0].data[0] - data.datasets[0].data[1]
-                  ).toLocaleString()}
+                  ¥{(income - expense).toLocaleString()}
                 </span>
               </p>
             </div>
           </div>
-
           <div className={styles.searchBar}>
             <input
               type="text"
@@ -203,10 +196,6 @@ const Transactions: React.FC = () => {
             >
               クリア
             </button>
-          </div>
-          <div className={styles.debug}>
-            <p>Debug: User Name: {userName}</p> {/* Debug information */}
-            <p>Debug: User ID: {userId}</p> {/* Debug information */}
           </div>
           <div className={styles.transactionsList}>
             {filteredTransactions.map((transaction, index) => (

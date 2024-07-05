@@ -1,4 +1,3 @@
-/* styles/transactions.module.css */
 .container {
   font-family: Arial, sans-serif;
   height: 100vh;
@@ -46,11 +45,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #fff;
+  background: #e4e4e4;
   border-bottom: 1px solid #ddd;
   padding: 0.2rem 1rem;
   color: #000;
-  background: #e4e4e4;
 }
 
 .date,
@@ -160,4 +158,43 @@
   height: 16px;
   border-radius: 50%;
   margin-right: 8px;
+}
+
+.chartSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.chartDetails {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+.chartDetails p {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.chartDetails .income {
+  color: #3498db;
+  font-weight: bold;
+}
+
+.chartDetails .expense {
+  color: #f44336;
+  font-weight: bold;
+}
+
+.chartDetails .balance {
+  color: #2ecc71;
+  font-weight: bold;
 }

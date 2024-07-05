@@ -87,10 +87,12 @@
   vertical-align: middle;
 }
 
-.entry span {
+.yen {
+  font-weight: bold;
   font-size: 1.6rem;
-  width: 2.4rem;
+  width: 2.8rem;
 }
+
 
 .amountInput {
   width: 6rem;
@@ -193,3 +195,4 @@
 .expenditureButton {
   background-color: red;
 }
+
