@@ -16,6 +16,8 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@firebase/firestore": "^4.6.3",
+    "@google-cloud/language": "^6.4.0",
+    "@google/generative-ai": "^0.14.1",
     "@mui/material": "^5.15.20",
     "chart.js": "^4.4.3",
     "cookies-next": "^4.2.1",
