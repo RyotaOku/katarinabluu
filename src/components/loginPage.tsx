@@ -17,6 +17,10 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  const handleForgotPass = () => {
+    router.push('/touroku/forgotPass');
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -115,6 +119,7 @@ const LoginPage: React.FC = () => {
           <a
             href="#"
             className={styles.forgot}
+            onClick={handleForgotPass}
           >
             パスワードを忘れた方はこちら
           </a>
