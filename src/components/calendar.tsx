@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer, Event, View } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useRouter } from 'next/router';
 import styles from '../styles/calendar.module.css';
-import CustomMonthView from './customMonthView';
+import VerticalMonthCalendar from './VerticalMonthCalendar';
 
 const localizer = momentLocalizer(moment);
 
@@ -82,7 +82,9 @@ const JobCalendar: React.FC = () => {
   }));
 
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [view, setView] = useState<View>('month'); // State để lưu trữ view hiện tại của lịch
+  const [view, setView] = useState<View>('month');
+  const [showVerticalCalendar, setShowVerticalCalendar] =
+    useState<boolean>(false);
   const router = useRouter();
 
   const handleSelectSlot = (slotInfo: { start: Date }) => {
@@ -97,7 +99,6 @@ const JobCalendar: React.FC = () => {
   const today = moment(selectedDate).format('YYYY-MM-DD');
   const todayFormatted = moment(selectedDate).format('YYYY年MM月DD日');
   const dayOfWeek = {
-    // Xử lý hiển thị ngày trong tuần
     Sunday: '日',
     Monday: '月',
     Tuesday: '火',
@@ -117,39 +118,36 @@ const JobCalendar: React.FC = () => {
     return {};
   };
 
-  const changeCalendar = () => {
-    const newView: View = view === 'month' ? 'week' : 'month';
-    setView(newView);
-  };
-
   return (
     <div style={{ height: 'auto' }}>
-      <button onClick={changeCalendar}>Change View</button>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-        selectable
-        onSelectSlot={handleSelectSlot}
-        dayPropGetter={dayPropGetter}
-        eventPropGetter={(
-          event: Event,
-          start: Date,
-          end: Date,
-          isSelected: boolean,
-        ) => {
-          const backgroundColor = event.resource?.color || '#3174ad';
-          return { style: { backgroundColor } };
-        }}
-        view={view}
-        onView={(view: View) => setView(view)}
-        views={{
-          month: true,
-          week: true,
-        }}
-      />
+      <button onClick={() => setShowVerticalCalendar(!showVerticalCalendar)}>
+        {showVerticalCalendar ? '||' : '...'}
+      </button>
+      {showVerticalCalendar ?
+        <VerticalMonthCalendar />
+      : <Calendar
+          localizer={localizer}
+          events={events}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 500 }}
+          selectable
+          onSelectSlot={handleSelectSlot}
+          dayPropGetter={dayPropGetter}
+          eventPropGetter={(
+            event: Event,
+            start: Date,
+            end: Date,
+            isSelected: boolean,
+          ) => {
+            const backgroundColor = event.resource?.color || '#3174ad';
+            return { style: { backgroundColor } };
+          }}
+          view={view}
+          onView={(view: View) => setView(view)}
+          views={['month', 'week']}
+        />
+      }
       <div className="shift">
         <div style={{ fontSize: '15px' }}>
           {todayFormatted}({dayOfWeek})
@@ -164,9 +162,11 @@ const JobCalendar: React.FC = () => {
               >
                 {job.days === today ?
                   <>
-                    <p style={{ fontSize: '15px' }}>{job.start_time}</p>
-                    <p style={{ fontSize: '15px' }}> {job.end_time}</p>
                     <p style={{ fontSize: '15px' }}>バイト先: {job.job}</p>
+                    <p style={{ fontSize: '15px' }}>
+                      開始時間: {job.start_time}
+                    </p>
+                    <p style={{ fontSize: '15px' }}>終了時間: {job.end_time}</p>
                   </>
                 : null}
               </div>
