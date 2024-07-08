@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { Icon } from '@chakra-ui/react';
 import { motion, cubicBezier } from 'framer-motion';
 import {
@@ -15,6 +15,7 @@ import { footerArray } from '@/types/footerTypes';
 const Header: React.FC = () => {
   const [pathStat, setPathStat] = useState('/');
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setPathStat(location.pathname);
@@ -39,6 +40,11 @@ const Header: React.FC = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
+  const handleNavigation = (path: string) => {
+    router.push(path);
+    setDropdownVisible(false); // Hide dropdown after navigation
+  };
+
   return (
     <div>
       <header className={styles.header}>
@@ -60,46 +66,46 @@ const Header: React.FC = () => {
         </div>
         {dropdownVisible && (
           <div className={styles.dropdownMenu}>
-            <Link
-              href="/logout"
+            <div
               className={styles.dropdownItem}
+              onClick={() => handleNavigation('/logout')}
             >
               <Icon
                 as={FaSignOutAlt}
                 className={styles.dropdownIcon}
               />
               ログアウト
-            </Link>
-            <Link
-              href="/notifications"
+            </div>
+            <div
               className={styles.dropdownItem}
+              onClick={() => handleNavigation('/notifications')}
             >
               <Icon
                 as={FaBell}
                 className={styles.dropdownIcon}
               />
               お知らせ
-            </Link>
-            <Link
-              href="/inquiries"
+            </div>
+            <div
               className={styles.dropdownItem}
+              onClick={() => handleNavigation('/inquiries')}
             >
               <Icon
                 as={FaQuestionCircle}
                 className={styles.dropdownIcon}
               />
               問い合わせ
-            </Link>
-            <Link
-              href="/site-info"
+            </div>
+            <div
               className={styles.dropdownItem}
+              onClick={() => handleNavigation('/site-info')}
             >
               <Icon
                 as={FaInfoCircle}
                 className={styles.dropdownIcon}
               />
               サイト情報
-            </Link>
+            </div>
           </div>
         )}
       </header>
@@ -113,14 +119,14 @@ const Header: React.FC = () => {
               initial="hidden"
               animate="visible"
             >
-              <Link
-                href={e.path}
+              <a
+                onClick={() => handleNavigation(e.path)}
                 className={styles.button}
               >
                 <Icon as={e.icon} />
                 <span>{e.label}</span>
                 {pathStat === e.path && <div className={styles.border}></div>}
-              </Link>
+              </a>
             </motion.div>
           ))}
         </nav>
