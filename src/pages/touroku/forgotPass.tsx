@@ -1,4 +1,4 @@
-// pages/transactions.tsx
+// touroku/forgotPass.tsx
 import React, { useState } from 'react';
 import Head from 'next/head';
 import styles from '@/styles/forgotPass.module.css';
@@ -13,15 +13,47 @@ const ForgotPass: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      await sendPasswordResetEmail(auth, email);
-      toast.success('パスワードリセットリンクを送信しました！');
-      console.log('Password reset link sent to:', email);
-      // Optionally redirect or inform the user to check their email
-    } catch (error) {
-      toast.error('パスワードリセットリンクの送信に失敗しました。');
-      console.error('Password reset error:', error);
-    }
+    // お試し
+    console.log('Buttton successfuly clicked :', email);
+    toast.success('パスワードリセットリンクを送信しました！', {
+      position: 'top-right',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+    // Navigate to login page after recovery email sent
+    setTimeout(() => {
+      router.push('/login');
+    }, 3000);
+
+    // need to make this feature
+    // try {
+    //   await sendPasswordResetEmail(auth, email);
+    //   toast.success('パスワードリセットリンクを送信しました！', {
+    //     position: 'top-right',
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    //   console.log('Password reset link sent to:', email);
+    // } catch (error) {
+    //   toast.error('パスワードリセットリンクの送信に失敗しました。', {
+    //     position: 'top-right',
+    //     autoClose: 3000,
+    //     hideProgressBar: false,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: true,
+    //     progress: undefined,
+    //   });
+    //   console.error('Password reset error:', error);
+    // }
   };
 
   const handleLoginRedirect = () => {
@@ -76,6 +108,7 @@ const ForgotPass: React.FC = () => {
           ログインページに戻る
         </a>
       </main>
+      <ToastContainer />
     </div>
   );
 };
