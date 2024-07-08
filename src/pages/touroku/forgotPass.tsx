@@ -24,10 +24,6 @@ const ForgotPass: React.FC = () => {
       draggable: true,
       progress: undefined,
     });
-    // Navigate to login page after recovery email sent
-    setTimeout(() => {
-      router.push('/login');
-    }, 3000);
 
     // need to make this feature
     // try {
@@ -54,6 +50,11 @@ const ForgotPass: React.FC = () => {
     //   });
     //   console.error('Password reset error:', error);
     // }
+
+    // Navigate to login page after recovery email sent
+    setTimeout(() => {
+      router.push('/login');
+    }, 3000);
   };
 
   const handleLoginRedirect = () => {

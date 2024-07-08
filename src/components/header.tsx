@@ -3,11 +3,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@chakra-ui/react';
 import { motion, cubicBezier } from 'framer-motion';
+import {
+  FaSignOutAlt,
+  FaBell,
+  FaQuestionCircle,
+  FaInfoCircle,
+} from 'react-icons/fa'; // Import the icons
 import styles from '@/styles/navigation.module.css';
 import { footerArray } from '@/types/footerTypes';
 
 const Header: React.FC = () => {
   const [pathStat, setPathStat] = useState('/');
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   useEffect(() => {
     setPathStat(location.pathname);
@@ -28,6 +35,10 @@ const Header: React.FC = () => {
     },
   };
 
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
   return (
     <div>
       <header className={styles.header}>
@@ -41,7 +52,56 @@ const Header: React.FC = () => {
           />
         </div>
         <div className={styles.date}>20日5月2024年</div>
-        <div className={styles.dropdown}>▼</div>
+        <div
+          className={styles.dropdown}
+          onClick={toggleDropdown}
+        >
+          ≡
+        </div>
+        {dropdownVisible && (
+          <div className={styles.dropdownMenu}>
+            <Link
+              href="/logout"
+              className={styles.dropdownItem}
+            >
+              <Icon
+                as={FaSignOutAlt}
+                className={styles.dropdownIcon}
+              />
+              ログアウト
+            </Link>
+            <Link
+              href="/notifications"
+              className={styles.dropdownItem}
+            >
+              <Icon
+                as={FaBell}
+                className={styles.dropdownIcon}
+              />
+              お知らせ
+            </Link>
+            <Link
+              href="/inquiries"
+              className={styles.dropdownItem}
+            >
+              <Icon
+                as={FaQuestionCircle}
+                className={styles.dropdownIcon}
+              />
+              問い合わせ
+            </Link>
+            <Link
+              href="/site-info"
+              className={styles.dropdownItem}
+            >
+              <Icon
+                as={FaInfoCircle}
+                className={styles.dropdownIcon}
+              />
+              サイト情報
+            </Link>
+          </div>
+        )}
       </header>
       <footer className={styles.footer}>
         <nav className={styles.nav}>
