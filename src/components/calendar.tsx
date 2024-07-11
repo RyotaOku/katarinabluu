@@ -145,7 +145,7 @@ const JobCalendar: React.FC = () => {
           }}
           view={view}
           onView={(view: View) => setView(view)}
-          views={['month', 'week']}
+          views={['month']}
         />
       }
       <div className="shift">
