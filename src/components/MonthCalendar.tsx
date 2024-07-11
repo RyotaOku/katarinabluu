@@ -121,7 +121,7 @@ const VerticalMonthCalendar: React.FC = () => {
   const monthYear = moment().format('MMMM YYYY');
   return (
     <div className={styles.verticalCalendarContainer}>
-      <h1>{monthYear}</h1>
+      <h1 style={{ textAlign: 'center', marginBottom: '5px' }}>{monthYear}</h1>
       {renderDaysInMonth()}
     </div>
   );
