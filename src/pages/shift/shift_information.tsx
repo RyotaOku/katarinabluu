@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import styles from '@/styles/shift_information.module.css';
+import styles from '@/styles/calendar_shift/shift_information.module.css';
 import Navigation from '@/components/navigation';
 import { getUserSession } from '@/lib/session';
 import addData from '@/lib/addData';

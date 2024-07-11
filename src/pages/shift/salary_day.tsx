@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import styles from '@/styles/salary_day.module.css';
+import styles from '@/styles/calendar_shift/salary_day.module.css';
 import Navigation from '@/components/navigation';
 
 const Salary: React.FC = () => {

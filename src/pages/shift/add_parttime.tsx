@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Modal from 'react-modal';
-import styles from '@/styles/add_parttime.module.css';
+import styles from '@/styles/calendar_shift/add_parttime.module.css';
 import Navigation from '@/components/navigation';
 
 const Part_Time: React.FC = () => {

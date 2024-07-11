@@ -3,8 +3,8 @@ import { Calendar, momentLocalizer, Event, View } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { useRouter } from 'next/router';
-import styles from '../styles/calendar.module.css';
-import VerticalMonthCalendar from './VerticalMonthCalendar';
+import styles from '../styles/calendar_shift/calendar.module.css';
+import VerticalMonthCalendar from './MonthCalendar';
 
 const localizer = momentLocalizer(moment);
 
@@ -121,7 +121,7 @@ const JobCalendar: React.FC = () => {
   return (
     <div style={{ height: 'auto' }}>
       <button onClick={() => setShowVerticalCalendar(!showVerticalCalendar)}>
-        {showVerticalCalendar ? '||' : '...'}
+        {showVerticalCalendar ? 'change ' : 'change'}
       </button>
       {showVerticalCalendar ?
         <VerticalMonthCalendar />

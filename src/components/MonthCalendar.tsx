@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import 'moment/locale/ja'; //
-import styles from '../styles/MonthCalendar.module.css';
+import styles from '../styles/calendar_shift/MonthCalendar.module.css';
 
 const VerticalMonthCalendar: React.FC = () => {
   const [events, setEvents] = useState<
@@ -25,7 +25,21 @@ const VerticalMonthCalendar: React.FC = () => {
         colors: '#FF4500',
       },
       {
-        job: 'レストランのウェイター',
+        job: 'コンビニ店員',
+        start_time: '08:00',
+        end_time: '14:00',
+        days: '2024-07-22',
+        colors: '#FF4500',
+      },
+      {
+        job: 'コンビニ店員',
+        start_time: '08:00',
+        end_time: '14:00',
+        days: '2024-07-23',
+        colors: '#FF4500',
+      },
+      {
+        job: 'ファミリーレストランのキッチンスタッフ',
         start_time: '17:00',
         end_time: '22:00',
         days: '2024-07-20',
@@ -36,28 +50,28 @@ const VerticalMonthCalendar: React.FC = () => {
         start_time: '07:00',
         end_time: '12:00',
         days: '2024-07-11',
-        colors: '#008000',
+        colors: '#000000',
       },
       {
-        job: 'スーパーのレジスタッフ',
+        job: 'ファミリーレストランのキッチンスタッフ',
         start_time: '09:00',
         end_time: '15:00',
         days: '2024-07-04',
-        colors: '#FF4500',
+        colors: '#008000',
       },
       {
         job: '工場のライン作業員',
         start_time: '06:00',
         end_time: '14:00',
         days: '2024-07-03',
-        colors: '#FF4500',
+        colors: '#FFF333',
       },
       {
         job: 'ファミリーレストランのキッチンスタッフ',
         start_time: '18:00',
         end_time: '23:00',
         days: '2024-07-01',
-        colors: '#FF4500',
+        colors: '#008000',
       },
     ];
 
@@ -104,9 +118,10 @@ const VerticalMonthCalendar: React.FC = () => {
     }
     return days;
   };
-
+  const monthYear = moment().format('MMMM YYYY');
   return (
     <div className={styles.verticalCalendarContainer}>
+      <h1>{monthYear}</h1>
       {renderDaysInMonth()}
     </div>
   );
