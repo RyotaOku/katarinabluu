@@ -52,8 +52,7 @@ const Navigation = ({ children, title }: FooterProps) => {
       <header className={styles.header}>
         <div className={styles.profile}>
           <Image
-            src="/images/profile.jpg" // Ensure you have this image or replace it with a correct path
-            //src="/user.svg" // Ensure you have this image or replace it with a correct path
+            src="/user.svg" // Ensure you have this image or replace it with a correct path
             alt="Profile"
             width={40}
             height={40}
@@ -80,9 +79,11 @@ const Navigation = ({ children, title }: FooterProps) => {
                 href={e.path}
                 className={`${styles.button} ${pathStat === e.path ? styles.active : ''}`}
               >
-                <Icon as={e.icon} />
+                <Icon
+                  as={e.icon}
+                  className={styles.icon}
+                />
                 <span>{e.label}</span>
-                {/* {pathStat === e.path && <div className={styles.border}></div>} */}
               </Link>
             </motion.div>
           ))}
