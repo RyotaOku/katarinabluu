@@ -10,7 +10,7 @@
 .main {
   grid-area: main;
   overflow-y: auto;
-  padding: 4rem 0;
+  padding: 6rem 0;
 }
 
 .header {

@@ -52,8 +52,7 @@ const Navigation = ({ children, title }: FooterProps) => {
       <header className={styles.header}>
         <div className={styles.profile}>
           <Image
-            src="/images/profile.jpg" // Ensure you have this image or replace it with a correct path
-            //src="/user.svg" // Ensure you have this image or replace it with a correct path
+            src="/user.svg" // Ensure you have this image or replace it with a correct path
             alt="Profile"
             width={40}
             height={40}
