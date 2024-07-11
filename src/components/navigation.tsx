@@ -57,6 +57,7 @@ const Navigation = ({ children, title }: FooterProps) => {
             width={40}
             height={40}
             className={styles.profileImage}
+            priority
           />
         </div>
         <div className={styles.title}>{title}</div>
