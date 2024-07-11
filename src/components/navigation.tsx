@@ -80,9 +80,11 @@ const Navigation = ({ children, title }: FooterProps) => {
                 href={e.path}
                 className={`${styles.button} ${pathStat === e.path ? styles.active : ''}`}
               >
-                <Icon as={e.icon} />
+                <Icon
+                  as={e.icon}
+                  className={styles.icon}
+                />
                 <span>{e.label}</span>
-                {/* {pathStat === e.path && <div className={styles.border}></div>} */}
               </Link>
             </motion.div>
           ))}

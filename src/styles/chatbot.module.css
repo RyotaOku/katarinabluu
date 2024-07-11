@@ -1,0 +1,42 @@
+.container {
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  font-size: 1.4rem;
+  display: grid;
+  grid-template-rows: calc(100vh - 15.3rem) auto; /* Adjust row sizing */
+}
+
+.chatHistory {
+  padding: 10px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.chatInput {
+  padding: 10px;
+  position: fixed;
+  bottom: 6.1rem;
+  width: 100%;
+  display: flex;
+  gap: 0.8rem;
+  justify-content: space-between;
+}
+
+.chatInput .chatField {
+  border: var(--border) 1px solid;
+  width: 100%;
+  padding: 0 0.8rem;
+  border-radius: 10px;
+}
+
+.chatInput .sendBtn {
+  background-color: var(--primary);
+  color: var(--white);
+  border: none;
+  font-size: 1.6rem;
+  border-radius: 50%;
+  padding: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

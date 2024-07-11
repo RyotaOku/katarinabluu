@@ -1,8 +1,9 @@
 // components/Chatbot.tsx
 
 import React, { useState } from 'react';
-import styles from '@/styles/execution.module.css';
+import styles from '@/styles/chatbot.module.css';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+import { FaArrowUp } from 'react-icons/fa';
 
 interface ChatbotProps {
   apiKey: string;
@@ -57,7 +58,8 @@ const Chatbot: React.FC<ChatbotProps> = ({ apiKey }) => {
       <div className={styles.chatInput}>
         <input
           type="text"
-          placeholder="Enter your message..."
+          placeholder="文字を入力してください。。。"
+          className={styles.chatField}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
               const userPrompt = (
@@ -71,6 +73,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ apiKey }) => {
           }}
         />
         <button
+          className={styles.sendBtn}
           onClick={() => {
             const inputElement =
               document.querySelector<HTMLInputElement>('input[type="text"]');
@@ -83,7 +86,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ apiKey }) => {
             }
           }}
         >
-          Send
+          <FaArrowUp />
         </button>
       </div>
       {isLoading && <div className={styles.loading}>Loading...</div>}
