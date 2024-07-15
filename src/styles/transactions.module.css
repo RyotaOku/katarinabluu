@@ -198,3 +198,25 @@
   color: #2ecc71;
   font-weight: bold;
 }
+
+.tabContainer {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.tab {
+  padding: 1rem 2rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+  border-bottom: 2px solid var(--primary);
+  font-weight: bold;
+}
+
+.barChartSection {
+  width: 100%;
+  padding: 1rem;
+}
