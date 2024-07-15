@@ -1,4 +1,48 @@
 /* Calendar.css */
+@media (max-width: 768px) {
+  .rbc-toolbar {
+    flex-direction: column;
+  }
+
+  .rbc-event {
+    z-index: 1;
+  }
+
+  .rbc-btn-group {
+    flex-direction: column;
+  }
+
+  .selectedDate {
+    background-color: #bde5f3;
+  }
+
+  .today {
+    background-color: white !important;
+    border: 1px solid black !important;
+  }
+
+  .rbc-btn-group {
+    display: none;
+  }
+
+  .jobDay::after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: #FF4500;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.rbc-event {
+  z-index: 1;
+}
+
 .selectedDate {
   background-color: #bde5f3;
 }
@@ -8,13 +52,16 @@
   border: 1px solid black !important;
 }
 
+.rbc-btn-group {
+  display: none;
+}
+
 .jobDay::after {
   content: '';
   display: block;
   width: 10px;
   height: 10px;
   background-color: #FF4500;
-  /* Default color, bạn có thể thay đổi */
   border-radius: 50%;
   position: absolute;
   bottom: 5px;
