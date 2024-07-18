@@ -8,25 +8,10 @@ import { getFirestore, collection, getDocs, doc } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getUserSession } from '@/lib/session';
 import { getDocument } from '@/lib/getData';
-import { Pie, Bar } from 'react-chartjs-2';
-import {
-  Chart,
-  ArcElement,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-} from 'chart.js';
+import { Pie } from 'react-chartjs-2';
+import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 
-Chart.register(
-  ArcElement,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-);
+Chart.register(ArcElement, Tooltip, Legend);
 
 const pageTitle = '入出金';
 
@@ -68,7 +53,6 @@ const Transactions: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [userId, setUserId] = useState<string | null>(null);
   const [userName, setUserName] = useState<string>('Unknown User');
-  const [activeTab, setActiveTab] = useState<'yearly' | 'monthly'>('monthly');
 
   useEffect(() => {
     const fetchUserSession = async () => {
@@ -140,23 +124,14 @@ const Transactions: React.FC = () => {
     );
   });
 
-  const currentMonth = new Date().getMonth();
-  const currentYear = new Date().getFullYear();
-
-  const monthlyTransactions = transactions.filter(
-    (transaction) =>
-      new Date(transaction.date).getMonth() === currentMonth &&
-      new Date(transaction.date).getFullYear() === currentYear,
-  );
-
-  const income = monthlyTransactions
+  const income = transactions
     .filter((transaction) => transaction.isIncome)
     .reduce((sum, transaction) => sum + transaction.amount, 0);
-  const expense = monthlyTransactions
+  const expense = transactions
     .filter((transaction) => !transaction.isIncome)
     .reduce((sum, transaction) => sum + transaction.amount, 0);
 
-  const monthlyChartData = {
+  const chartData = {
     labels: ['収入', '支出'],
     datasets: [
       {
@@ -168,66 +143,6 @@ const Transactions: React.FC = () => {
       },
     ],
   };
-
-  const yearlyIncome = new Array(12).fill(0);
-  const yearlyExpense = new Array(12).fill(0);
-
-  transactions.forEach((transaction) => {
-    const date = new Date(transaction.date);
-    if (date.getFullYear() === currentYear) {
-      const month = date.getMonth();
-      if (transaction.isIncome) {
-        yearlyIncome[month] += transaction.amount;
-      } else {
-        yearlyExpense[month] += transaction.amount;
-      }
-    }
-  });
-
-  const barChartData = {
-    labels: [
-      '1月',
-      '2月',
-      '3月',
-      '4月',
-      '5月',
-      '6月',
-      '7月',
-      '8月',
-      '9月',
-      '10月',
-      '11月',
-      '12月',
-    ],
-    datasets: [
-      {
-        label: '収入',
-        data: yearlyIncome,
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1,
-      },
-      {
-        label: '支出',
-        data: yearlyExpense,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  const groupedTransactions = filteredTransactions.reduce(
-    (acc, transaction) => {
-      const date = new Date(transaction.date).toLocaleDateString();
-      if (!acc[date]) {
-        acc[date] = [];
-      }
-      acc[date].push(transaction);
-      return acc;
-    },
-    {} as { [key: string]: Transaction[] },
-  );
 
   return (
     <div className={styles.container}>
@@ -245,29 +160,7 @@ const Transactions: React.FC = () => {
         </Head>
         <main>
           <div className={styles.chartSection}>
-            <div className={styles.tabContainer}>
-              <div
-                className={`${styles.tab} ${
-                  activeTab === 'yearly' ? styles.active : ''
-                }`}
-                onClick={() => setActiveTab('yearly')}
-              >
-                年間表示
-              </div>
-              <div
-                className={`${styles.tab} ${
-                  activeTab === 'monthly' ? styles.active : ''
-                }`}
-                onClick={() => setActiveTab('monthly')}
-              >
-                月間表示
-              </div>
-            </div>
-            <div className={styles.chartContainer}>
-              {activeTab === 'monthly' ?
-                <Pie data={monthlyChartData} />
-              : <Bar data={barChartData} />}
-            </div>
+            <Pie data={chartData} />
             <div className={styles.chartDetails}>
               <p>
                 収入{' '}
@@ -298,13 +191,13 @@ const Transactions: React.FC = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <button
-              className={styles.clearButton}
+              className={styles.cancelButton}
               onClick={() => setSearchTerm('')}
             >
               クリア
             </button>
           </div>
-          <div className={styles.transactionList}>
+          <div className={styles.transactionsList}>
             {filteredTransactions.map((transaction, index) => (
               <div
                 key={index}
@@ -342,13 +235,12 @@ const Transactions: React.FC = () => {
               </div>
             ))}
           </div>
-
-          <div
+          <button
             className={styles.addButton}
             onClick={handleAddButton}
           >
-            <span className={styles.addButtonIcon}>+</span>
-          </div>
+            +
+          </button>
         </main>
       </Navigation>
     </div>
