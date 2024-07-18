@@ -13,7 +13,25 @@ const handleProfileEdit = () => {
   router.push('/profile');
 };
 const handleAddJob = () => {
-  router.push('/add_parttime');
+  router.push('/touroku/jobRegister');
+};
+const handleAllBaito = () => {
+  router.push('/other/allBaito');
+};
+const handleAnalysis = () => {
+  router.push('/other/analysis');
+};
+const handleAnnounce = () => {
+  router.push('/other/announce');
+};
+const handleSetting = () => {
+  router.push('/other/setting');
+};
+const handleTaxConfirm = () => {
+  router.push('/other/taxConfirm');
+};
+const handleTaxDeclare = () => {
+  router.push('/other/taxDeclare');
 };
 
 const Others: React.FC = () => {
@@ -70,7 +88,12 @@ const Others: React.FC = () => {
                 <h3 className={styles.sectionTitle}>お知らせ</h3>
                 <div className={styles.sectionItem}>
                   <span className={styles.sectionIcon}>🔔</span>
-                  <span className={styles.sectionText}>お知らせ</span>
+                  <span
+                    className={styles.sectionText}
+                    onClick={handleAnnounce}
+                  >
+                    お知らせ
+                  </span>
                 </div>
               </div>
               <div className={styles.section}>
@@ -84,28 +107,55 @@ const Others: React.FC = () => {
                   </span>
                 </div>
                 <div className={styles.sectionItem}>
-                  <span className={styles.sectionText}>収支分析</span>
+                  <span
+                    className={styles.sectionText}
+                    onClick={handleAnalysis}
+                  >
+                    収支分析
+                  </span>
                 </div>
                 <div className={styles.sectionItem}>
-                  <span className={styles.sectionText}>確定申告</span>
+                  <span
+                    className={styles.sectionText}
+                    onClick={handleTaxDeclare}
+                  >
+                    確定申告
+                  </span>
                 </div>
               </div>
               <div className={styles.section}>
                 <h3 className={styles.sectionTitle}>バイト先</h3>
                 <div className={styles.sectionItem}>
-                  <span className={styles.sectionText}>バイト先一覧</span>
+                  <span
+                    className={styles.sectionText}
+                    onClick={handleAllBaito}
+                  >
+                    バイト先一覧
+                  </span>
                 </div>
                 <div className={styles.sectionItem}>
-                  <span className={styles.sectionText}>保険料・税金確認</span>
+                  <span
+                    className={styles.sectionText}
+                    onClick={handleTaxConfirm}
+                  >
+                    保険料・税金確認
+                  </span>
                 </div>
               </div>
               <div className={styles.section}>
-                <h3 className={styles.sectionTitle}>設定</h3>
+                <h3
+                  className={styles.sectionTitle}
+                  onClick={handleSetting}
+                >
+                  設定
+                </h3>
                 <div className={styles.sectionItem}>
-                  <span className={styles.sectionText}>通知設定</span>
-                </div>
-                <div className={styles.sectionItem}>
-                  <span className={styles.sectionText}>カレンダー設定</span>
+                  <span
+                    className={styles.sectionText}
+                    onClick={handleSetting}
+                  >
+                    設定変更
+                  </span>
                 </div>
               </div>
             </div>

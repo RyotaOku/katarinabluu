@@ -1,14 +1,14 @@
-// pages/other/announce.tsx
+// pages/other/analysis.tsx
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
 import { getUserSession } from '@/lib/session';
 import router from 'next/router';
-import styles from '@/styles/announce.module.css';
+import styles from '@/styles/other/analysis.module.css';
 
-const pageTitle = 'お知らせ';
+const pageTitle = '収支分析';
 
-const Template: React.FC = () => {
+const Analysis: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -36,10 +36,12 @@ const Template: React.FC = () => {
             href="/favicon.ico"
           />
         </Head>
-        <main></main>
+        <main>
+          <h1>このページは未完成ですので、少々お待ちを！</h1>
+        </main>
       </Navigation>
     </div>
   );
 };
 
-export default Template;
+export default Analysis;
