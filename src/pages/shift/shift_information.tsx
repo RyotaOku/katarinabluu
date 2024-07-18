@@ -18,8 +18,8 @@ const Information: React.FC = () => {
   const add_part_time = () => {
     router.push('/shift/add_parttime');
   };
+  //userID get
   const [userId, setUserId] = useState<string | null>(null);
-
   useEffect(() => {
     // User verification
     const userId = getUserSession();
@@ -92,6 +92,7 @@ const Information: React.FC = () => {
           </h1>
 
           <p className={styles.sectionTitle}>基本情報</p>
+          <p>title: </p>
           <p>バイト先 : {formData.part_time}</p>
           <button
             className={styles.partTimeButton}

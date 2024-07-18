@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Modal from 'react-modal';
 import styles from '@/styles/calendar_shift/add_parttime.module.css';
 import Navigation from '@/components/navigation';
+import { getUserSession } from '@/lib/session';
+import addData from '@/lib/addData';
 
 const Part_Time: React.FC = () => {
   const router = useRouter();
@@ -12,6 +14,17 @@ const Part_Time: React.FC = () => {
   const [isNightShiftPay, setIsNightShiftPay] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [overtime, setOvertime] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+  useEffect(() => {
+    // User verification
+    const userId = getUserSession();
+    if (userId) {
+      setUserId(userId);
+    } else {
+      // Handle case where user is not logged in, e.g., redirect to login
+      router.push('/');
+    }
+  }, []);
   const salaryDeadlines: string[] = Array.from(
     { length: 30 },
     (_, i) => `${i + 1}日`,
@@ -31,15 +44,21 @@ const Part_Time: React.FC = () => {
   const [input_over_time_Mode, setOvertimeMode] = useState<'yen' | 'percent'>(
     'yen',
   );
-  const handleDeadlineClick = () => setModalIsOpen(true);
-  const handleDeadlineSelect = (value: string) => {
-    setSelectedDeadline(value);
-    setModalIsOpen(false);
+  // value data
+  const [companyName, setCompanyName] = useState('');
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCompanyName(e.target.value);
   };
   const handleColorClick = (color: string) => {
     setSelectedColor(color);
     setShowColorPicker(false);
   };
+  const handleDeadlineClick = () => setModalIsOpen(true);
+  const handleDeadlineSelect = (value: string) => {
+    setSelectedDeadline(value);
+    setModalIsOpen(false);
+  };
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {};
 
   const salaryDay = () => router.push('/shift/salary_day');
@@ -50,7 +69,33 @@ const Part_Time: React.FC = () => {
   const overtimeInputMode = (mode: 'yen' | 'percent') => {
     setOvertimeMode(mode);
   };
+  const handleSubmit = async () => {
+    try {
+      if (companyName.trim() === '') {
+        console.error('error です');
+        //文字がない場合エラー
+        return;
+      }
+      const dataToAdd = {
+        companyName: companyName,
+        color: selectedColor,
+        deadline: selectedDeadline,
+      };
 
+      // Call function to add data to Firestore or handle data submission
+      const { result, error } = await addData('users', userId, dataToAdd);
+
+      if (error) {
+        console.error('データの追加中にエラーが発生しました:', error);
+      } else {
+        console.log('データが正常に追加されました:', result);
+        // Redirect or show success message as needed
+        router.push('/shift/shift_information'); // Example redirect after successful submission
+      }
+    } catch (error) {
+      console.error('エラー:', error);
+    }
+  };
   return (
     <Navigation title="">
       <div className={styles.container}>
@@ -86,6 +131,8 @@ const Part_Time: React.FC = () => {
               <input
                 type="text"
                 id="partTime"
+                value={companyName}
+                onChange={handleChange}
                 className={styles.input}
               />
             </div>
@@ -102,6 +149,7 @@ const Part_Time: React.FC = () => {
                     {colors.map((color) => (
                       <div
                         key={color}
+                        defaultValue={color}
                         className={styles.colorOption}
                         style={{ backgroundColor: color }}
                         onClick={() => handleColorClick(color)}
@@ -378,7 +426,12 @@ const Part_Time: React.FC = () => {
             )}
           </div>
 
-          <button className={styles.submitButton}>バイト先を追加する</button>
+          <button
+            className={styles.submitButton}
+            onClick={handleSubmit}
+          >
+            バイト先を追加する
+          </button>
         </main>
       </div>
 
