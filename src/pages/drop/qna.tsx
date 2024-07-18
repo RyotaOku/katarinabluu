@@ -56,8 +56,14 @@ const Qna: React.FC = () => {
             className={styles.form}
           >
             <div className={styles.formGroup}>
-              <label htmlFor="name">名前:</label>
+              <label
+                className={styles.label}
+                htmlFor="name"
+              >
+                名前:
+              </label>
               <input
+                className={styles.textInput}
                 type="text"
                 id="name"
                 value={name}
@@ -66,8 +72,14 @@ const Qna: React.FC = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="email">メールアドレス:</label>
+              <label
+                className={styles.label}
+                htmlFor="email"
+              >
+                メールアドレス:
+              </label>
               <input
+                className={styles.textInput}
                 type="email"
                 id="email"
                 value={email}
@@ -76,8 +88,14 @@ const Qna: React.FC = () => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label htmlFor="message">メッセージ:</label>
+              <label
+                className={styles.label}
+                htmlFor="message"
+              >
+                メッセージ:
+              </label>
               <textarea
+                className={styles.textArea}
                 id="message"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
