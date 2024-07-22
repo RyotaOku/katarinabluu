@@ -85,6 +85,17 @@ const JobCalendar: React.FC = () => {
   const handleSelectSlot = (slotInfo: { start: Date }) =>
     setSelectedDate(slotInfo.start);
 
+  const shift_resign = () => {
+    router.push(
+      `/shift/shift_information?date=${moment(selectedDate).format('YYYY-MM-DD')}`,
+    );
+  };
+
+  const shift_detail = () => {
+    router.push(`/shift/shift_detail`);
+  };
+
+  const todayFormatted = moment(selectedDate).format('YYYY年MM月DD日(dd)');
   const dayPropGetter = (date: Date) => {
     if (selectedDate && moment(date).isSame(selectedDate, 'day'))
       return { className: styles.selectedDate };
@@ -92,28 +103,6 @@ const JobCalendar: React.FC = () => {
       return { className: styles.today };
     return {};
   };
-
-  const shift_resign = () => {
-    router.push(
-      `/shift/shift_information?date=${moment(selectedDate).format('YYYY-MM-DD')}`,
-    );
-  };
-  console.log(events);
-  const shift_detail = () => {
-    <ShiftDetails shift={events} />;
-    router.push(`/shift/shift_detail`);
-  };
-  const todayFormatted = moment(selectedDate).format('YYYY年MM月DD日');
-  const dayOfWeek = {
-    Sunday: '日',
-    Monday: '月',
-    Tuesday: '火',
-    Wednesday: '水',
-    Thursday: '木',
-    Friday: '金',
-    Saturday: '土',
-  }[moment(selectedDate).format('dddd')];
-
   return (
     <div style={{ height: 'auto' }}>
       <button onClick={() => setShowVerticalCalendar(!showVerticalCalendar)}>
@@ -140,11 +129,8 @@ const JobCalendar: React.FC = () => {
           views={['month']}
         />
       }
-      <div className="shift">
-        <div style={{ fontSize: '15px' }}>
-          {todayFormatted}({dayOfWeek})
-        </div>
-        <button onClick={shift_resign}>✙新規シフトを追加</button>
+      <div className={styles.shift}>
+        <div style={{ fontSize: '15px' }}>{todayFormatted}</div>
         {part_time_jobs
           .filter(
             (job) => job.days === moment(selectedDate).format('YYYY-MM-DD'),
@@ -152,14 +138,34 @@ const JobCalendar: React.FC = () => {
           .map((job, index) => (
             <div
               key={index}
-              style={{ marginTop: '10px' }}
+              className={styles['shift-job']}
               onClick={shift_detail}
             >
-              <p style={{ fontSize: '15px' }}>バイト先: {job.job}</p>
-              <p style={{ fontSize: '15px' }}>開始時間: {job.start_time}</p>
-              <p style={{ fontSize: '15px' }}>終了時間: {job.end_time}</p>
+              <div className={styles['shift-time']}>
+                <span>{job.start_time}</span>
+                <span>{job.end_time}</span>
+              </div>
+              <div
+                className={styles['shift-bar']}
+                style={{
+                  backgroundColor: job.colors,
+                  color: job.colors,
+                  fontSize: 'Large',
+                }}
+              >
+                .
+              </div>
+              <div className={styles['shift-title']}>{job.job}</div>
             </div>
           ))}
+        <div style={{ alignItems: 'center' }}>
+          <button
+            className={styles['add-shift-button']}
+            onClick={shift_resign}
+          >
+            ✙新規シフトを追加
+          </button>
+        </div>
       </div>
     </div>
   );
