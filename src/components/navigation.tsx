@@ -5,8 +5,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Icon } from '@chakra-ui/react';
 import { motion, cubicBezier } from 'framer-motion';
+import router, { useRouter } from 'next/router';
+import {
+  FaSignOutAlt,
+  FaBell,
+  FaQuestionCircle,
+  FaInfoCircle,
+  FaBars,
+} from 'react-icons/fa';
 import styles from '@/styles/navigation.module.css';
-import { FaBars } from 'react-icons/fa';
 import { footerArray } from '@/types/footerTypes'; // Ensure this is correctly defined and imported
 
 interface FooterProps {
@@ -16,6 +23,8 @@ interface FooterProps {
 
 const Navigation = ({ children, title }: FooterProps) => {
   const [pathStat, setPathStat] = useState('/');
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setPathStat(location.pathname);
@@ -34,6 +43,15 @@ const Navigation = ({ children, title }: FooterProps) => {
         ease: cubicBezier(0.4, 0, 0.2, 1),
       },
     },
+  };
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleNavigation = (path: string) => {
+    router.push(path);
+    setDropdownVisible(false); // Hide dropdown after navigation
   };
 
   return (
@@ -61,16 +79,63 @@ const Navigation = ({ children, title }: FooterProps) => {
           />
         </div>
         <div className={styles.title}>{title}</div>
-        <div className={styles.dropdown}>
+        <div
+          className={styles.dropdown}
+          onClick={toggleDropdown}
+        >
           <Icon as={FaBars} />
         </div>
+        {dropdownVisible && (
+          <div className={styles.dropdownMenu}>
+            <div
+              className={styles.dropdownItem}
+              onClick={() => handleNavigation('/drop/logout')}
+            >
+              <Icon
+                as={FaSignOutAlt}
+                className={styles.dropdownIcon}
+              />
+              ログアウト
+            </div>
+            <div
+              className={styles.dropdownItem}
+              onClick={() => handleNavigation('/other/announce')}
+            >
+              <Icon
+                as={FaBell}
+                className={styles.dropdownIcon}
+              />
+              お知らせ
+            </div>
+            <div
+              className={styles.dropdownItem}
+              onClick={() => handleNavigation('/drop/qna')}
+            >
+              <Icon
+                as={FaQuestionCircle}
+                className={styles.dropdownIcon}
+              />
+              問い合わせ
+            </div>
+            <div
+              className={styles.dropdownItem}
+              onClick={() => handleNavigation('/drop/info')}
+            >
+              <Icon
+                as={FaInfoCircle}
+                className={styles.dropdownIcon}
+              />
+              サイト情報
+            </div>
+          </div>
+        )}
       </header>
       <main className={styles.main}>{children}</main>
       <footer className={styles.footer}>
         <nav className={styles.nav}>
           {footerArray.map((e, idx) => (
             <motion.div
-              className={styles.navItem}
+              className={`${styles.navItem} ${pathStat === e.path ? styles.active : ''}`}
               key={idx}
               variants={variant}
               initial="hidden"
@@ -78,7 +143,7 @@ const Navigation = ({ children, title }: FooterProps) => {
             >
               <Link
                 href={e.path}
-                className={`${styles.button} ${pathStat === e.path ? styles.active : ''}`}
+                className={styles.button}
               >
                 <Icon
                   as={e.icon}
