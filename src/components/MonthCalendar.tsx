@@ -1,8 +1,24 @@
-// components/VerticalMonthCalendar.tsx
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
-import 'moment/locale/ja'; //
+import 'moment/locale/ja';
 import styles from '../styles/calendar_shift/MonthCalendar.module.css';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+
+// Firebase configuration object
+const firebaseConfig = {
+  apiKey: 'AIzaSyC17gWndexNK6-oqEC_yAwmjDmpx-f5Tl0',
+  authDomain: 'katarinabluu.firebaseapp.com',
+  projectId: 'katarinabluu',
+  storageBucket: 'katarinabluu.appspot.com',
+  messagingSenderId: '626019077247',
+  appId: '1:626019077247:web:0b27fabf8e56267456834a',
+  measurementId: 'G-DM4PBSEKZJ',
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
 const VerticalMonthCalendar: React.FC = () => {
   const [events, setEvents] = useState<
@@ -16,66 +32,26 @@ const VerticalMonthCalendar: React.FC = () => {
   >([]);
 
   useEffect(() => {
-    const part_time_jobs = [
-      {
-        job: 'コンビニ店員',
-        start_time: '08:00',
-        end_time: '14:00',
-        days: '2024-07-21',
-        colors: '#FF4500',
-      },
-      {
-        job: 'コンビニ店員',
-        start_time: '08:00',
-        end_time: '14:00',
-        days: '2024-07-22',
-        colors: '#FF4500',
-      },
-      {
-        job: 'コンビニ店員',
-        start_time: '08:00',
-        end_time: '14:00',
-        days: '2024-07-23',
-        colors: '#FF4500',
-      },
-      {
-        job: 'ファミリーレストランのキッチンスタッフ',
-        start_time: '17:00',
-        end_time: '22:00',
-        days: '2024-07-20',
-        colors: '#008000',
-      },
-      {
-        job: 'カフェのバリスタ',
-        start_time: '07:00',
-        end_time: '12:00',
-        days: '2024-07-11',
-        colors: '#000000',
-      },
-      {
-        job: 'ファミリーレストランのキッチンスタッフ',
-        start_time: '09:00',
-        end_time: '15:00',
-        days: '2024-07-04',
-        colors: '#008000',
-      },
-      {
-        job: '工場のライン作業員',
-        start_time: '06:00',
-        end_time: '14:00',
-        days: '2024-07-03',
-        colors: '#FFF333',
-      },
-      {
-        job: 'ファミリーレストランのキッチンスタッフ',
-        start_time: '18:00',
-        end_time: '23:00',
-        days: '2024-07-01',
-        colors: '#008000',
-      },
-    ];
+    const fetchEvents = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'events'));
+        const eventsData = querySnapshot.docs.map(
+          (doc) =>
+            doc.data() as {
+              job: string;
+              start_time: string;
+              end_time: string;
+              days: string;
+              colors: string;
+            },
+        );
+        setEvents(eventsData);
+      } catch (error) {
+        console.error('Error fetching events:', error);
+      }
+    };
 
-    setEvents(part_time_jobs);
+    fetchEvents();
   }, []);
 
   const renderDayEvents = (day: string) => {
@@ -118,6 +94,7 @@ const VerticalMonthCalendar: React.FC = () => {
     }
     return days;
   };
+
   const monthYear = moment().format('MMMM YYYY');
   return (
     <div className={styles.verticalCalendarContainer}>
