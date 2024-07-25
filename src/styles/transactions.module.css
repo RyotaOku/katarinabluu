@@ -165,7 +165,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 2rem;
+}
+
+.chartContainer {
+  padding: 2rem 0;
 }
 
 .chartDetails {
@@ -201,23 +204,21 @@
 }
 
 .tabContainer {
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin: 1rem 0;
+  background-color: #f8f9fa;
 }
 
 .tab {
-  padding: 1rem 2rem;
+  padding: 1rem 0;
+  width: 100%;
+  text-align: center;
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
 }
 
 .tab.active {
-  border-bottom: 2px solid var(--primary);
+  border-bottom: 3px solid var(--primary);
   font-weight: bold;
-}
-
-.barChartSection {
-  width: 100%;
-  padding: 1rem;
 }

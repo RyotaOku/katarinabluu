@@ -203,15 +203,13 @@ const Transactions: React.FC = () => {
       {
         label: '収入',
         data: yearlyIncome,
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'var(--blue)',
         borderWidth: 1,
       },
       {
         label: '支出',
         data: yearlyExpense,
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'var(--red)',
         borderWidth: 1,
       },
     ],
