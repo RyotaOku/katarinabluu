@@ -6,7 +6,7 @@ import { getUserSession } from '@/lib/session';
 import router from 'next/router';
 import styles from '@/styles/announce.module.css';
 
-const pageTitle = 'お知らせ';
+const pageTitle = '固定費入力・変更';
 
 const AddMonthExp: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);

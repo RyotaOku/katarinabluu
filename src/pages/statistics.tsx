@@ -230,6 +230,10 @@ const Statistics: React.FC = () => {
                   ¥{data?.total?.toFixed(0) ?? 0}
                 </span>
               </p>
+              <p>
+                時給{' '}
+                <span className={styles.detailValue}>¥{data?.total ?? 0}</span>
+              </p>
             </div>
           </div>
           <div className={styles.transactions}>
