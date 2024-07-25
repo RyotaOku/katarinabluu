@@ -1,4 +1,3 @@
-// pages/statistics.tsx
 import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Navigation from '@/components/navigation';
@@ -6,10 +5,8 @@ import styles from '@/styles/statistics.module.css';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import dayjs from 'dayjs';
-import { getUserSession } from '@/lib/session';
-import { getDocument } from '@/lib/getData'; // Import the getDocument function
 import { useRouter } from 'next/router';
-import Link from 'next/link'; // Import Link for navigation
+import Link from 'next/link';
 
 const pageTitle = '給料計算';
 
@@ -34,38 +31,41 @@ interface UserData {
 
 const Statistics: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
-  const [data, setData] = useState<UserData | null>(null); // State to store fetched data
-  const [userName, setUserName] = useState<string>('Unknown User'); // State to store user name
+  const [data, setData] = useState<UserData | null>(null);
+  const [userName, setUserName] = useState<string>('Unknown User');
   const [activeTab, setActiveTab] = useState<'monthly' | 'yearly'>('monthly');
+  const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
-    // User verification
-    const fetchUserSession = async () => {
-      const userId = await getUserSession();
-      if (userId) {
-        setUserId(userId);
-        fetchData(userId); // Fetch data from Firestore
-      } else {
-        router.push('/'); // Redirect to login if not logged in
-      }
-    };
-
-    fetchUserSession();
-  }, [router]);
+    // Mock user verification and data fetching
+    const mockUserId = 'exampleUserId';
+    setUserId(mockUserId);
+    fetchData(mockUserId);
+  }, []);
 
   const fetchData = async (userId: string) => {
-    const { result, error } = await getDocument('users', userId);
-    if (error) {
-      console.error('Error fetching data:', error);
-    } else if (result) {
-      const userData = result as UserData;
-      console.log('Fetched user data:', userData); // Debugging: print fetched data
-      setData(userData);
-      setUserName(userData.userName);
-    } else {
-      console.error('No such document!');
-    }
+    // Mock data
+    const userData: UserData = {
+      userName: 'John Doe',
+      salary: 300000,
+      total: 500000,
+      workHours: '160h',
+      transactions: [
+        { name: 'Groceries', amount: 30000, color: '#FF6384' },
+        { name: 'Utilities', amount: 15000, color: '#36A2EB' },
+      ],
+      fixedTransactions: [
+        { name: 'Rent', amount: 100000, color: '#FFCE56' },
+        { name: 'Internet', amount: 5000, color: '#4BC0C0' },
+      ],
+      income: 400000,
+      fixedExpenses: 105000,
+    };
+
+    console.log('Fetched user data:', userData);
+    setData(userData);
+    setUserName(userData.userName);
   };
 
   const [currentMonth, setCurrentMonth] = useState(dayjs());
@@ -188,11 +188,18 @@ const Statistics: React.FC = () => {
                   <span className={styles.amount}>¥{transaction.amount}</span>
                 </div>
               ))}
-              <button className={styles.dropdownButton}>▼ 詳細を表示</button>
-              <div className={styles.dropdownContent}>
-                <p>勤務時間: {data?.workHours}</p>
-                <p>交通費: ¥2000</p>
-              </div>
+              <button
+                className={`${styles.dropdownButton} ${showDropdown ? styles.active : ''}`}
+                onClick={() => setShowDropdown(!showDropdown)}
+              >
+                ▼ 詳細を表示
+              </button>
+              {showDropdown && (
+                <div className={styles.dropdownContent}>
+                  <p>勤務時間: {data?.workHours}</p>
+                  <p>交通費: ¥2000</p>
+                </div>
+              )}
             </div>
             <div className={styles.transactionSection}>
               <div className={styles.transactionHeader}>

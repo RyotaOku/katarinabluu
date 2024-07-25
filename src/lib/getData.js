@@ -7,6 +7,8 @@ import {
   collection,
   getDocs,
   listCollections,
+  setDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 
 const db = getFirestore(firebase_app);
@@ -54,5 +56,29 @@ export async function listAllCollections() {
   } catch (error) {
     console.error('Error listing collections:', error);
     return { result: null, error };
+  }
+}
+
+export async function setDocument(collectionName, id, data) {
+  try {
+    const docRef = doc(db, collectionName, id);
+    await setDoc(docRef, data, { merge: true });
+    console.log('Document successfully written!');
+    return { error: null };
+  } catch (error) {
+    console.error('Error writing document:', error);
+    return { error };
+  }
+}
+
+export async function deleteDocument(collectionName, id) {
+  try {
+    const docRef = doc(db, collectionName, id);
+    await deleteDoc(docRef);
+    console.log('Document successfully deleted!');
+    return { error: null };
+  } catch (error) {
+    console.error('Error deleting document:', error);
+    return { error };
   }
 }

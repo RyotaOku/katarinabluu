@@ -191,6 +191,12 @@
   right: 1rem;
 }
 
+.showAllExpensesButton {
+  position: fixed;
+  bottom: 11rem;
+  right: 1rem;
+}
+
 .addExpenseButton button,
 .showAllExpensesButton button {
   background: var(--primary);
@@ -206,11 +212,8 @@
   background: #003366;
   transform: scale(1.05);
 }
+
 .showAllExpensesButton button:hover {
   background: #07baf6;
   transform: scale(1.05);
-}
-
-.showAllExpensesButton {
-  margin-top: 1rem;
 }
