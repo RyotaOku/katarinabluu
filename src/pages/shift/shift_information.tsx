@@ -27,6 +27,7 @@ const Information: React.FC = () => {
     const userId = getUserSession();
     if (userId) {
       setUserId(userId);
+      console.log(userId);
     } else {
       // Handle case where user is not logged in, e.g., redirect to login
       router.push('/');
@@ -98,7 +99,6 @@ const Information: React.FC = () => {
           />
         </Head>
         <main className={styles.main}>
-          <p>Hello, User ID: {userId}</p>
           <h1
             onClick={() => router.back()}
             style={{ cursor: 'pointer' }}

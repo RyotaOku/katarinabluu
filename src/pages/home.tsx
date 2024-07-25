@@ -37,10 +37,9 @@ const Home: React.FC = () => {
         />
       </Head>
       <main>
-        <h1>シフト表だぜ</h1>
+        <h1 style={{ textAlign: 'center' }}>シフト表</h1>
         {userId ?
           <>
-            <p>Hello, User ID: {userId}</p>
             <JobCalendar />
             {/* <UserHome /> */}
           </>
