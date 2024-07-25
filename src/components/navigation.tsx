@@ -26,6 +26,10 @@ const Navigation = ({ children, title }: FooterProps) => {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const router = useRouter();
 
+  const handleProfileEdit = () => {
+    router.push('/profile');
+  };
+
   useEffect(() => {
     setPathStat(location.pathname);
   }, []);
@@ -68,7 +72,10 @@ const Navigation = ({ children, title }: FooterProps) => {
         />
       </Head>
       <header className={styles.header}>
-        <div className={styles.profile}>
+        <div
+          className={styles.profile}
+          onClick={handleProfileEdit}
+        >
           <Image
             src="/user.svg" // Ensure you have this image or replace it with a correct path
             alt="Profile"
