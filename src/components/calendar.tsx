@@ -71,18 +71,11 @@ const JobCalendar: React.FC = () => {
 
   return (
     <div style={{ height: 'auto' }}>
-      <div className={styles.switch}>
-        <input
-          type="checkbox"
-          id="toggleSwitch"
-          onChange={() => setShowVerticalCalendar(!showVerticalCalendar)}
-        />
-        <label
-          className={styles.slider}
-          htmlFor="toggleSwitch"
-        ></label>
+      <div style={{ textAlign: 'end' }}>
+        <button onClick={() => setShowVerticalCalendar(!showVerticalCalendar)}>
+          {showVerticalCalendar ? 'Horizontal View' : 'Vertical View'}
+        </button>
       </div>
-
       {showVerticalCalendar ?
         <VerticalMonthCalendar />
       : <Calendar
@@ -134,10 +127,7 @@ const JobCalendar: React.FC = () => {
             className={styles['add-shift-button']}
             onClick={shift_resign}
           >
-            <span>
-              <FaPlus />
-            </span>
-            <span>新規シフトを追加</span>
+            ✙新規シフトを追加
           </button>
         </div>
       </div>

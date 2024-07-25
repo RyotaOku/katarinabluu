@@ -7,7 +7,7 @@ import Navigation from '@/components/navigation';
 import { getUserSession } from '@/lib/session';
 import router from 'next/router';
 
-const pageTitle = 'ホーム';
+const pageTitle = 'シフト表';
 
 const Home: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
@@ -37,7 +37,6 @@ const Home: React.FC = () => {
         />
       </Head>
       <main>
-        <h1 style={{ textAlign: 'center' }}>シフト表</h1>
         {userId ?
           <>
             <JobCalendar />

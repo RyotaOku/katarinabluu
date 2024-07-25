@@ -85,7 +85,7 @@ const Information: React.FC = () => {
   };
 
   return (
-    <Navigation title={''}>
+    <Navigation title={'新規シフト追加 '}>
       <div className={styles.container}>
         <Head>
           <title>Shift Information Page</title>
@@ -103,7 +103,7 @@ const Information: React.FC = () => {
             onClick={() => router.back()}
             style={{ cursor: 'pointer' }}
           >
-            ＜
+            back
           </h1>
 
           <p className={styles.sectionTitle}>基本情報</p>
