@@ -5,6 +5,9 @@ import styles from '@/styles/statistics.module.css';
 import { Doughnut } from 'react-chartjs-2';
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import dayjs from 'dayjs';
+import duration from 'dayjs/plugin/duration';
+import { getUserSession } from '@/lib/session';
+import { getDocuments } from '@/lib/getData'; // Import the getDocuments function
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -12,10 +15,21 @@ const pageTitle = '給料計算';
 
 Chart.register(ArcElement, Tooltip, Legend);
 
+dayjs.extend(duration);
+
 interface Transaction {
   name: string;
   amount: number;
   color: string;
+}
+
+interface Shift {
+  part_time: string;
+  start: string;
+  end: string;
+  break_time: string;
+  salary: string;
+  memo: string;
 }
 
 interface UserData {
@@ -27,6 +41,7 @@ interface UserData {
   fixedTransactions: Transaction[];
   income: number;
   fixedExpenses: number;
+  shifts: Shift[];
 }
 
 const Statistics: React.FC = () => {
@@ -45,37 +60,77 @@ const Statistics: React.FC = () => {
   }, []);
 
   const fetchData = async (userId: string) => {
-    // Mock data
-    const userData: UserData = {
-      userName: 'John Doe',
-      salary: 300000,
-      total: 500000,
-      workHours: '160h',
-      transactions: [
-        { name: 'Groceries', amount: 30000, color: '#FF6384' },
-        { name: 'Utilities', amount: 15000, color: '#36A2EB' },
-      ],
-      fixedTransactions: [
-        { name: 'Rent', amount: 100000, color: '#FFCE56' },
-        { name: 'Internet', amount: 5000, color: '#4BC0C0' },
-      ],
-      income: 400000,
-      fixedExpenses: 105000,
-    };
+    const { result, error } = await getDocuments(`users/${userId}/shifts`);
+    if (error) {
+      console.error('Error fetching data:', error);
+    } else if (result) {
+      const shifts = result.map((doc: any) => ({
+        part_time: doc.part_time ?? '',
+        start: doc.start ?? '',
+        end: doc.end ?? '',
+        break_time: doc.break_time ?? '00:00',
+        salary: doc.salary ?? '0',
+        memo: doc.memo ?? '',
+      })) as Shift[];
 
-    console.log('Fetched user data:', userData);
-    setData(userData);
-    setUserName(userData.userName);
+      const currentMonthShifts = shifts.filter((shift: Shift) =>
+        dayjs(shift.start).isSame(currentMonth, 'month'),
+      );
+
+      const totalMonthlySalary = currentMonthShifts.reduce(
+        (acc, shift: Shift) => {
+          const start = dayjs(shift.start);
+          const end = dayjs(shift.end);
+
+          if (!start.isValid() || !end.isValid()) {
+            console.error('Invalid date format in shift data:', shift);
+            return acc;
+          }
+
+          const workDuration =
+            end.diff(start, 'minute') -
+            dayjs.duration(shift.break_time).asMinutes();
+          const shiftSalary = (workDuration / 60) * parseFloat(shift.salary);
+
+          if (isNaN(shiftSalary)) {
+            console.error('Invalid salary calculation in shift data:', shift);
+            return acc;
+          }
+
+          return acc + shiftSalary;
+        },
+        0,
+      );
+
+      const userData: UserData = {
+        userName: 'User', // This should be fetched from the user document
+        salary: totalMonthlySalary,
+        total: totalMonthlySalary,
+        workHours: '', // This should be calculated if required
+        transactions: [],
+        fixedTransactions: [],
+        income: totalMonthlySalary, // Assuming income is total monthly salary
+        fixedExpenses: 0,
+        shifts,
+      };
+
+      setData(userData);
+      setUserName(userData.userName);
+    } else {
+      console.error('No such document!');
+    }
   };
 
   const [currentMonth, setCurrentMonth] = useState(dayjs());
 
   const handlePreviousMonth = () => {
     setCurrentMonth(currentMonth.subtract(1, 'month'));
+    if (userId) fetchData(userId); // Fetch data for the updated month
   };
 
   const handleNextMonth = () => {
     setCurrentMonth(currentMonth.add(1, 'month'));
+    if (userId) fetchData(userId); // Fetch data for the updated month
   };
 
   const chartData = {
@@ -133,7 +188,9 @@ const Statistics: React.FC = () => {
               />
               <div className={styles.chartText}>
                 <p className={styles.balanceLabel}>差し引いた今月の給料</p>
-                <p className={styles.balance}>¥{data?.salary ?? 0}</p>
+                <p className={styles.balance}>
+                  ¥{data?.salary?.toFixed(0) ?? 0}
+                </p>
               </div>
             </div>
             {activeTab === 'monthly' && (
@@ -161,7 +218,9 @@ const Statistics: React.FC = () => {
               </p>
               <p>
                 給料込み{' '}
-                <span className={styles.detailValue}>¥{data?.total ?? 0}</span>
+                <span className={styles.detailValue}>
+                  ¥{data?.total?.toFixed(0) ?? 0}
+                </span>
               </p>
               <p>
                 時給{' '}

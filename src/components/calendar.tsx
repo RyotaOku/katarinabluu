@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Calendar, momentLocalizer, Event, View } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
@@ -6,83 +6,46 @@ import { useRouter } from 'next/router';
 import styles from '../styles/calendar_shift/calendar.module.css';
 import VerticalMonthCalendar from './MonthCalendar';
 import { FaPlus } from 'react-icons/fa';
-import ShiftDetails from '@/pages/shift/shift_detail';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThLarge, faBars } from '@fortawesome/free-solid-svg-icons';
+import { getUserSession } from '@/lib/session';
+import { getDocuments } from '@/lib/getData';
+
 const localizer = momentLocalizer(moment);
-
-const part_time_jobs = [
-  {
-    job: 'コンビニ店員',
-    start_time: '08:00',
-    end_time: '14:00',
-    days: '2024-07-21',
-    colors: '#FF4500',
-  },
-  {
-    job: 'コンビニ店員',
-    start_time: '08:00',
-    end_time: '14:00',
-    days: '2024-07-22',
-    colors: '#FF4500',
-  },
-  {
-    job: 'コンビニ店員',
-    start_time: '08:00',
-    end_time: '14:00',
-    days: '2024-07-23',
-    colors: '#FF4500',
-  },
-  {
-    job: 'ファミリーレストランのキッチンスタッフ',
-    start_time: '17:00',
-    end_time: '22:00',
-    days: '2024-07-20',
-    colors: '#008000',
-  },
-  {
-    job: 'カフェのバリスタ',
-    start_time: '07:00',
-    end_time: '12:00',
-    days: '2024-07-11',
-    colors: '#000000',
-  },
-  {
-    job: 'ファミリーレストランのキッチンスタッフ',
-    start_time: '09:00',
-    end_time: '15:00',
-    days: '2024-07-04',
-    colors: '#008000',
-  },
-  {
-    job: '工場のライン作業員',
-    start_time: '06:00',
-    end_time: '14:00',
-    days: '2024-07-03',
-    colors: '#FFF333',
-  },
-  {
-    job: 'ファミリーレストランのキッチンスタッフ',
-    start_time: '18:00',
-    end_time: '23:00',
-    days: '2024-07-01',
-    colors: '#008000',
-  },
-];
-
-const events: Event[] = part_time_jobs.map((job) => ({
-  start: new Date(`${job.days}T${job.start_time}`),
-  end: new Date(`${job.days}T${job.end_time}`),
-  title: job.job,
-  resource: { color: job.colors },
-}));
 
 const JobCalendar: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [view, setView] = useState<View>('month');
   const [showVerticalCalendar, setShowVerticalCalendar] =
     useState<boolean>(false);
+  const [events, setEvents] = useState<Event[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchUserShifts = async () => {
+      const userId = await getUserSession();
+      if (!userId) {
+        router.push('/'); // Redirect to login if not logged in
+        return;
+      }
+
+      const { result, error } = await getDocuments(`users/${userId}/shifts`);
+      if (error) {
+        console.error('Error fetching shifts:', error);
+      } else if (result) {
+        const shifts = result as any[];
+        const calendarEvents = shifts.map((shift) => ({
+          start: new Date(shift.start),
+          end: new Date(shift.end),
+          title: shift.part_time,
+          resource: { color: shift.color },
+        }));
+        setEvents(calendarEvents);
+      } else {
+        console.error('No shifts found!');
+      }
+    };
+
+    fetchUserShifts();
+  }, [router]);
 
   const handleSelectSlot = (slotInfo: { start: Date }) =>
     setSelectedDate(slotInfo.start);
@@ -105,6 +68,7 @@ const JobCalendar: React.FC = () => {
       return { className: styles.today };
     return {};
   };
+
   return (
     <div style={{ height: 'auto' }}>
       <div className={styles.switch}>
@@ -140,31 +104,29 @@ const JobCalendar: React.FC = () => {
       }
       <div className={styles.shift}>
         <div style={{ fontSize: '15px' }}>{todayFormatted}</div>
-        {part_time_jobs
-          .filter(
-            (job) => job.days === moment(selectedDate).format('YYYY-MM-DD'),
-          )
-          .map((job, index) => (
+        {events
+          .filter((event) => moment(event.start).isSame(selectedDate, 'day'))
+          .map((event, index) => (
             <div
               key={index}
               className={styles['shift-job']}
               onClick={shift_detail}
             >
               <div className={styles['shift-time']}>
-                <span>{job.start_time}</span>
-                <span>{job.end_time}</span>
+                <span>{moment(event.start).format('HH:mm')}</span>
+                <span>{moment(event.end).format('HH:mm')}</span>
               </div>
               <div
                 className={styles['shift-bar']}
                 style={{
-                  backgroundColor: job.colors,
-                  color: job.colors,
+                  backgroundColor: event.resource?.color,
+                  color: event.resource?.color,
                   fontSize: 'Large',
                 }}
               >
                 .
               </div>
-              <div className={styles['shift-title']}>{job.job}</div>
+              <div className={styles['shift-title']}>{event.title}</div>
             </div>
           ))}
         <div style={{ alignItems: 'center' }}>

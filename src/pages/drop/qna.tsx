@@ -36,82 +36,80 @@ const Qna: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Navigation title={pageTitle}>
-        <Head>
-          <title>Calendar App</title>
-          <meta
-            name={pageTitle}
-            content="あなたのジョブシフト"
-          />
-          <link
-            rel="icon"
-            href="/favicon.ico"
-          />
-        </Head>
-        <main className={styles.main}>
-          <h1 className={styles.title}>{pageTitle}</h1>
-          <form
-            onSubmit={handleSubmit}
-            className={styles.form}
-          >
-            <div className={styles.formGroup}>
-              <label
-                className={styles.label}
-                htmlFor="name"
-              >
-                名前:
-              </label>
-              <input
-                className={styles.textInput}
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label
-                className={styles.label}
-                htmlFor="email"
-              >
-                メールアドレス:
-              </label>
-              <input
-                className={styles.textInput}
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className={styles.formGroup}>
-              <label
-                className={styles.label}
-                htmlFor="message"
-              >
-                メッセージ:
-              </label>
-              <textarea
-                className={styles.textArea}
-                id="message"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                required
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className={styles.submitButton}
+    <Navigation title={pageTitle}>
+      <Head>
+        <title>Calendar App</title>
+        <meta
+          name={pageTitle}
+          content="あなたのジョブシフト"
+        />
+        <link
+          rel="icon"
+          href="/favicon.ico"
+        />
+      </Head>
+      <main className={styles.main}>
+        <h1 className={styles.title}>{pageTitle}</h1>
+        <form
+          onSubmit={handleSubmit}
+          className={styles.form}
+        >
+          <div className={styles.formGroup}>
+            <label
+              className={styles.label}
+              htmlFor="name"
             >
-              送信
-            </button>
-          </form>
-        </main>
-      </Navigation>
-    </div>
+              名前:
+            </label>
+            <input
+              className={styles.textInput}
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label
+              className={styles.label}
+              htmlFor="email"
+            >
+              メールアドレス:
+            </label>
+            <input
+              className={styles.textInput}
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label
+              className={styles.label}
+              htmlFor="message"
+            >
+              メッセージ:
+            </label>
+            <textarea
+              className={styles.textArea}
+              id="message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            className={styles.submitButton}
+          >
+            送信
+          </button>
+        </form>
+      </main>
+    </Navigation>
   );
 };
 

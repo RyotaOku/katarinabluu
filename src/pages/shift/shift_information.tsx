@@ -75,7 +75,7 @@ const Information: React.FC = () => {
         console.error('Error adding document:', error);
       } else {
         console.log('Document successfully written!', result);
-        router.push('/shifts'); // Adjust the redirection as needed
+        router.push('/home'); // Adjust the redirection as needed
       }
     } catch (e) {
       console.error('Error during addData operation:', e);
