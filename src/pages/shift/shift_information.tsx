@@ -15,9 +15,11 @@ const Information: React.FC = () => {
     'KFC',
     'MC Donald',
   ];
+
   const add_part_time = () => {
     router.push('/shift/add_parttime');
   };
+
   //userID get
   const [userId, setUserId] = useState<string | null>(null);
   useEffect(() => {
@@ -30,11 +32,12 @@ const Information: React.FC = () => {
       router.push('/');
     }
   }, []);
+
   // State variables for form data
   const [formData, setFormData] = useState({
     part_time: part_time[2],
     start: date ? `${date}T09:00` : '',
-    end: date ? `${date}T09:00` : '',
+    end: date ? `${date}T17:00` : '',
     break_time: '00:30',
     salary: '',
     memo: '',
@@ -53,16 +56,28 @@ const Information: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!userId) {
+      setError('User is not authenticated');
+      return;
+    }
     setLoading(true);
     setError(null);
 
-    const { result, error } = await addData('users', userId, formData);
+    try {
+      const { result, error } = await addData(
+        `users/${userId}/shifts`,
+        `${formData.part_time}-${new Date().toISOString()}`,
+        formData,
+      );
 
-    if (error) {
-      console.log('error  ');
-      // setError(error.message);
-    } else {
-      console.log('Document successfully written!', result);
+      if (error) {
+        console.error('Error adding document:', error);
+      } else {
+        console.log('Document successfully written!', result);
+        router.push('/shifts'); // Adjust the redirection as needed
+      }
+    } catch (e) {
+      console.error('Error during addData operation:', e);
     }
 
     setLoading(false);
