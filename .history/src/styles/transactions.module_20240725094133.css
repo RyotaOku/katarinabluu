@@ -16,16 +16,16 @@
 
 .searchInput {
   flex-grow: 1;
-  padding: 0.6rem 1.2rem;
+  padding: 5px 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-.clearButton {
-  padding: 0.6rem 1.2rem;
+.cancelButton {
+  margin-left: 10px;
+  padding: 5px 10px;
   border-radius: 5px;
-  background-color: #333;
-  color: #fff;
+  background-color: #e4e4e4;
 }
 
 .transactionsList {
