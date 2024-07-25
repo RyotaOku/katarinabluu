@@ -10,7 +10,8 @@
 }
 
 .titleText {
-  font-size: 3rem;
+  font-size: 2rem;
+  color: #000;
 }
 
 .actionSection {
@@ -20,7 +21,7 @@
   align-items: center;
   justify-content: center;
   background: #fefefe;
-  gap: 10px;
+  gap: 2rem;
   bottom: 0;
   width: 100%;
   height: 17rem;

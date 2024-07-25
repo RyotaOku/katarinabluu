@@ -1,19 +1,19 @@
 :root {
-  --primary: #007afe;
-  --text: #1a1a1a;
-  --white: #fefefe;
-  --gray: #f2f2f7;
-  --border: #e4e4e4;
-  --red: #ff3126;
-  --orange: #f58b00;
-  --yellow: #f5c200;
-  --green: #1dc337;
-  --indigo: #5452cc;
-  --blue: #0070f5;
-  --cyan: #41afdc;
-  --purple: #9e4dc8;
-  --pink: #e59ba7;
-  --brown: #987a54;
+  --primary: rgba(0, 122, 254, 1);
+  --text: rgba(26, 26, 26, 1);
+  --white: rgba(254, 254, 254, 1);
+  --gray: rgba(242, 242, 247, 1);
+  --border: rgba(228, 228, 228, 1);
+  --red: rgba(255, 49, 38, 1);
+  --orange: rgba(245, 139, 0, 1);
+  --yellow: rgba(245, 194, 0, 1);
+  --green: rgba(29, 195, 55, 1);
+  --indigo: rgba(84, 82, 204, 1);
+  --blue: rgba(0, 112, 245, 1);
+  --cyan: rgba(65, 175, 220, 1);
+  --purple: rgba(158, 77, 200, 1);
+  --pink: rgba(229, 155, 167, 1);
+  --brown: rgba(152, 122, 84, 1);
 }
 
 * {
@@ -25,7 +25,6 @@ html,
 body {
   font-size: 62.5%;
   font-family: 'Inter', sans-serif;
-  color: var(--text);
 }
 
 button {
