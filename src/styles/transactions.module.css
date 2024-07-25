@@ -147,11 +147,11 @@
 }
 
 .income {
-  color: #3498db;
+  color: rgba(0, 112, 245, 1);
 }
 
 .expense {
-  color: #f44336;
+  color: rgba(255, 49, 38, 1);
 }
 
 .categoryColor {

@@ -43,7 +43,7 @@
 }
 
 .dropdown {
-  font-size: 1.6rem;
+  font-size: 2rem;
   text-align: right;
   cursor: pointer;
   position: relative;
@@ -52,35 +52,35 @@
 
 .dropdownMenu {
   position: absolute;
-  top: 2.5rem;
-  /* Position below the header */
-  right: 0;
+  top: 43px;
+  right: 14px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   overflow: hidden;
   z-index: 1000;
-  /* Ensure the dropdown menu is on top of other elements */
+  font-size: 1.4rem;
   display: flex;
   flex-direction: column;
-  /* Make the dropdown vertical */
 }
 
 .dropdownItem {
   display: flex;
   align-items: center;
-  padding: 1rem;
-  color: #333;
+  padding: 1.4rem 2rem;
+  color: #000;
+  border-bottom: #cecece 1px solid;
   text-decoration: none;
+  gap: 1rem;
   transition: background-color 0.3s;
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
 }
 
 .dropdownItem:hover {
   background-color: #f0f0f0;
-}
-
-.dropdownIcon {
-  margin-right: 0.5rem;
 }
 
 .footer {
@@ -107,7 +107,6 @@
 }
 
 .button {
-  color: #000;
   background: none;
   outline: none;
   padding: 1rem;
@@ -118,11 +117,14 @@
   align-items: center;
 }
 
+.button:not(.active) {
+  color: var(--text);
+}
+
 .button .icon {
   font-size: 2rem;
 }
 
 .active {
-  background: var(--white);
-  color: var(--primary);
+  color: var(--primary) !important;
 }
