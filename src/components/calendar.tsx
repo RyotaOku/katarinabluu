@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 import styles from '../styles/calendar_shift/calendar.module.css';
 import VerticalMonthCalendar from './MonthCalendar';
 import ShiftDetails from '@/pages/shift/shift_detail';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThLarge, faBars } from '@fortawesome/free-solid-svg-icons';
 const localizer = momentLocalizer(moment);
 
 const part_time_jobs = [
@@ -105,11 +106,18 @@ const JobCalendar: React.FC = () => {
   };
   return (
     <div style={{ height: 'auto' }}>
-      <button onClick={() => setShowVerticalCalendar(!showVerticalCalendar)}>
-        {showVerticalCalendar ?
-          'Change to Horizontal View'
-        : 'Change to Vertical View'}
-      </button>
+      <div className={styles.switch}>
+        <input
+          type="checkbox"
+          id="toggleSwitch"
+          onChange={() => setShowVerticalCalendar(!showVerticalCalendar)}
+        />
+        <label
+          className={styles.slider}
+          htmlFor="toggleSwitch"
+        ></label>
+      </div>
+
       {showVerticalCalendar ?
         <VerticalMonthCalendar />
       : <Calendar
