@@ -30,7 +30,7 @@
     display: block;
     width: 10px;
     height: 10px;
-    background-color: #FF4500;
+    background-color: #ff4500;
     border-radius: 50%;
     position: absolute;
     bottom: 5px;
@@ -61,7 +61,7 @@
   display: block;
   width: 10px;
   height: 10px;
-  background-color: #FF4500;
+  background-color: #ff4500;
   border-radius: 50%;
   position: absolute;
   bottom: 5px;
@@ -70,19 +70,23 @@
 }
 
 .add-shift-button {
+  background: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  margin: 5px auto;
-  padding: 10px 20px;
-  font-size: 15px;
-  background-color: #fff;
-  color: #19b4c0;
-  border: 2px dashed #19b4c0;
-  border-radius: 4px;
+  margin: 2rem auto;
+  padding: 0.8rem 10rem;
+  font-size: 1.6rem;
+  color: var(--primary);
+  border: 2px dashed var(--primary);
+  border-radius: 10px;
   cursor: pointer;
-  text-align: center;
+  gap: 1rem;
+}
+
+.add-shift-button span {
+  display: flex;
+  align-items: center;
 }
 
 .add-shift-button:hover {
