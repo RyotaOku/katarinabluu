@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import { getUserSession } from '@/lib/session';
 import { getDocument } from '@/lib/getData'; // Import the getDocument function
 import { useRouter } from 'next/router';
+import Link from 'next/link'; // Import Link for navigation
 
 const pageTitle = '給料計算';
 
@@ -35,6 +36,7 @@ const Statistics: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
   const [data, setData] = useState<UserData | null>(null); // State to store fetched data
   const [userName, setUserName] = useState<string>('Unknown User'); // State to store user name
+  const [activeTab, setActiveTab] = useState<'monthly' | 'yearly'>('monthly');
   const router = useRouter();
 
   useEffect(() => {
@@ -76,7 +78,6 @@ const Statistics: React.FC = () => {
     setCurrentMonth(currentMonth.add(1, 'month'));
   };
 
-  // Example data, replace with data fetched from Firestore
   const chartData = {
     datasets: [
       {
@@ -104,16 +105,26 @@ const Statistics: React.FC = () => {
       <main className={styles.main}>
         <div className={styles.container}>
           <header className={styles.header}>
-            <p>{currentMonth.format('YYYY年 M月')}</p>
+            <p>
+              {activeTab === 'monthly' ?
+                currentMonth.format('YYYY年 M月')
+              : currentMonth.format('YYYY年')}
+            </p>
             <div className={styles.toggleButtons}>
-              <button className={styles.active}>月</button>
-              <button>年</button>
+              <button
+                className={activeTab === 'monthly' ? styles.active : ''}
+                onClick={() => setActiveTab('monthly')}
+              >
+                月
+              </button>
+              <button
+                className={activeTab === 'yearly' ? styles.active : ''}
+                onClick={() => setActiveTab('yearly')}
+              >
+                年
+              </button>
             </div>
           </header>
-          <div className={styles.debug}>
-            <p>Debug: User Name: {userName}</p> {/* Debug information */}
-            <p>Debug: User ID: {userId}</p> {/* Debug information */}
-          </div>
           <div className={styles.chartSection}>
             <div className={styles.chart}>
               <Doughnut
@@ -125,20 +136,22 @@ const Statistics: React.FC = () => {
                 <p className={styles.balance}>¥{data?.salary ?? 0}</p>
               </div>
             </div>
-            <div className={styles.arrowContainer}>
-              <button
-                onClick={handlePreviousMonth}
-                className={styles.arrowButton}
-              >
-                ←
-              </button>
-              <button
-                onClick={handleNextMonth}
-                className={styles.arrowButton}
-              >
-                →
-              </button>
-            </div>
+            {activeTab === 'monthly' && (
+              <div className={styles.arrowContainer}>
+                <button
+                  onClick={handlePreviousMonth}
+                  className={`${styles.arrowButton} ${styles.animateArrow}`}
+                >
+                  ←
+                </button>
+                <button
+                  onClick={handleNextMonth}
+                  className={`${styles.arrowButton} ${styles.animateArrow}`}
+                >
+                  →
+                </button>
+              </div>
+            )}
             <div className={styles.details}>
               <p>
                 勤務時間{' '}
@@ -158,7 +171,6 @@ const Statistics: React.FC = () => {
                 <p>給料</p>
                 <p className={styles.income}>¥{data?.income ?? 0}</p>
               </div>
-              {/* Render transactions dynamically if data is available */}
               {data?.transactions?.map((transaction, index) => (
                 <div
                   key={index}
@@ -172,13 +184,17 @@ const Statistics: React.FC = () => {
                   <span className={styles.amount}>¥{transaction.amount}</span>
                 </div>
               ))}
+              <button className={styles.dropdownButton}>▼ 詳細を表示</button>
+              <div className={styles.dropdownContent}>
+                <p>勤務時間: {data?.workHours}</p>
+                <p>交通費: ¥2000</p>
+              </div>
             </div>
             <div className={styles.transactionSection}>
               <div className={styles.transactionHeader}>
                 <p>固定費</p>
                 <p className={styles.expense}>¥{data?.fixedExpenses ?? 0}</p>
               </div>
-              {/* Render fixed expenses dynamically if data is available */}
               {data?.fixedTransactions?.map((transaction, index) => (
                 <div
                   key={index}
@@ -193,6 +209,16 @@ const Statistics: React.FC = () => {
                 </div>
               ))}
             </div>
+          </div>
+          <div className={styles.addExpenseButton}>
+            <Link href="/addMonthExp">
+              <button>固定費入力・変更</button>
+            </Link>
+          </div>
+          <div className={styles.showAllExpensesButton}>
+            <Link href="/transactions">
+              <button>固定費以外の全ての支出を見る</button>
+            </Link>
           </div>
         </div>
       </main>
