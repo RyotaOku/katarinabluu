@@ -97,7 +97,7 @@ const Part_Time: React.FC = () => {
     }
   };
   return (
-    <Navigation title="">
+    <Navigation title="新規バイトの追加">
       <div className={styles.container}>
         <Head>
           <title>Add Part Time Page</title>
@@ -117,24 +117,23 @@ const Part_Time: React.FC = () => {
           ＜
         </h1>
         <main className={styles.main}>
-          <h1>バイト先を追加</h1>
-
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>基本情報</h2>
-            <div className={styles.formGroup}>
+            <div>
               <label
                 className={styles.label}
                 htmlFor="partTime"
               >
-                バイト先
+                {' '}
+                勤務先
+                <input
+                  type="text"
+                  id="partTime"
+                  value={companyName}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
               </label>
-              <input
-                type="text"
-                id="partTime"
-                value={companyName}
-                onChange={handleChange}
-                className={styles.input}
-              />
             </div>
             <div className={styles.formGroup}>
               <label className={styles.label}>表示色</label>
@@ -194,6 +193,8 @@ const Part_Time: React.FC = () => {
                 className={styles.input}
                 placeholder="当月25日 (祝日除く)"
               />
+            </div>
+            <div style={{ textAlign: 'center' }}>
               <button
                 className={styles.addButton}
                 onClick={salaryDay}
@@ -201,21 +202,16 @@ const Part_Time: React.FC = () => {
                 + 給料日の追加設定
               </button>
             </div>
-            <div className={styles.formGroup}>
+            <div className={styles.salaryGroup}>
               <label
                 className={styles.label}
                 htmlFor="salary"
               >
                 給料
               </label>
-              <input
-                type="text"
-                id="salary"
-                className={styles.input}
-                placeholder="1000円"
-              />
               <div className={styles.salaryType}>
                 <label>
+                  {' '}
                   <input
                     type="radio"
                     name="salaryType"
@@ -233,6 +229,13 @@ const Part_Time: React.FC = () => {
                   日給
                 </label>
               </div>
+              <input
+                type="text"
+                id="salary"
+                className={styles.input}
+                placeholder="1000円"
+                style={{ width: '80%' }}
+              />
             </div>
           </div>
 

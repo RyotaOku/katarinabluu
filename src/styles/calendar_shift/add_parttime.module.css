@@ -1,10 +1,39 @@
 /* styles/add_parttime.module.css */
 .container {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0 auto;
+  padding: 2rem 2rem;
+
 }
 
-.main {
-  padding: 20px;
+.label {
+  font-weight: bold;
+  font-size: 1.7rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.title {
+  font-size: 2.4rem;
+  font-weight: bold;
+  padding: 2rem 0;
+}
+
+.input,
+.select {
+  padding: 10px;
+  border-bottom: 1px solid #cccccc;
+  transition: 100ms ease-in-out;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-bottom: 1px solid #0070f3;
 }
 
 .section {
@@ -20,19 +49,14 @@
 .formGroup {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  margin-top: 15px;
+  flex-wrap: wrap;
 }
+
 
 .label {
   flex: 1;
   font-size: 14px;
-}
-
-.input {
-  flex: 2;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
 .inputField {
@@ -97,10 +121,16 @@
   margin-left: 10px;
 }
 
+.salaryGroup {
+  display: flex;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
 .salaryType {
   display: flex;
   align-items: center;
-  margin-top: 10px;
+  flex-direction: c;
 }
 
 .salaryType label {

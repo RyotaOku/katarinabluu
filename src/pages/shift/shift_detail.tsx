@@ -7,7 +7,7 @@ const ShiftDetails = ({ shift }) => {
   console.log(shift);
 
   return (
-    <Navigation title={''}>
+    <Navigation title={'シフトの詳細'}>
       <div className={styles.container}>
         <Head>
           <title>Shift Information Page</title>
