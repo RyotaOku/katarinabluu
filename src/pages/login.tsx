@@ -1,11 +1,10 @@
-
 import React from 'react';
-import HomePage from '@/components/homePage';
+import LoginPage from '@/components/loginPage';
 
 const App: React.FC = () => {
   return (
     <div>
-      <HomePage />
+      <LoginPage />
     </div>
   );
 };
